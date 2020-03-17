@@ -21,6 +21,10 @@ public class Phone {
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_phone_school_id"))
     private School school;
 
+    @Setter
+    @Lob
+    private String note;
+
     protected Phone (){
 
     }

@@ -22,11 +22,7 @@ public class Status {
     @Setter
     private boolean ours;
     @Setter
-    private boolean notOurs;
-    @Setter
     private boolean contracted;
-    @Setter
-    private boolean notContracted;
     @Setter
     private Integer calendarsLeftNumber;
 
@@ -36,9 +32,7 @@ public class Status {
 
     public Status(boolean ours, boolean notOurs, boolean contracted, boolean notContracted, Integer calendarsLeftNumber) {
         this.ours = ours;
-        this.notOurs = notOurs;
         this.contracted = contracted;
-        this.notContracted = notContracted;
         this.calendarsLeftNumber = calendarsLeftNumber;
     }
 }

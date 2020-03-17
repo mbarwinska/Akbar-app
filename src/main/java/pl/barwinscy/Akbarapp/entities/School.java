@@ -19,8 +19,9 @@ public class School {
     @Setter
     private String name;
 
- /*   @Embeddable
-    private Address address;*/
+    @Setter
+    @Embedded
+    private Address address;
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)

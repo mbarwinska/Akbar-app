@@ -21,6 +21,8 @@ public class Schedule {
     private LocalDate photographingDate;
     @Setter
     private LocalDate payoffDate;
+    @Setter
+    private LocalDate otherDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_schedule_school_id"))
