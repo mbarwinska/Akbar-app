@@ -3,9 +3,11 @@ package pl.barwinscy.Akbarapp.entities;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Embeddable;
 
+@ToString
 @EqualsAndHashCode
 @Setter
 @Getter
