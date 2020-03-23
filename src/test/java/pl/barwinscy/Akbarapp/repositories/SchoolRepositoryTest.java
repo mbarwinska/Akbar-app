@@ -11,7 +11,6 @@ import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.utils.CsvReader;
 import pl.barwinscy.Akbarapp.utils.EntityMapper;
 import pl.barwinscy.Akbarapp.utils.SchoolDataCsv;
-import pl.barwinscy.Akbarapp.utils.SchoolRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
