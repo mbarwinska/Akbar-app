@@ -34,7 +34,7 @@ public class School {
 
     //make Enum from that too?
     @Setter
-    private String status;
+    private String publicStatus;
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -44,6 +44,10 @@ public class School {
     @Setter
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private Schedule schedule;
+
+    @Setter
+    @OneToOne(mappedBy = "school",cascade = CascadeType.ALL)
+    private Status status;
 
     @OneToMany(mappedBy = "school", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Phone> phones = new HashSet<>();
@@ -57,14 +61,14 @@ public class School {
     }
 
     @Builder
-    public School(Long id, String type, String name, Address address, String email, String website, String status) {
+    public School(Long id, String type, String name, Address address, String email, String website, String publicStatus) {
         this.id = id;
         this.type = type;
         this.name = name;
         this.address = address;
         this.email = email;
         this.website = website;
-        this.status = status;
+        this.publicStatus = publicStatus;
     }
 
     public void setPhones(Phone phone) {

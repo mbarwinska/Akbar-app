@@ -64,7 +64,7 @@ class EntityMapperTest {
                 .address(address)
                 .email("mow3lodz@gmail.com")
                 .website("http://www.mow3.szkoly.lodz.pl")
-                .status("publiczna")
+                .publicStatus("publiczna")
                 .build();
 
         Phone phone = new Phone("426122935");

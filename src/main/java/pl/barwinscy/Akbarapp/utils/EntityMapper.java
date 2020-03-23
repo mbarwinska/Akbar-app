@@ -18,7 +18,7 @@ public class EntityMapper {
                 .address(getFullAddress(schoolFromCsv))
                 .email(schoolFromCsv.getEmail())
                 .website(schoolFromCsv.getWebsite())
-                .status(schoolFromCsv.getStatus())
+                .publicStatus(schoolFromCsv.getStatus())
                 .build();
     }
 

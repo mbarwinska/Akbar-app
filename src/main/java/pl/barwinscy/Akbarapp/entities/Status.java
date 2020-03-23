@@ -4,10 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
@@ -25,6 +22,11 @@ public class Status {
     private boolean contracted;
     @Setter
     private Integer calendarsLeftNumber;
+
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_status_school_id"))
+    private School school;
 
     protected Status(){
 
