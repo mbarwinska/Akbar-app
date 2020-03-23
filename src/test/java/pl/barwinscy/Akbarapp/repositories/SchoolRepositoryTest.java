@@ -20,7 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
-
 class SchoolRepositoryTest {
 
     private CsvReader csvReader = new CsvReader();

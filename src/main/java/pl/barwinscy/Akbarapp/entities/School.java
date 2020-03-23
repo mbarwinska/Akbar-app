@@ -37,19 +37,15 @@ public class School {
     private String status;
 
     @Setter
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "employee", foreignKey = @ForeignKey(name = "FK_school_employee_id"))
     private Employee employee;
 
     @Setter
-    @Lob
-    private String notes;
-
-    @Setter
-    @OneToOne(mappedBy = "school")
+    @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private Schedule schedule;
 
-    @OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "school", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Phone> phones = new HashSet<>();
 
     @Setter
