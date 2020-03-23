@@ -9,14 +9,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 //@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Entity
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
     private Long id;
-    //private Long employeeId
     @Setter
     private String firstName;
     @Setter
@@ -29,7 +29,8 @@ public class Employee {
 
     }
 
-    public Employee(String firstName, String lastName) {
+    public Employee(Long id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }

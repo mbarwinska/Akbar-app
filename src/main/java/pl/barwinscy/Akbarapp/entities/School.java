@@ -4,18 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @ToString
-@AllArgsConstructor
-@Builder
-@EqualsAndHashCode(exclude = {"phones"})
 @Getter
 @Entity
 public class School {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     //make Enum form that
@@ -63,7 +60,9 @@ public class School {
 
     }
 
-    public School(String type, String name, Address address, String email, String website, String status) {
+    @Builder
+    public School(Long id, String type, String name, Address address, String email, String website, String status) {
+        this.id = id;
         this.type = type;
         this.name = name;
         this.address = address;
@@ -76,9 +75,17 @@ public class School {
         this.phones.add(phone);
     }
 
-    public static class SchoolBuilder {
-        private SchoolBuilder id(Long id) {
-            return this;
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        School school = (School) o;
+        return Objects.equals(id, school.id) &&
+                Objects.equals(type, school.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type);
     }
 }

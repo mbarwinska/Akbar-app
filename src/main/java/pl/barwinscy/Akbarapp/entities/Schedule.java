@@ -7,12 +7,13 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Entity
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Setter

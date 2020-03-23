@@ -1,16 +1,19 @@
 package pl.barwinscy.Akbarapp.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 //equals and hash code
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Entity
 public class AdditionalInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Setter

@@ -9,14 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Entity
-//add column name
 public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Setter
@@ -30,7 +30,7 @@ public class Status {
 
     }
 
-    public Status(boolean ours, boolean notOurs, boolean contracted, boolean notContracted, Integer calendarsLeftNumber) {
+    public Status(boolean ours, boolean contracted, Integer calendarsLeftNumber) {
         this.ours = ours;
         this.contracted = contracted;
         this.calendarsLeftNumber = calendarsLeftNumber;

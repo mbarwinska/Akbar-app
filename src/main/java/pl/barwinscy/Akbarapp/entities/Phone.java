@@ -1,10 +1,13 @@
 package pl.barwinscy.Akbarapp.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-//equals and hash code
+@EqualsAndHashCode(exclude = {"note"})
+@ToString
 @Getter
 @Entity
 public class Phone {
@@ -12,6 +15,9 @@ public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Setter
+    private Long schoolRSPO;
 
     @Setter
     private String phoneNumber;
@@ -29,8 +35,12 @@ public class Phone {
 
     }
 
-    public Phone(String phoneNumber, School school) {
+    public Phone(String phoneNumber, Long rspo) {
         this.phoneNumber = phoneNumber;
-        this.school = school;
+        this.schoolRSPO = rspo;
+    }
+
+    public Phone(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

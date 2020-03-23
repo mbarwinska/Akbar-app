@@ -13,6 +13,9 @@ public class SchoolDataCsv {
     @CsvBindByName(column = "Typ")
     private String type;
 
+    @CsvBindByName(column = "Numer RSPO")
+    private String rspo;
+
     @CsvBindByName(column = "Nazwa")
     private String name;
 
