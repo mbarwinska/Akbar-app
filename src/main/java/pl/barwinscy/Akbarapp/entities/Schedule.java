@@ -25,6 +25,7 @@ public class Schedule {
     @Setter
     private LocalDate otherDate;
 
+    @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_schedule_school_id"))
     private School school;

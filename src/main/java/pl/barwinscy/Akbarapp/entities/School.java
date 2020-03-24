@@ -36,23 +36,20 @@ public class School {
     @Setter
     private String publicStatus;
 
-    @Setter
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee", foreignKey = @ForeignKey(name = "FK_school_employee_id"))
     private Employee employee;
 
-    @Setter
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private Schedule schedule;
 
-    @Setter
     @OneToOne(mappedBy = "school",cascade = CascadeType.ALL)
     private Status status;
 
     @OneToMany(mappedBy = "school", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Phone> phones = new HashSet<>();
 
-    @Setter
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private AdditionalInfo additionalInfo;
 
@@ -71,8 +68,29 @@ public class School {
         this.publicStatus = publicStatus;
     }
 
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+        employee.setSchools(this);
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+        schedule.setSchool(this);
+    }
+
     public void setPhones(Phone phone) {
         this.phones.add(phone);
+        phone.setSchool(this);
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+        status.setSchool(this);
+    }
+
+    public void setAdditionalInfo(AdditionalInfo additionalInfo) {
+        this.additionalInfo = additionalInfo;
+        additionalInfo.setSchool(this);
     }
 
     @Override

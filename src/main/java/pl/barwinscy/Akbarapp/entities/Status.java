@@ -23,6 +23,7 @@ public class Status {
     @Setter
     private Integer calendarsLeftNumber;
 
+
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_status_school_id"))
@@ -37,4 +38,5 @@ public class Status {
         this.contracted = contracted;
         this.calendarsLeftNumber = calendarsLeftNumber;
     }
+
 }
