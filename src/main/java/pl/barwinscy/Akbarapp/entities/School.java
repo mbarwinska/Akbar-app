@@ -44,7 +44,7 @@ public class School {
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private Schedule schedule;
 
-    @OneToOne(mappedBy = "school",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private Status status;
 
     @OneToMany(mappedBy = "school", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

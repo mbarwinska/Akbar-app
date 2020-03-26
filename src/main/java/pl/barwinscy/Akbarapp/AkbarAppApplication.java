@@ -24,5 +24,4 @@ public class AkbarAppApplication {
 		List<School> schoolsToSave = allSchoolDataFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
 
 	}
-
 }
