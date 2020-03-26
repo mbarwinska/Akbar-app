@@ -37,7 +37,7 @@ public class School {
     private String publicStatus;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "employee", foreignKey = @ForeignKey(name = "FK_school_employee_id"))
     private Employee employee;
 

@@ -165,17 +165,17 @@ class SchoolRepositoryTest {
         School schoolFromDb1 = schoolRepository.findById(41993L).get();
         School schoolFromDb2 = schoolRepository.findById(41195L).get();
 
-//        schoolFromDb1.setEmployee(employee1);
-        //schoolFromDb2.setEmployee(employee2);
+        schoolFromDb1.setEmployee(employee1);
+        schoolFromDb2.setEmployee(employee2);
 
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
 
-        //School schoolWithEmployee1 = schoolRepository.findById(41993L).get();
-        //School schoolWithEmployee2 = schoolRepository.findById(41195L).get();
+        School schoolWithEmployee1 = schoolRepository.findById(41993L).get();
+        School schoolWithEmployee2 = schoolRepository.findById(41195L).get();
 
-        //assertThat(schoolWithEmployee1.getEmployee().getId()).isGreaterThan(0);
-        //assertThat(schoolWithEmployee2.getEmployee().getLastName()).isEqualTo("Kowalski");
+        assertThat(schoolWithEmployee1.getEmployee().getId()).isGreaterThan(0);
+        assertThat(schoolWithEmployee2.getEmployee().getLastName()).isEqualTo("Kowalski");
     }
 
 }
