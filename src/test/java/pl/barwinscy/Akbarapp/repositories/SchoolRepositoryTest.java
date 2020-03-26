@@ -64,16 +64,6 @@ class SchoolRepositoryTest {
         phoneRepository.saveAll(phones);
     }
 
-/*    @Test
-    @Rollback(false)
-    public void findByNameContains() {
-        saveSchoolsToDB();
-
-        List<School> foundSchool = schoolRepository.findByNameContains("6");
-        assertThat(foundSchool.size()).isEqualTo(3);
-
-    }*/
-
     @Order(1)
     @Rollback(false)
     @Test
@@ -86,31 +76,28 @@ class SchoolRepositoryTest {
     @Rollback(false)
     @Test
     public void shouldLinkPhoneWithSchool() {
-
-        Optional<School> schoolFromDB = schoolRepository.findById(23063L);
-        List<Phone> phones = phoneRepository.findBySchoolRSPO(schoolFromDB.get().getId());
+        School schoolFromDB = schoolRepository.findById(23063L).get();
+        List<Phone> phones = phoneRepository.findBySchoolRSPO(schoolFromDB.getId());
         Phone phone = phones.get(0);
 
-        schoolFromDB.get().setPhones(phone);
-        phoneRepository.save(phone);
+        schoolFromDB.setPhones(phone);
+        schoolRepository.save(schoolFromDB);
+        School schoolWithPhone = schoolRepository.findById(23063L).get();
 
-        Optional<School> schoolWithPhone = schoolRepository.findById(23063L);
-        assertThat(schoolWithPhone.get().getPhones().size()).isEqualTo(1);
+        assertThat(schoolWithPhone.getPhones().size()).isEqualTo(1);
     }
 
     @Order(3)
     @Rollback(false)
     @Test
     public void shouldLinkStatusWithSchool() {
-        Optional<School> schoolFromDB1 = schoolRepository.findById(34195L);
-        Optional<School> schoolFromDB2 = schoolRepository.findById(26243L);
+        School schoolFromDB1 = schoolRepository.findById(34195L).get();
+        School schoolFromDB2 = schoolRepository.findById(26243L).get();
 
-        schoolFromDB1.get().setStatus(status1);
-        schoolFromDB2.get().setStatus(status2);
-
-        statusRepository.save(status1);
-        statusRepository.save(status2);
-
+        schoolFromDB1.setStatus(status1);
+        schoolFromDB2.setStatus(status2);
+        schoolRepository.save(schoolFromDB1);
+        schoolRepository.save(schoolFromDB2);
         Optional<School> schoolWithStatus1 = schoolRepository.findById(34195L);
         Optional<School> schoolWithStatus2 = schoolRepository.findById(26243L);
 
@@ -127,10 +114,8 @@ class SchoolRepositoryTest {
 
         schoolFromDb1.setSchedule(schedule1);
         schoolFromDb2.setSchedule(schedule2);
-
-        scheduleRepository.save(schedule1);
-        scheduleRepository.save(schedule2);
-
+        schoolRepository.save(schoolFromDb1);
+        schoolRepository.save(schoolFromDb2);
         School schoolWithSchedule1 = schoolRepository.findById(41993L).get();
         School schoolWithSchedule2 = schoolRepository.findById(41195L).get();
 
@@ -147,10 +132,8 @@ class SchoolRepositoryTest {
 
         schoolFromDb1.setAdditionalInfo(additionalInfo1);
         schoolFromDb2.setAdditionalInfo(additionalInfo2);
-
-        additionalInfoRepository.save(additionalInfo1);
-        additionalInfoRepository.save(additionalInfo2);
-
+        schoolRepository.save(schoolFromDb1);
+        schoolRepository.save(schoolFromDb2);
         School schoolWithInfo1 = schoolRepository.findById(41993L).get();
         School schoolWithInfo2 = schoolRepository.findById(41195L).get();
 
@@ -165,17 +148,102 @@ class SchoolRepositoryTest {
         School schoolFromDb1 = schoolRepository.findById(41993L).get();
         School schoolFromDb2 = schoolRepository.findById(41195L).get();
 
-//        schoolFromDb1.setEmployee(employee1);
-        //schoolFromDb2.setEmployee(employee2);
+        schoolFromDb1.setEmployee(employee1);
+        schoolFromDb2.setEmployee(employee2);
+        schoolRepository.save(schoolFromDb1);
+        schoolRepository.save(schoolFromDb2);
+        School schoolWithEmployee1 = schoolRepository.findById(41993L).get();
+        School schoolWithEmployee2 = schoolRepository.findById(41195L).get();
 
-        employeeRepository.save(employee1);
-        employeeRepository.save(employee2);
+        assertThat(schoolWithEmployee1.getEmployee().getId()).isGreaterThan(0);
+        assertThat(schoolWithEmployee2.getEmployee().getLastName()).isEqualTo("Kowalski");
+    }
 
-        //School schoolWithEmployee1 = schoolRepository.findById(41993L).get();
-        //School schoolWithEmployee2 = schoolRepository.findById(41195L).get();
+    @Order(7)
+    @Rollback(false)
+    @Test
+    public void shouldUpdateSchool(){
+        School schoolFromDB = schoolRepository.findById(41993L).get();
+        String newName = "LULASOWO 123";
+        String newType = "Szkola kiuikow";
 
-        //assertThat(schoolWithEmployee1.getEmployee().getId()).isGreaterThan(0);
-        //assertThat(schoolWithEmployee2.getEmployee().getLastName()).isEqualTo("Kowalski");
+        schoolFromDB.setName(newName);
+        schoolFromDB.setType(newType);
+        schoolRepository.save(schoolFromDB);
+        School schoolAfterUpdate = schoolRepository.findById(41993L).get();
+
+        assertThat(schoolAfterUpdate.getName()).isEqualTo(newName);
+        assertThat(schoolAfterUpdate.getType()).isEqualTo(newType);
+    }
+
+    @Order(8)
+    @Rollback(false)
+    @Test
+    public void shouldUpdateSchoolsAddress(){
+        School schoolFromDB = schoolRepository.findById(23063L).get();
+        String newStreet = "Królika 5/29";
+        String newBorough = "Rabbitstan";
+
+        schoolFromDB.getAddress().setStreet(newStreet);
+        schoolFromDB.getAddress().setBorough(newBorough);
+        schoolRepository.save(schoolFromDB);
+        School schoolWithNewAddress = schoolRepository.findById(23063L).get();
+
+        assertThat(schoolWithNewAddress.getAddress().getStreet()).isEqualTo(newStreet);
+        assertThat(schoolWithNewAddress.getAddress().getBorough()).isEqualTo(newBorough);
+    }
+
+    @Order(8)
+    @Rollback(false)
+    @Test
+    public void shouldUpdateSchoolsAdditionalInfo(){
+        School schoolFromDB = schoolRepository.findById(41993L).get();
+        String newInfo = "to jest zmieniona notatka";
+
+        schoolFromDB.getAdditionalInfo().setNote1(newInfo);
+        schoolRepository.save(schoolFromDB);
+        School schoolWithNewInfo = schoolRepository.findById(41993L).get();
+
+        assertThat(schoolWithNewInfo.getAdditionalInfo().getNote1()).isEqualTo(newInfo);
+    }
+    //TODO
+    @Order(9)
+    @Rollback(false)
+    @Test
+    public void shouldUpdateSchoolsPhoneAndAddSecondPhone(){
+        School schoolFromDB = schoolRepository.findById(41993L).get();
+
+
+        schoolRepository.save(schoolFromDB);
+        School schoolWithNewInfo = schoolRepository.findById(41993L).get();
+
+        assertThat(schoolWithNewInfo.getPhones().size()).isEqualTo();
+    }
+    //TODO
+    @Order(10)
+    @Rollback(false)
+    @Test
+    public void shouldUpdateSchoolsSchedule(){
+        School schoolFromDB = schoolRepository.findById(41993L).get();
+
+
+        schoolRepository.save(schoolFromDB);
+        School schoolWithNewInfo = schoolRepository.findById(41993L).get();
+
+        assertThat(schoolWithNewInfo.getPhones().size()).isEqualTo();
+    }
+//TODO
+    @Order(11)
+    @Rollback(false)
+    @Test
+    public void shouldUpdateSchoolsStatus(){
+        School schoolFromDB = schoolRepository.findById(41993L).get();
+
+
+        schoolRepository.save(schoolFromDB);
+        School schoolWithNewInfo = schoolRepository.findById(41993L).get();
+
+        assertThat(schoolWithNewInfo.getPhones().size()).isEqualTo();
     }
 
 }
