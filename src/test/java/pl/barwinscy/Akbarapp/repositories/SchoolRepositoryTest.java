@@ -37,12 +37,6 @@ class SchoolRepositoryTest {
     @Autowired
     private PhoneRepository phoneRepository;
     @Autowired
-    private StatusRepository statusRepository;
-    @Autowired
-    private ScheduleRepository scheduleRepository;
-    @Autowired
-    private AdditionalInfoRepository additionalInfoRepository;
-    @Autowired
     private EmployeeRepository employeeRepository;
 
 
@@ -162,7 +156,7 @@ class SchoolRepositoryTest {
     @Order(7)
     @Rollback(false)
     @Test
-    public void shouldUpdateSchool(){
+    public void shouldUpdateSchool() {
         School schoolFromDB = schoolRepository.findById(41993L).get();
         String newName = "LULASOWO 123";
         String newType = "Szkola kiuikow";
@@ -179,7 +173,7 @@ class SchoolRepositoryTest {
     @Order(8)
     @Rollback(false)
     @Test
-    public void shouldUpdateSchoolsAddress(){
+    public void shouldUpdateSchoolsAddress() {
         School schoolFromDB = schoolRepository.findById(23063L).get();
         String newStreet = "Królika 5/29";
         String newBorough = "Rabbitstan";
@@ -196,7 +190,7 @@ class SchoolRepositoryTest {
     @Order(8)
     @Rollback(false)
     @Test
-    public void shouldUpdateSchoolsAdditionalInfo(){
+    public void shouldUpdateSchoolsAdditionalInfo() {
         School schoolFromDB = schoolRepository.findById(41993L).get();
         String newInfo = "to jest zmieniona notatka";
 
@@ -206,44 +200,77 @@ class SchoolRepositoryTest {
 
         assertThat(schoolWithNewInfo.getAdditionalInfo().getNote1()).isEqualTo(newInfo);
     }
-    //TODO
+
     @Order(9)
     @Rollback(false)
     @Test
-    public void shouldUpdateSchoolsPhoneAndAddSecondPhone(){
-        School schoolFromDB = schoolRepository.findById(41993L).get();
+    public void shouldUpdateSchoolsPhoneAndAddSecondPhone() {
+        School schoolFromDB = schoolRepository.findById(23063L).get();
+        Phone updatedPhone = new Phone("426466382");
+        Phone addedPhone = new Phone("505312056");
+        Phone phoneToUpdate = schoolFromDB.getPhones().stream().filter(phone -> phone.getId().equals(7L)).findFirst().get();
 
-
+        phoneToUpdate.setPhoneNumber(updatedPhone.getPhoneNumber());
+        schoolFromDB.setPhones(addedPhone);
         schoolRepository.save(schoolFromDB);
-        School schoolWithNewInfo = schoolRepository.findById(41993L).get();
+        School schoolWithNewPhone = schoolRepository.findById(23063L).get();
 
-        assertThat(schoolWithNewInfo.getPhones().size()).isEqualTo();
+        assertThat(schoolWithNewPhone.getPhones().size()).isEqualTo(2);
     }
-    //TODO
+
     @Order(10)
     @Rollback(false)
     @Test
-    public void shouldUpdateSchoolsSchedule(){
+    public void shouldUpdateSchoolsSchedule() {
         School schoolFromDB = schoolRepository.findById(41993L).get();
-
+        schoolFromDB.getSchedule().setContactDate(LocalDate.now());
 
         schoolRepository.save(schoolFromDB);
-        School schoolWithNewInfo = schoolRepository.findById(41993L).get();
+        School schoolWithNewSchedule = schoolRepository.findById(41993L).get();
 
-        assertThat(schoolWithNewInfo.getPhones().size()).isEqualTo();
+        assertThat(schoolWithNewSchedule.getSchedule().getContactDate().isEqual(LocalDate.now()));
     }
-//TODO
+
     @Order(11)
     @Rollback(false)
     @Test
-    public void shouldUpdateSchoolsStatus(){
-        School schoolFromDB = schoolRepository.findById(41993L).get();
-
+    public void shouldUpdateSchoolsStatus() {
+        School schoolFromDB = schoolRepository.findById(26243L).get();
+        schoolFromDB.getStatus().setContracted(true);
 
         schoolRepository.save(schoolFromDB);
-        School schoolWithNewInfo = schoolRepository.findById(41993L).get();
+        School schoolWithNewStatus = schoolRepository.findById(26243L).get();
 
-        assertThat(schoolWithNewInfo.getPhones().size()).isEqualTo();
+        assertThat(schoolWithNewStatus.getStatus().isContracted()).isEqualTo(true);
+    }
+
+    @Order(12)
+    @Rollback(false)
+    @Test
+    public void shouldDeleteSchoolAndAllEntitiesRelatedToItExceptEmployee() {
+        School schoolFromDB = schoolRepository.findById(41993L).get();
+        Phone phone = new Phone("66655444");
+        Status status = new Status(true, false, 0);
+        schoolFromDB.setPhones(phone);
+        schoolFromDB.setStatus(status);
+
+        schoolRepository.save(schoolFromDB);
+        School schoolToDelete = schoolRepository.findById(41993L).get();
+        schoolRepository.delete(schoolToDelete);
+
+        Optional<School> afterDelete = schoolRepository.findById(41993L);
+        assertThat(afterDelete).isEmpty();
+    }
+
+    @Order(13)
+    @Rollback(false)
+    @Test
+    public void shouldAddEmployeeToDB() {
+        Employee employeeToAdd = new Employee(66L,"Bob", "Budowniczy");
+        employeeRepository.save(employeeToAdd);
+
+        Employee addedEmployee = employeeRepository.findById(66L).get();
+        assertThat(addedEmployee.getId()).isGreaterThan(0);
     }
 
 }

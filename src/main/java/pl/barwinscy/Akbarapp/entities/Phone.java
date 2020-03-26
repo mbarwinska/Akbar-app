@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+
 @EqualsAndHashCode(exclude = {"note"})
 @ToString
 @Getter
@@ -31,7 +32,7 @@ public class Phone {
     @Lob
     private String note;
 
-    protected Phone (){
+    protected Phone() {
 
     }
 

@@ -21,10 +21,10 @@ public class Employee {
     @Setter
     private String lastName;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<School> schools = new HashSet<>();
 
-    protected Employee(){
+    protected Employee() {
 
     }
 

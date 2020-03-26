@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-//equals and hash code
+
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Entity
@@ -30,10 +30,10 @@ public class AdditionalInfo {
 
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schoolId",foreignKey = @ForeignKey(name = "FK_additional_info_school_id"))
+    @JoinColumn(name = "schoolId", foreignKey = @ForeignKey(name = "FK_additional_info_school_id"))
     private School school;
 
-    protected AdditionalInfo(){
+    protected AdditionalInfo() {
 
     }
 

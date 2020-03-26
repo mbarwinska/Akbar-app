@@ -29,7 +29,7 @@ public class Status {
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_status_school_id"))
     private School school;
 
-    protected Status(){
+    protected Status() {
 
     }
 

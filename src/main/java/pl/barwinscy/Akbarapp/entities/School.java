@@ -1,6 +1,9 @@
 package pl.barwinscy.Akbarapp.entities;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -70,7 +73,9 @@ public class School {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
-        employee.setSchools(this);
+        if (employee != null) {
+            employee.setSchools(this);
+        }
     }
 
     public void setSchedule(Schedule schedule) {
