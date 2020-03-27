@@ -72,10 +72,11 @@ public class School {
     }
 
     public void setEmployee(Employee employee) {
-        this.employee = employee;
-        if (employee != null) {
-            employee.setSchools(this);
+        if (this.employee != null) {
+            this.employee.getSchools().remove(this);
         }
+        this.employee = employee;
+        employee.setSchools(this);
     }
 
     public void setSchedule(Schedule schedule) {

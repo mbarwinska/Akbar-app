@@ -266,11 +266,48 @@ class SchoolRepositoryTest {
     @Rollback(false)
     @Test
     public void shouldAddEmployeeToDB() {
-        Employee employeeToAdd = new Employee(66L,"Bob", "Budowniczy");
+        Employee employeeToAdd = new Employee(66L, "Bob", "Budowniczy");
         employeeRepository.save(employeeToAdd);
 
         Employee addedEmployee = employeeRepository.findById(66L).get();
         assertThat(addedEmployee.getId()).isGreaterThan(0);
     }
+
+    @Order(14)
+    @Rollback(false)
+    @Test
+    public void shouldAddSecondSchoolToEmployee() {
+        Employee addedEmployee = employeeRepository.findById(66L).get();
+        School schoolFromDB1 = schoolRepository.findById(26243L).get();
+        School schoolFromDB2 = schoolRepository.findById(93190L).get();
+
+        schoolFromDB1.setEmployee(addedEmployee);
+        schoolFromDB2.setEmployee(addedEmployee);
+        schoolRepository.save(schoolFromDB1);
+        schoolRepository.save(schoolFromDB2);
+
+        School schoolAfterUpdate1 = schoolRepository.findById(26243L).get();
+        School schoolAfterUpdate2 = schoolRepository.findById(93190L).get();
+
+        assertThat(schoolAfterUpdate1.getEmployee().getId()).isEqualTo(66L);
+        assertThat(schoolAfterUpdate2.getEmployee().getId()).isEqualTo(66L);
+        assertThat(addedEmployee.getSchools().size()).isEqualTo(2);
+    }
+
+    @Order(15)
+    @Rollback(false)
+    @Test
+    public void shouldChangeEmployeeFromSchoolToDifferentEmployee() {
+        School schoolFromDB = schoolRepository.findById(26243L).get();
+        schoolFromDB.setEmployee(employee1);
+
+        schoolRepository.save(schoolFromDB);
+
+        School schoolAfterUpdate = schoolRepository.findById(26243L).get();
+        Employee changedEmployee = employeeRepository.findById(66L).get();
+
+        assertThat(schoolAfterUpdate.getEmployee().getId()).isEqualTo(employee1.getId());
+        assertThat(changedEmployee.getSchools().size()).isEqualTo(1);
+}
 
 }
