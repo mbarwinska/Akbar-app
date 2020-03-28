@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <div th:fragment="navbar">
+            <nav class="navbar navbar-dark bg-primary justify-content-center" xmlns:th="http://www.w3.org/1999/xhtml">
+
+                <a class="navbar-brand mr-5 font-weight-bold font-italic" th:href="@{/}">Akbar Enterprises Holdings Inc</a>
+                <div class="text-center">
+                    <div class="btn-group" role="group">
+                        <form th:action="@{/search}" method="post">
+                            <button class="btn btn-light btn-lg mr-5" type="submit">Wyszukiwanie</button>
+                        </form>
+                        <form th:action="@{/filters}" method="post">
+                            <button class="btn btn-light btn-lg mr-5" type="submit">Filtry</button>
+                        </form>
+                        <form th:action="@{/calendar}" method="post">
+                            <button class="btn btn-light btn-lg mr-5" type="submit">Kalendarz</button>
+                        </form>
+
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-light btn-lg mr-5 dropdown-toggle"
+                                    data-toggle="dropdown">Inne
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/view-item?itemType=WAND">Wands</a>
+                                <a class="dropdown-item" href="/view-item?itemType=WEAPON">Weapon</a>
+                                <a class="dropdown-item" href="/view-item?itemType=BROOMSTICK">Broomstick</a>
+                                <a class="dropdown-item" href="/view-item?itemType=ROBE">Robes</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+
+    </body>
+</html>
