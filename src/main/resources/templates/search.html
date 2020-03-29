@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
 </head>
 <body>
-<p>Dupa</p>
+<div layout:fragment="content">
+
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-3 col-md-offset-3"></div>
@@ -19,20 +19,20 @@
 
                 <form th:action="@{/search-school}" class="form-inline justify-content-center" method="post">
                     <label for="voivodeships" class="mr-sm-2">Województwo</label>
-                    <select class="form-control mr-sm-2" style="margin-right: 20px" id="voivodeships"
+                    <select class="form-control mr-sm-2" id="voivodeships"
                             name="voivodeship">
 <!--                        <option value=" " disabled selected value>Lodzkie</option>-->
                         <option>Mazowieckie</option>
                     </select>
 
                     <label for="counties" class="mr-sm-2">Powiat</label>
-                    <select class="form-control mr-sm-2" style="margin-right: 20px" id="counties" name="county">
+                    <select class="form-control mr-sm-2"  id="counties" name="county">
 <!--                        <option value=" " disabled selected value>łódzki</option>-->
                         <option>łódzki-wschodni</option>
                     </select>
 
                     <label for="boroughs" class="mr-sm-2">Gmina</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" style="margin-right: 20px" placeholder="Gmina"
+                    <input type="text" class="form-control mb-2 mr-sm-2"  placeholder="Gmina"
                            name="borough" id="boroughs">
 
                     <label for="cities" class="mr-sm-2">Miasto</label>
@@ -42,18 +42,16 @@
 
 
                     <label for="types" class="mr-sm-2">Typ placówki</label>
-                    <select class="form-control mr-sm-2" style="margin-right: 20px" id="types" name="type">
+                    <select class="form-control mr-sm-2"  id="types" name="type">
 <!--                        <option value=" " disabled selected value>Szkola podstawowa</option>-->
                         <option>Liceum ogólnokształcące</option>
                     </select>
 
                     <label for="schoolName" class="mr-sm-2">Nazwa</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" style="margin-right: 20px"
-                           placeholder="Nazwa" name="name" id="schoolName">
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwa" name="name" id="schoolName">
 
                     <label for="schoolAddress" class="mr-sm-2">Adres</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" style="margin-right: 20px"
-                           placeholder="Adres" name="address" id="schoolAddress">
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Adres" name="address" id="schoolAddress">
 
                     <label for="schoolPhone" class="mr-sm-2">Telefon</label>
                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Numer telefonu"
@@ -99,7 +97,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 </body>
 </html>
