@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.entities.*;
 import pl.barwinscy.Akbarapp.utils.CsvReader;
 import pl.barwinscy.Akbarapp.utils.EntityMapper;
@@ -159,7 +160,7 @@ class SchoolRepositoryTest {
     public void shouldUpdateSchool() {
         School schoolFromDB = schoolRepository.findById(41993L).get();
         String newName = "LULASOWO 123";
-        String newType = "Szkola kiuikow";
+        SchoolType newType = SchoolType.OTHER;
 
         schoolFromDB.setName(newName);
         schoolFromDB.setType(newType);

@@ -2,6 +2,8 @@ package pl.barwinscy.Akbarapp.utils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.barwinscy.Akbarapp.SchoolType;
+import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.entities.Address;
 import pl.barwinscy.Akbarapp.entities.Phone;
 import pl.barwinscy.Akbarapp.entities.School;
@@ -52,14 +54,14 @@ class EntityMapperTest {
 
     @Test
     void mapToPhoneEntity() {
-        Address address = new Address("ŁÓDZKIE",
+        Address address = new Address(Voivodeship.ŁÓDZKIE,
                 "Łódź",
                 "Łódź - gmina miejska",
                 "Łódź", "ul. Drewnowska 151",
                 "91-008");
 
         School expectedSchool = School.builder()
-                .type("Szkoła podstawowa")
+                .type(SchoolType.SZKOŁA_PODSTAWOWA)
                 .name("SZKOŁA PODSTAWOWA SPECJALNA NR 211")
                 .address(address)
                 .email("mow3lodz@gmail.com")
@@ -84,6 +86,9 @@ class EntityMapperTest {
         System.out.println("Expected telefon: " + expectedSchool.getPhones());
         System.out.println("Actual school: " + actualSchool);
 
+        boolean isVoivodeshipEqual = expectedSchool.getAddress().getVoivodeship().equals(actualSchool.getAddress().getVoivodeship());
+
+        System.out.println(isVoivodeshipEqual);
 
 
         //assertThat(actualSchool).isEqualTo(expectedSchool);
