@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pl.barwinscy.Akbarapp.Voivodeship;
 
 import javax.persistence.Embeddable;
 
@@ -14,7 +15,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
-    private String voivodeship;
+    private Voivodeship voivodeship;
     private String county;
     private String borough;
     private String city;
@@ -25,7 +26,7 @@ public class Address {
 
     }
 
-    public Address(String voivodeship, String county, String borough, String city, String street, String zipCode) {
+    public Address(Voivodeship voivodeship, String county, String borough, String city, String street, String zipCode) {
         this.voivodeship = voivodeship;
         this.county = county;
         this.borough = borough;

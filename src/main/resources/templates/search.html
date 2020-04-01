@@ -25,14 +25,14 @@
                                 <select class="form-control mr-sm-2" id="voivodeships"
                                         name="voivodeship">
                                     <!--                        <option value=" " disabled selected value>Lodzkie</option>-->
-                                    <option>Mazowieckie</option>
+                                    <option th:value="Łódzkie" th:disabled="disabled" th:selected="selected" th:text="Wybierz"></option>
+                                    <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.getName()}" th:text="${voivodeship.getName()}"></option>
                                 </select>
                             </div>
 
                             <div class="col-md-3 col-md-offset-3">
                                 <label for="counties" class="mr-sm-2">Powiat</label>
                                 <select class="form-control mr-sm-2" id="counties" name="county">
-                                    <!--                        <option value=" " disabled selected value>łódzki</option>-->
                                     <option>łódzki-wschodni</option>
                                 </select>
                             </div>
@@ -52,8 +52,8 @@
                             <div class="col-md-3 col-md-offset-3">
                         <label for="types" class="mr-sm-2">Typ placówki</label>
                         <select class="form-control mr-sm-2" id="types" name="type">
-                            <!--                        <option value=" " disabled selected value>Szkola podstawowa</option>-->
-                            <option>Liceum ogólnokształcące</option>
+                            <option th:value="''" th:disabled="disabled" th:selected="selected" th:text="Wybierz"></option>
+                            <option th:each="type : ${types}" th:value="${type.getName()}" th:text="${type.getName()}"></option>
                         </select>
                             </div>
                                 <div class="col-md-3 col-md-offset-3">
