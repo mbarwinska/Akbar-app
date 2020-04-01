@@ -6,6 +6,7 @@ import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.utils.CsvReader;
 import pl.barwinscy.Akbarapp.utils.EntityMapper;
 import pl.barwinscy.Akbarapp.utils.SchoolDataCsv;
+import pl.barwinscy.Akbarapp.utils.SearchQueryCreator;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class AkbarAppApplication {
 		List<SchoolDataCsv> allSchoolDataFromCsv = csvReader.getAllSchoolDataFromCsv();
 
 		List<School> schoolsToSave = allSchoolDataFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
+
 
 	}
 }
