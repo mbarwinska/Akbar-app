@@ -10,93 +10,110 @@
 <body>
 <div layout:fragment="content">
 
-<div class="container-fluid" style="margin-top: 20px">
-    <div class="row">
-        <div class="col-md-3 col-md-offset-3"></div>
-        <div class="col-md-6 col-md-offset-3">
+    <div class="container-fluid" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-md-1 col-md-offset-3"></div>
+            <div class="col-md-10 col-md-offset-3">
 
-            <div align="center">
+                <div align="center">
 
-                <form th:action="@{/search-school}" class="form-inline justify-content-center" method="post">
-                    <label for="voivodeships" class="mr-sm-2">Województwo</label>
-                    <select class="form-control mr-sm-2" id="voivodeships"
-                            name="voivodeship">
-<!--                        <option value=" " disabled selected value>Lodzkie</option>-->
-                        <option>Mazowieckie</option>
-                    </select>
+                    <form th:action="@{/search-school}" class="form-inline justify-content-center" method="post">
 
-                    <label for="counties" class="mr-sm-2">Powiat</label>
-                    <select class="form-control mr-sm-2"  id="counties" name="county">
-<!--                        <option value=" " disabled selected value>łódzki</option>-->
-                        <option>łódzki-wschodni</option>
-                    </select>
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-3">
+                                <label for="voivodeships" class="mr-sm-2">Województwo</label>
+                                <select class="form-control mr-sm-2" id="voivodeships"
+                                        name="voivodeship">
+                                    <!--                        <option value=" " disabled selected value>Lodzkie</option>-->
+                                    <option>Mazowieckie</option>
+                                </select>
+                            </div>
 
-                    <label for="boroughs" class="mr-sm-2">Gmina</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2"  placeholder="Gmina"
-                           name="borough" id="boroughs">
+                            <div class="col-md-3 col-md-offset-3">
+                                <label for="counties" class="mr-sm-2">Powiat</label>
+                                <select class="form-control mr-sm-2" id="counties" name="county">
+                                    <!--                        <option value=" " disabled selected value>łódzki</option>-->
+                                    <option>łódzki-wschodni</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-md-offset-3">
+                                <label for="boroughs" class="mr-sm-2">Gmina</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Gmina"
+                                       name="borough" id="boroughs">
+                            </div>
+                            <div class="col-md-3 col-md-offset-3">
+                                <label for="cities" class="mr-sm-2">Miasto</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Miasto" name="city"
+                                       id="cities">
+                            </div>
+                        </div>
 
-                    <label for="cities" class="mr-sm-2">Miasto</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Miasto" name="city" id="cities">
-                    <br>
-                    <br>
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-3">
+                        <label for="types" class="mr-sm-2">Typ placówki</label>
+                        <select class="form-control mr-sm-2" id="types" name="type">
+                            <!--                        <option value=" " disabled selected value>Szkola podstawowa</option>-->
+                            <option>Liceum ogólnokształcące</option>
+                        </select>
+                            </div>
+                                <div class="col-md-3 col-md-offset-3">
+                        <label for="schoolName" class="mr-sm-2">Nazwa</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwa" name="name"
+                               id="schoolName">
+                                </div>
+                            <div class="col-md-3 col-md-offset-3">
+                        <label for="schoolAddress" class="mr-sm-2">Adres</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Adres" name="address"
+                               id="schoolAddress">
+                            </div>
+                            <div class="col-md-3 col-md-offset-3">
+                        <label for="schoolPhone" class="mr-sm-2">Telefon</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Numer telefonu"
+                               name="address" id="schoolPhone">
+                            </div>
 
-
-                    <label for="types" class="mr-sm-2">Typ placówki</label>
-                    <select class="form-control mr-sm-2"  id="types" name="type">
-<!--                        <option value=" " disabled selected value>Szkola podstawowa</option>-->
-                        <option>Liceum ogólnokształcące</option>
-                    </select>
-
-                    <label for="schoolName" class="mr-sm-2">Nazwa</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwa" name="name" id="schoolName">
-
-                    <label for="schoolAddress" class="mr-sm-2">Adres</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Adres" name="address" id="schoolAddress">
-
-                    <label for="schoolPhone" class="mr-sm-2">Telefon</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Numer telefonu"
-                           name="address" id="schoolPhone">
-
-                    <p>
-                        <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
-                    </p>
-                </form>
-
-                <div class="card bg-primary">
-                    <div class="card-header">
-                        <h1 class="card-title" align="center">Wyniki wyszukiwania</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover ">
-                                <thead class="thead-inverse">
-                                <tr>
-                                    <th>Dana 1</th>
-                                    <th>Dana 2</th>
-                                    <th>Dana 3</th>
-                                    <th>Dana 4</th>
-                                    <th>Dana 5</th>
-                                    <th>Dana 6</th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td><a href="#">123</a></td>
-                                    <td>Bla bla</td>
-                                    <td>Bubu</td>
-                                    <td>Bla bla</td>
-                                    <td>Bla bla</td>
-                                    <td>Bla bla</td>
-                                </tr>
-                            </table>
 
                         </div>
+                        <p align="center">
+                            <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
+                        </p>
+                    </form>
+
+                    <div class="card bg-primary">
+                        <div class="card-header">
+                            <h1 class="card-title" align="center">Wyniki wyszukiwania</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover ">
+                                    <thead class="thead-inverse">
+                                    <tr>
+                                        <th>Dana 1</th>
+                                        <th>Dana 2</th>
+                                        <th>Dana 3</th>
+                                        <th>Dana 4</th>
+                                        <th>Dana 5</th>
+                                        <th>Dana 6</th>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td><a href="#">123</a></td>
+                                        <td>Bla bla</td>
+                                        <td>Bubu</td>
+                                        <td>Bla bla</td>
+                                        <td>Bla bla</td>
+                                        <td>Bla bla</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-md-1 col-md-offset-3"></div>
                 </div>
-                <div class="col-md-3 col-md-offset-3"></div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 </body>
