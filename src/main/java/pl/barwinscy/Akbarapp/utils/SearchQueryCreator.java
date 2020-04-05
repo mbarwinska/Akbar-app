@@ -1,5 +1,10 @@
 package pl.barwinscy.Akbarapp.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SearchQueryCreator {
 
     private String voivodeship;
@@ -11,6 +16,9 @@ public class SearchQueryCreator {
     private String name;
     private String phone;
 
+    public SearchQueryCreator(){
+
+    }
 
     public SearchQueryCreator(String voivodeship, String county, String borough, String city, String street, String type, String name, String phone) {
         this.voivodeship = voivodeship;

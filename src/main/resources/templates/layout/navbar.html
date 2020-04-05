@@ -11,9 +11,10 @@
                 <a class="navbar-brand mr-5 font-weight-bold font-italic" th:href="@{/}">Akbar Enterprises Holdings Inc</a>
                 <div class="text-center">
                     <div class="btn-group" role="group">
-                        <form th:action="@{/search}" method="post">
-                            <button class="btn btn-light btn-lg mr-5" type="submit">Wyszukiwanie</button>
-                        </form>
+                       <form th:action="@{/search}" method="get">
+
+                           <button class="btn btn-light btn-lg mr-5" type="submit">Wyszukiwanie</button>
+                       </form>
                         <form th:action="@{/filters}" method="post">
                             <button class="btn btn-light btn-lg mr-5" type="submit">Filtry</button>
                         </form>

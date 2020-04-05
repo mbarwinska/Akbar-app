@@ -17,34 +17,32 @@
 
                 <div align="center">
 
-                    <form th:action="@{/search-school}" class="form-inline justify-content-center" method="post">
+                    <form th:action="@{/search}" class="form-inline justify-content-center" method="post">
 
                         <div class="row">
                             <div class="col-md-3 col-md-offset-3">
                                 <label for="voivodeships" class="mr-sm-2">Województwo</label>
-                                <select class="form-control mr-sm-2" id="voivodeships"
-                                        name="voivodeship">
-                                    <!--                        <option value=" " disabled selected value>Lodzkie</option>-->
+                                <select class="form-control mr-sm-2" id="voivodeships" th:field="${form.voivodeship}" name="voivodeship">
                                     <option th:value="Łódzkie" th:disabled="disabled" th:selected="selected" th:text="Wybierz"></option>
-                                    <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.getName()}" th:text="${voivodeship.getName()}"></option>
+                                    <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.name}" th:text="${voivodeship.name}"></option>
                                 </select>
                             </div>
 
-                            <div class="col-md-3 col-md-offset-3">
+<!--                            <div class="col-md-3 col-md-offset-3">
                                 <label for="counties" class="mr-sm-2">Powiat</label>
-                                <select class="form-control mr-sm-2" id="counties" name="county">
+                                <select class="form-control mr-sm-2" id="counties" th:field="${form.county}" name="county">
                                     <option>łódzki-wschodni</option>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="col-md-3 col-md-offset-3">
                                 <label for="boroughs" class="mr-sm-2">Gmina</label>
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Gmina"
-                                       name="borough" id="boroughs">
+                                       name="borough" id="boroughs" th:field="${form.borough}">
                             </div>
                             <div class="col-md-3 col-md-offset-3">
                                 <label for="cities" class="mr-sm-2">Miasto</label>
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Miasto" name="city"
-                                       id="cities">
+                                       id="cities" th:field="${form.city}">
                             </div>
                         </div>
 
@@ -52,24 +50,24 @@
                             <div class="col-md-3 col-md-offset-3">
                         <label for="types" class="mr-sm-2">Typ placówki</label>
                         <select class="form-control mr-sm-2" id="types" name="type">
-                            <option th:value="''" th:disabled="disabled" th:selected="selected" th:text="Wybierz"></option>
+                            <option th:value="''" th:disabled="disabled" th:selected="selected" th:text="Wybierz" th:field="${form.type}"></option>
                             <option th:each="type : ${types}" th:value="${type.getName()}" th:text="${type.getName()}"></option>
                         </select>
                             </div>
                                 <div class="col-md-3 col-md-offset-3">
                         <label for="schoolName" class="mr-sm-2">Nazwa</label>
                         <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwa" name="name"
-                               id="schoolName">
+                               id="schoolName" th:field="${form.name}">
                                 </div>
                             <div class="col-md-3 col-md-offset-3">
                         <label for="schoolAddress" class="mr-sm-2">Adres</label>
                         <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Adres" name="address"
-                               id="schoolAddress">
+                               id="schoolAddress" th:field="${form.street}">
                             </div>
                             <div class="col-md-3 col-md-offset-3">
                         <label for="schoolPhone" class="mr-sm-2">Telefon</label>
                         <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Numer telefonu"
-                               name="address" id="schoolPhone">
+                               name="address" id="schoolPhone" th:field="${form.phone}">
                             </div>
 
 
@@ -88,21 +86,31 @@
                                 <table class="table table-hover ">
                                     <thead class="thead-inverse">
                                     <tr>
-                                        <th>Dana 1</th>
-                                        <th>Dana 2</th>
-                                        <th>Dana 3</th>
-                                        <th>Dana 4</th>
-                                        <th>Dana 5</th>
-                                        <th>Dana 6</th>
+                                        <th>Powiat</th>
+                                        <th>Gmina</th>
+                                        <th>Miejscowość</th>
+                                        <th>Typ placówki</th>
+                                        <th>Nazwa</th>
+                                        <th>Adres</th>
+                                        <th>Telefon</th>
                                     </tr>
                                     </thead>
-                                    <tr>
+                                    <tr th:remove="all">
                                         <td><a href="#">123</a></td>
                                         <td>Bla bla</td>
                                         <td>Bubu</td>
                                         <td>Bla bla</td>
                                         <td>Bla bla</td>
                                         <td>Bla bla</td>
+                                    </tr>
+                                    <tr th:each="school : ${schools}">
+                                        <td th:text="${school.getAddress().county}"></td>
+                                        <td th:text="${school.getAddress().borough}"></td>
+                                        <td th:text="${school.getAddress().city}"></td>
+                                        <td th:text="${school.type}"></td>
+                                        <td th:text="${school.name}"></td>
+                                        <td th:text="${school.getAddress().street}"></td>
+                                        <td th:text="telefon"></td>
                                     </tr>
                                 </table>
 

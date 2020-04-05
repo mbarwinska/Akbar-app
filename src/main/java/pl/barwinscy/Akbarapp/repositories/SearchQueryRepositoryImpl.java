@@ -12,7 +12,6 @@ public class SearchQueryRepositoryImpl implements SearchQueryRepository {
 
     @Override
     public List<School> searchByQuery(String query) {
-        entityManager.clear();
         return entityManager.createQuery(query, School.class).getResultList();
     }
 }

@@ -9,20 +9,12 @@ import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.Voivodeship;
 
 @Controller
-
 public class HomeController {
 
 
     @GetMapping("/")
     public String getIndexPage(){
         return "index";
-    }
-
-    @PostMapping("/search")
-    public String getSearchPage(Model model){
-        model.addAttribute("types", SchoolType.values());
-        model.addAttribute("voivodeships", Voivodeship.values());
-        return "search";
     }
 
 }
