@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.barwinscy.Akbarapp.SchoolType;
-import pl.barwinscy.Akbarapp.SearchService;
+import pl.barwinscy.Akbarapp.repositories.SearchQueryRepository;
+import pl.barwinscy.Akbarapp.repositories.SearchQueryRepositoryImpl;
+import pl.barwinscy.Akbarapp.services.SearchService;
 import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.utils.SearchQueryCreator;
@@ -31,7 +33,7 @@ public class SearchController {
     }
 
     @PostMapping("/search")
-    public String getSearchResults(SearchQueryCreator searchQueryCreator, Model model){
+    public String getSearchResults(@ModelAttribute("form") SearchQueryCreator searchQueryCreator, Model model){
         String schoolQuery = searchQueryCreator.createQuery();
         List<School> searchedSchools = searchService.getSearchedSchools(schoolQuery);
         model.addAttribute("schools", searchedSchools);

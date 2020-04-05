@@ -42,9 +42,9 @@ public class SearchQueryCreator {
         if (!phone.isEmpty()) {
             query +=  " school.id = (select schoolRSPO FROM Phone WHERE phone_number = " + phone + ")" + " AND";
         } if (!voivodeship.isEmpty()) {
-            query += " school.address.voivodeship = " + voivodeship + " AND";
+            query += " school.address.voivodeship = '" +  voivodeship  + "' AND";
         } if (!county.isEmpty()) {
-            query += " school.address.county like '%" + county + "%' AND";
+            query += " school.address.county like '%" +  county + "%' AND";
         } if (!borough.isEmpty()) {
             query += " school.address.borough like '" + borough + "%' AND";
         } if (!city.isEmpty()) {
@@ -52,7 +52,7 @@ public class SearchQueryCreator {
         } if (!street.isEmpty()) {
             query += " school.address.street like '%" + street + "%' AND";
         } if (!type.isEmpty()) {
-            query += " school.type = " + type + " AND";
+            query += " school.type = '" + type + "' AND";
         } if (!name.isEmpty()) {
             query += " school.name like '%" + name + "%' AND";
         }

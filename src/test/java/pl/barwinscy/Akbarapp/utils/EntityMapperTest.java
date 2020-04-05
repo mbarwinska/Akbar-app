@@ -11,8 +11,6 @@ import pl.barwinscy.Akbarapp.entities.School;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 
 class EntityMapperTest {
 
@@ -61,7 +59,7 @@ class EntityMapperTest {
                 "91-008");
 
         School expectedSchool = School.builder()
-                .type(SchoolType.SZKOŁA_PODSTAWOWA)
+                .type(SchoolType.SZKOŁA_PODSTAWOWA.name())
                 .name("SZKOŁA PODSTAWOWA SPECJALNA NR 211")
                 .address(address)
                 .email("mow3lodz@gmail.com")
@@ -74,23 +72,22 @@ class EntityMapperTest {
         //phone.setSchool(expectedSchool);
         System.out.println("Expected school: " + expectedSchool);
         phone.setSchool(expectedSchool);
-        //expectedSchool.setPhones(new Phone("426122935", expectedSchool));
+
 
         List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).collect(Collectors.toList());
 
         List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
         School actualSchool = schools.get(0);
-        //actualSchool.setPhones(phones.get(0));
+
 
 
         System.out.println("Expected telefon: " + expectedSchool.getPhones());
         System.out.println("Actual school: " + actualSchool);
+        System.out.println("Expected school: " + expectedSchool);
 
         boolean isVoivodeshipEqual = expectedSchool.getAddress().getVoivodeship().equals(actualSchool.getAddress().getVoivodeship());
 
         System.out.println(isVoivodeshipEqual);
 
-
-        //assertThat(actualSchool).isEqualTo(expectedSchool);
     }
 }

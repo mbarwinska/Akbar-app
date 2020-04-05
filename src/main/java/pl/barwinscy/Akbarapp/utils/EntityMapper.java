@@ -16,7 +16,7 @@ public class EntityMapper {
         return School.builder()
                 .id(Long.valueOf(schoolFromCsv.getRspo()))
                 .name(schoolFromCsv.getName())
-                .type(getTypeAsEnum(schoolFromCsv.getType()))
+                .type(getTypeName(schoolFromCsv.getType()))
                 .address(getFullAddress(schoolFromCsv))
                 .email(schoolFromCsv.getEmail())
                 .website(schoolFromCsv.getWebsite())
@@ -24,16 +24,22 @@ public class EntityMapper {
                 .build();
     }
 
-    private static SchoolType getTypeAsEnum(String type){
-        switch (type){
-            case "Przedszkole": return SchoolType.PRZEDSZKOLE;
-            case "Szkoła podstawowa": return SchoolType.SZKOŁA_PODSTAWOWA;
-            case  "Liceum ogólnokształcące": return SchoolType.LICEUM_OGÓLNOKSZTAŁCĄCE;
-            case "Liceum profilowane": return SchoolType.LICEUM_PROFILOWANE;
-            case "Technikum":return SchoolType.TECHNIKUM;
-            case "Zespół szkół i placówek oświatowych": return SchoolType.ZESPÓŁ_SZKÓŁ_I_PLACÓWEK_OŚWIATOWYCH;
+    private static String getTypeName(String type) {
+        switch (type) {
+            case "Przedszkole":
+                return SchoolType.PRZEDSZKOLE.getName();
+            case "Szkoła podstawowa":
+                return SchoolType.SZKOŁA_PODSTAWOWA.getName();
+            case "Liceum ogólnokształcące":
+                return SchoolType.LICEUM_OGÓLNOKSZTAŁCĄCE.getName();
+            case "Liceum profilowane":
+                return SchoolType.LICEUM_PROFILOWANE.getName();
+            case "Technikum":
+                return SchoolType.TECHNIKUM.getName();
+            case "Zespół szkół i placówek oświatowych":
+                return SchoolType.ZESPÓŁ_SZKÓŁ_I_PLACÓWEK_OŚWIATOWYCH.getName();
         }
-        return SchoolType.OTHER;
+        return SchoolType.OTHER.getName();
     }
 
     private static Address getFullAddress(SchoolDataCsv schoolFromCsv) {
@@ -60,10 +66,10 @@ public class EntityMapper {
             case "MAZOWIECKIE":
                 return Voivodeship.MAZOWIECKIE;
 
-            case " ŁÓDZKIE":
+            case "ŁÓDZKIE":
                 return Voivodeship.ŁÓDZKIE;
 
-            case " ŚWIĘTOKRZYSKIE":
+            case "ŚWIĘTOKRZYSKIE":
                 return Voivodeship.ŚWIĘTOKRZYSKIE;
         }
         return Voivodeship.OTHER;

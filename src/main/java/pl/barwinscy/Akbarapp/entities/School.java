@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import pl.barwinscy.Akbarapp.SchoolType;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,10 +18,8 @@ public class School {
     @Id
     private Long id;
 
-
-    @Enumerated
     @Setter
-    private SchoolType type;
+    private String type;
 
     @Setter
     private String name;
@@ -63,7 +60,7 @@ public class School {
     }
 
     @Builder
-    public School(Long id, SchoolType type, String name, Address address, String email, String website, String publicStatus) {
+    public School(Long id, String type, String name, Address address, String email, String website, String publicStatus) {
         this.id = id;
         this.type = type;
         this.name = name;

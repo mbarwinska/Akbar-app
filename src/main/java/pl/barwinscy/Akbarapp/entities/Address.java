@@ -7,6 +7,8 @@ import lombok.ToString;
 import pl.barwinscy.Akbarapp.Voivodeship;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @ToString
 @EqualsAndHashCode
@@ -15,6 +17,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
+    @Enumerated(EnumType.STRING)
     private Voivodeship voivodeship;
     private String county;
     private String borough;

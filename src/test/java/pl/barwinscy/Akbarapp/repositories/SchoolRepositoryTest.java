@@ -160,7 +160,7 @@ class SchoolRepositoryTest {
     public void shouldUpdateSchool() {
         School schoolFromDB = schoolRepository.findById(41993L).get();
         String newName = "LULASOWO 123";
-        SchoolType newType = SchoolType.OTHER;
+        String newType = SchoolType.OTHER.name();
 
         schoolFromDB.setName(newName);
         schoolFromDB.setType(newType);
@@ -309,6 +309,6 @@ class SchoolRepositoryTest {
 
         assertThat(schoolAfterUpdate.getEmployee().getId()).isEqualTo(employee1.getId());
         assertThat(changedEmployee.getSchools().size()).isEqualTo(1);
-}
+    }
 
 }
