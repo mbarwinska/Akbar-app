@@ -19,11 +19,6 @@ public class AkbarAppApplication {
 		SpringApplication.run(AkbarAppApplication.class, args);
 
 
-		CsvReader csvReader = new CsvReader();
-		List<SchoolDataCsv> allSchoolDataFromCsv = csvReader.getAllSchoolDataFromCsv();
-
-		List<School> schoolsToSave = allSchoolDataFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
-
 
 	}
 }

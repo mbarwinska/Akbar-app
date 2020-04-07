@@ -5,13 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.barwinscy.Akbarapp.entities.School;
 
-import java.util.List;
 import java.util.Set;
 
 @Repository
 public interface SchoolRepository extends JpaRepository<School, Long>, SearchQueryRepository {
-    List<School> findByNameContains(String name);
-    @Query(value = "SELECT county FROM school", nativeQuery = true)
+    @Query(value = "SELECT s.address.county FROM School as s")
     Set<String> findAllCounties();
 
 }
