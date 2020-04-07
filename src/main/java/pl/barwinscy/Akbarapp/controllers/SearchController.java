@@ -29,6 +29,7 @@ public class SearchController {
         model.addAttribute("form", new SearchQueryCreator());
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
+        model.addAttribute("counties", searchService.getAllCounties());
         return "search";
     }
 

@@ -16,23 +16,30 @@ import java.util.stream.Collectors;
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private SchoolRepository schoolRepository;
-    private PhoneRepository phoneRepository;
 
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
     private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
     private List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).collect(Collectors.toList());
 
-    public DataInitializer(SchoolRepository schoolRepository, PhoneRepository phoneRepository) {
+    public DataInitializer(SchoolRepository schoolRepository) {
         this.schoolRepository = schoolRepository;
-        this.phoneRepository = phoneRepository;
     }
 
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        linkPhonesToSchools();
         schoolRepository.saveAll(schools);
-        phoneRepository.saveAll(phones);
     }
 
+    private void linkPhonesToSchools() {
+        for (School school : schools) {
+            for (Phone phone : phones) {
+                if (phone.getSchoolRSPO().equals(school.getId())) {
+                    school.setPhones(phone);
+                }
+            }
+        }
+    }
 }

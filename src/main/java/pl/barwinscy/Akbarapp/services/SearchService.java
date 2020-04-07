@@ -5,6 +5,7 @@ import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SearchService {
@@ -17,5 +18,9 @@ public class SearchService {
 
     public List<School> getSearchedSchools(String schoolQuery) {
         return schoolRepository.searchByQuery(schoolQuery);
+    }
+
+    public Set<String> getAllCounties() {
+        return schoolRepository.findAllCounties();
     }
 }
