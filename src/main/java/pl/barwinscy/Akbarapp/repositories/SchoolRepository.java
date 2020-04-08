@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.barwinscy.Akbarapp.entities.School;
 
+import java.util.List;
 import java.util.Set;
 
 @Repository
