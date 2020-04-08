@@ -76,7 +76,7 @@ public class EntityMapper {
     }
 
     public static Phone mapToPhoneEntity(SchoolDataCsv schoolFromCsv) {
-        return new Phone(schoolFromCsv.getPhone(), Long.valueOf(schoolFromCsv.getRspo()));
+        return new Phone(schoolFromCsv.getPhone(), Long.valueOf(schoolFromCsv.getRspo()), "publiczny");
     }
 
 }

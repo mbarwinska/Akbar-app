@@ -1,6 +1,7 @@
 package pl.barwinscy.Akbarapp.services;
 
 import org.springframework.stereotype.Service;
+import pl.barwinscy.Akbarapp.entities.Phone;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
@@ -18,19 +19,20 @@ public class SearchService {
     }
 
     public List<School> getSearchedSchools(String schoolQuery) {
+        List<School> schools = schoolRepository.searchByQuery(schoolQuery);
 
-
-        List<School> schoolList = schoolRepository.searchByQuery(schoolQuery);
-
-        for (School school : schoolList) {
-            school.getPhones()
+        for (School school : schools) {
+            Phone publicPhone = school.getPhones()
                     .stream()
                     .filter(phone -> phone.getNote().equals("publiczny"))
-                    .collect(Collectors.toSet());
+                    .findFirst().orElseThrow(()->new RuntimeException("NO PHONE!"));
+
+            school.getPhones().clear();
+            school.setPhones(publicPhone);
+        }
+        return schools;
         }
 
-        return schoolList;
-    }
 
     public Set<String> getAllCounties() {
         return schoolRepository.findAllCounties();
