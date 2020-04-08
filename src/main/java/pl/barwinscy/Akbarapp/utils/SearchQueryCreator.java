@@ -64,9 +64,6 @@ public class SearchQueryCreator {
         query = query.substring(0, query.length() - 4);
         return query;
 
-        @SuppressWarnings(value = "uncheck")
-        String readyQuery = query.replace(query.length() - 4, query.length(), "").toString();
-        return readyQuery;
     }
 
 }
