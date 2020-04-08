@@ -31,38 +31,38 @@ public class SearchQueryCreator {
         this.phone = phone;
     }
 
-    public String createQuery() {
-        StringBuilder query = new StringBuilder("SELECT school FROM School as school");
-
+    public String  createQuery() {
+        String query = "SELECT school FROM School as school";
         if (!phone.isEmpty()) {
-            query.append(" JOIN Phone as phone on school.id = phone.schoolRSPO");
+            query += " JOIN Phone as phone on school.id = phone.schoolRSPO";
         }
-        query.append(" WHERE");
-
+        query += " WHERE";
         if (!phone.isEmpty()) {
-            query.append(" school.id = (select schoolRSPO FROM Phone WHERE phone_number = ").append(phone).append(") AND");
+            query += " school.id = (select schoolRSPO FROM Phone WHERE phone_number = " + phone + ")" + " AND";
         }
         if (!voivodeship.isEmpty()) {
-            query.append(" school.address.voivodeship = ").append(voivodeship).append(" AND");
+            query += " school.address.voivodeship = '" + voivodeship + "' AND";
         }
         if (!county.isEmpty()) {
-            query.append(" school.address.county like '%").append(county).append("%' AND");
+            query += " school.address.county like '%" + county + "%' AND";
         }
         if (!borough.isEmpty()) {
-            query.append(" school.address.borough like '").append(borough).append("%' AND");
+            query += " school.address.borough like '" + borough + "%' AND";
         }
         if (!city.isEmpty()) {
-            query.append(" school.address.city like '").append(city).append("%' AND");
+            query += " school.address.city like '" + city + "%' AND";
         }
         if (!street.isEmpty()) {
-            query.append(" school.address.street like '%").append(street).append("%' AND");
+            query += " school.address.street like '%" + street + "%' AND";
         }
         if (!type.isEmpty()) {
-            query.append(" school.type = ").append(type).append(" AND");
+            query += " school.type = '" + type + "' AND";
         }
         if (!name.isEmpty()) {
-            query.append(" school.name like '%").append(name).append("%' AND");
+            query += " school.name like '%" + name + "%' AND";
         }
+        query = query.substring(0, query.length() - 4);
+        return query;
 
         @SuppressWarnings(value = "uncheck")
         String readyQuery = query.replace(query.length() - 4, query.length(), "").toString();

@@ -76,7 +76,14 @@ public class EntityMapper {
     }
 
     public static Phone mapToPhoneEntity(SchoolDataCsv schoolFromCsv) {
-        return new Phone(schoolFromCsv.getPhone(), Long.valueOf(schoolFromCsv.getRspo()), "publiczny");
+        return new Phone(phoneFormat(schoolFromCsv.getPhone()), Long.valueOf(schoolFromCsv.getRspo()), "publiczny");
+    }
+
+    private static String phoneFormat(String phone) {
+        String readyPhone;
+        StringBuilder stringBuilder = new StringBuilder(phone);
+        readyPhone = stringBuilder.insert(2, " ").insert(6, "-").insert(9, "-").toString();
+        return readyPhone;
     }
 
 }
