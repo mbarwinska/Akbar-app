@@ -7,7 +7,6 @@ import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class SearchService {
@@ -25,14 +24,13 @@ public class SearchService {
             Phone publicPhone = school.getPhones()
                     .stream()
                     .filter(phone -> phone.getNote().equals("publiczny"))
-                    .findFirst().orElseThrow(()->new RuntimeException("NO PHONE!"));
+                    .findFirst().orElseThrow(() -> new RuntimeException("NO PHONE!"));
 
             school.getPhones().clear();
             school.setPhones(publicPhone);
         }
         return schools;
-        }
-
+    }
 
     public Set<String> getAllCounties() {
         return schoolRepository.findAllCounties();
