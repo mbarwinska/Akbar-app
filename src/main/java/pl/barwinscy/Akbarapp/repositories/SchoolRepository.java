@@ -11,7 +11,13 @@ import java.util.Set;
 @Repository
 public interface SchoolRepository extends JpaRepository<School, Long>, SearchQueryRepository {
     List<School> findByNameContains(String name);
-    @Query(value = "SELECT county FROM school", nativeQuery = true)
+//    @Query(value = "SELECT county FROM school", nativeQuery = true)
+//    Set<String> findAllCounties();
+
+
+    @Query(value = "SELECT s.county FROM school as s", nativeQuery = true)
     Set<String> findAllCounties();
+
+
 
 }

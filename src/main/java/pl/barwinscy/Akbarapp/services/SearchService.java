@@ -6,6 +6,7 @@ import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchService {
@@ -17,7 +18,18 @@ public class SearchService {
     }
 
     public List<School> getSearchedSchools(String schoolQuery) {
-        return schoolRepository.searchByQuery(schoolQuery);
+
+
+        List<School> schoolList = schoolRepository.searchByQuery(schoolQuery);
+
+        for (School school : schoolList) {
+            school.getPhones()
+                    .stream()
+                    .filter(phone -> phone.getNote().equals("publiczny"))
+                    .collect(Collectors.toSet());
+        }
+
+        return schoolList;
     }
 
     public Set<String> getAllCounties() {
