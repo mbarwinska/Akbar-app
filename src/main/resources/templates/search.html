@@ -109,7 +109,7 @@
                                         <td th:text="${school.getAddress().borough}"></td>
                                         <td th:text="${school.getAddress().city}"></td>
                                         <td th:text="${school.type}"></td>
-                                        <td> <a href="#" style="color: yellow" th:href="@{'/'}" th:text="${school.name}"></a> </td>
+                                        <td> <a href="#" style="color: yellow" th:href="@{'school/' + ${school.id}}" th:text="${school.name}"></a> </td>
                                         <td th:text="${school.getAddress().street}"></td>
                                         <td th:text="${school.getPhones().get(0).getPhoneNumber()}"></td>
                                     </tr>

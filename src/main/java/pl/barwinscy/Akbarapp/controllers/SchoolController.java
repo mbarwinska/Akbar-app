@@ -15,7 +15,7 @@ public class SchoolController {
         this.schoolService = schoolService;
     }
 
-    @GetMapping("/search/{schoolId}")
+    @GetMapping("/school/{schoolId}")
     public String getSchoolViewPage(@PathVariable String schoolId, Model model){
         model.addAttribute("school",schoolService.getSchoolWithAllData(Long.valueOf(schoolId)));
         return "school-view";

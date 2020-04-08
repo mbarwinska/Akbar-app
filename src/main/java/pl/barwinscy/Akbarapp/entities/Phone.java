@@ -40,6 +40,7 @@ public class Phone {
         this.phoneNumber = phoneNumber;
         this.schoolRSPO = rspo;
     }
+
     public Phone(String phoneNumber, Long rspo, String note) {
         this.phoneNumber = phoneNumber;
         this.schoolRSPO = rspo;
@@ -47,6 +48,9 @@ public class Phone {
     }
 
     public Phone(String phoneNumber) {
+
         this.phoneNumber = phoneNumber;
     }
+
+
 }
