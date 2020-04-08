@@ -6,9 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @ToString
 @Getter
@@ -50,7 +48,7 @@ public class School {
     private Status status;
 
     @OneToMany(mappedBy = "school", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Phone> phones = new HashSet<>();
+    private List<Phone> phones = new ArrayList<>();
 
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private AdditionalInfo additionalInfo;
