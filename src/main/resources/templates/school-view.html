@@ -85,11 +85,11 @@
                     <br>
 
                     <h5>Notatki</h5>
-                    <p th:text="${school.getAdditionalInfo().getNote1() != null} ? ${school.getAdditionalInfo().getNote1()} : 'Brak notatki 1'"></p>
+                    <p th:text="${!school.getAdditionalInfo().getNote1().isEmpty()} ? ${school.getAdditionalInfo().getNote1()} : 'Brak notatki 1'"></p>
                     <br>
-                    <p th:text="${school.getAdditionalInfo().getNote2() != null} ? ${school.getAdditionalInfo().getNote2()} : 'Brak notatki 2'"></p>
+                    <p th:text="${!school.getAdditionalInfo().getNote2().isEmpty()} ? ${school.getAdditionalInfo().getNote2()} : 'Brak notatki 2'"></p>
                     <br>
-                    <p th:text="${school.getAdditionalInfo().getNote3() != null} ? ${school.getAdditionalInfo().getNote3()} : 'Brak notatki 3'"></p>
+                    <p th:text="${!school.getAdditionalInfo().getNote3().isEmpty()} ? ${school.getAdditionalInfo().getNote3()} : 'Brak notatki 3'"></p>
                     <br>
 
                 </div>

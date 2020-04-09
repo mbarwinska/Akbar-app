@@ -75,7 +75,7 @@ public class SchoolMapper {
         }
 
         if (school.getAdditionalInfo() == null){
-            school.setAdditionalInfo(new AdditionalInfo(null, null, null));
+            school.setAdditionalInfo(new AdditionalInfo("", "", ""));
         }
 
         return school;
