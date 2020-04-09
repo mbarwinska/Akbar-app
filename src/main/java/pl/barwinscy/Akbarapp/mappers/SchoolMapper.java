@@ -5,6 +5,8 @@ import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SchoolMapper {
     private SchoolMapper() {
@@ -55,6 +57,27 @@ public class SchoolMapper {
 
         //Phone phone = new Phone(schoolDto.getPhoneNumber(), schoolDto.getId());
         //school.setPhones(phone);
+        return school;
+    }
+
+    public static School mapSchoolToView(School school){
+
+       school.getPhones().stream()
+                .filter(phone -> phone.getNote() == null)
+        .forEach(phone -> phone.setNote(""));
+
+        if (school.getStatus() == null){
+            school.setStatus(new Status(false, false, 0));
+        }
+
+        if (school.getSchedule() == null){
+            school.setSchedule(new Schedule(null, null, null));
+        }
+
+        if (school.getAdditionalInfo() == null){
+            school.setAdditionalInfo(new AdditionalInfo(null, null, null));
+        }
+
         return school;
     }
 }
