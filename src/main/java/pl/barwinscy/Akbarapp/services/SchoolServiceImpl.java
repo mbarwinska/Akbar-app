@@ -19,7 +19,8 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public School getSchoolWithAllData(Long schoolId){
-        return schoolRepository.findSchoolWithAllInfo(schoolId);
+        School schoolToView = schoolRepository.findSchoolWithAllInfo(schoolId);
+        return SchoolMapper.mapSchoolToView(schoolToView);
     }
 
     @Transactional
