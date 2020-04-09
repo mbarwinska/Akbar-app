@@ -23,5 +23,8 @@ public interface SchoolRepository extends JpaRepository<School, Long>, SearchQue
             "WHERE s.id = :schoolId")
     School findSchoolWithAllInfo(@Param("schoolId")Long schoolId);
 
+    @Query(value = "SELECT s FROM School as s WHERE s.rspo = :rspo")
+    School findByRspo(Long rspo);
+
 
 }

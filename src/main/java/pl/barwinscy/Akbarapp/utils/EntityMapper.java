@@ -14,7 +14,7 @@ public class EntityMapper {
 
     public static School mapToSchoolEntity(SchoolDataCsv schoolFromCsv) {
         return School.builder()
-                .id(Long.valueOf(schoolFromCsv.getRspo()))
+                .rspo(Long.valueOf(schoolFromCsv.getRspo()))
                 .name(schoolFromCsv.getName())
                 .type(getTypeName(schoolFromCsv.getType()))
                 .address(getFullAddress(schoolFromCsv))
@@ -76,7 +76,7 @@ public class EntityMapper {
     }
 
     public static Phone mapToPhoneEntity(SchoolDataCsv schoolFromCsv) {
-        return new Phone(phoneFormat(schoolFromCsv.getPhone()), Long.valueOf(schoolFromCsv.getRspo()), "publiczny");
+        return new Phone(phoneFormat(schoolFromCsv.getPhone()), Long.valueOf(schoolFromCsv.getRspo()));
     }
 
     private static String phoneFormat(String phone) {

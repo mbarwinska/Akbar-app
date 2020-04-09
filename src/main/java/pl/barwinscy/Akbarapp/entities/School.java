@@ -14,7 +14,10 @@ import java.util.*;
 public class School {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long rspo;
 
     @Setter
     private String type;
@@ -58,8 +61,8 @@ public class School {
     }
 
     @Builder
-    public School(Long id, String type, String name, Address address, String email, String website, String publicStatus) {
-        this.id = id;
+    public School(Long rspo, String type, String name, Address address, String email, String website, String publicStatus) {
+        this.rspo = rspo;
         this.type = type;
         this.name = name;
         this.address = address;
@@ -95,6 +98,8 @@ public class School {
         this.additionalInfo = additionalInfo;
         additionalInfo.setSchool(this);
     }
+
+
 
     @Override
     public boolean equals(Object o) {

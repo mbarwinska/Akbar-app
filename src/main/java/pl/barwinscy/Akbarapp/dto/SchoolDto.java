@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class SchoolDto {
-    private Long id = 0L;
 
     private String name;
     private String type;
@@ -34,9 +33,5 @@ public class SchoolDto {
     private String note1;
     private String note2;
     private String note3;
-
-    public SchoolDto(){
-        ++id;
-    }
 
 }

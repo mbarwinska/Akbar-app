@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
+import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.services.SchoolService;
 
 @Controller
@@ -32,8 +33,8 @@ public class SchoolController {
 
     @PostMapping("/url")
     public String saveOrUpdate(@ModelAttribute("school") SchoolDto schoolDto) {
-        schoolService.save(schoolDto);
-        return "redirect:/school/" + schoolDto.getId();
+        School saveSchool = schoolService.save(schoolDto);
+        return "redirect:/school/" + saveSchool.getId();
 
     }
 

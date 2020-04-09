@@ -9,5 +9,5 @@ public interface SchoolService {
 
     School getSchoolWithAllData(Long schoolId);
 
-    void save(SchoolDto schoolDto);
+    School save(SchoolDto schoolDto);
 }

@@ -32,12 +32,11 @@ public class SchoolMapper {
         Schedule schedule = new Schedule(LocalDate.parse(schoolDto.getContactDate()),
                 LocalDate.parse(schoolDto.getPhotographingDate()), LocalDate.parse(schoolDto.getPayOffDate()));
 
-        Phone phone = new Phone(schoolDto.getPhoneNumber(), schoolDto.getId());
+
 //        String[] employeeData = schoolDto.getEmployee().split(" ");
 //        Employee employee = new Employee(1L, employeeData[0], employeeData[1]);
         AdditionalInfo additionalInfo = new AdditionalInfo(schoolDto.getNote1(), schoolDto.getNote2(), schoolDto.getNote3());
         School school = School.builder()
-                .id(schoolDto.getId())
                 .type(schoolDto.getType())
                 .name(schoolDto.getName())
                 .address(address)
@@ -45,11 +44,17 @@ public class SchoolMapper {
                 .website(schoolDto.getWebsite())
                 .publicStatus(schoolDto.getPublicStatus())
                 .build();
-        school.setPhones(phone);
+
         school.setStatus(status);
         school.setSchedule(schedule);
 //        school.setEmployee(employee);
         school.setAdditionalInfo(additionalInfo);
+
+       //zapisanie do bazy
+       //odczyt id z bazy
+
+        //Phone phone = new Phone(schoolDto.getPhoneNumber(), schoolDto.getId());
+        //school.setPhones(phone);
         return school;
     }
 }

@@ -23,33 +23,6 @@ class EntityMapperTest {
         schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
     }
 
-//    @Test
-//    void mapToSchoolEntity() {
-//        Address address = new Address("ŁÓDZKIE",
-//                "Łódź",
-//                "Łódź - gmina miejska",
-//                "Łódź", "ul. Drewnowska 151",
-//                "91-008");
-//
-//        School expectedSchool = School.builder()
-//                .type("Szkoła podstawowa")
-//                .name("SZKOŁA PODSTAWOWA SPECJALNA NR 211")
-//                .address(address)
-//                .email("mow3lodz@gmail.com")
-//                .website("http://www.mow3.szkoly.lodz.pl")
-//                .status("publiczna")
-//                .build();
-//
-//        List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
-//        School actualSchool = schools.get(0);
-//
-//        System.out.println("Expected school: " + expectedSchool);
-//        System.out.println("Actual school: " + actualSchool);
-//
-//        assertThat(actualSchool).isEqualTo(expectedSchool);
-//
-//    }
-
     @Test
     void mapToPhoneEntity() {
         Address address = new Address(Voivodeship.ŁÓDZKIE,

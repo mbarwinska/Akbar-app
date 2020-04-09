@@ -10,10 +10,10 @@
 <body>
 
 <div layout:fragment="content">
-    <div class="container" style="margin-top: 20px">
+    <div class="container-fluid" style="margin-top: 20px">
 
-        <div class="col-md-2 col-md-offset-3"></div>
-        <div class="col-md-8 col-md-offset-3">
+        <div class="col-md-3 col-md-offset-3"></div>
+        <div class="col-md-6 col-md-offset-3">
             <div>
                 <h4 align="center" th:text="${school.name}"></h4>
 
@@ -28,20 +28,20 @@
                         <td th:text="'Województwo: ' + ${school.address.getVoivodeship()}"></td>
                     </tr>
                     <tr>
-                        <td th:text="'Powiat: ' + ${school.address.getCounty()}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="'Gmina: ' + ${school.address.getBorough()}"></td>
-                    </tr>
-                    <tr>
-                        <td>Strona: <a href="#" th:href="${school.getWebsite()}" th:text="${school.getWebsite()}"></a></td>
-                    </tr>
-                    <tr>
-                        <td th:text="'Status: ' + ${school.getPublicStatus()}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${school.getEmployee() != null} ? 'Fotograf: ' + ${school.getEmployee().getFirstName()} + ${school.getEmployee().getLastName()} : 'Fotograf: brak'"></td>
-                    </tr>
+                <td th:text="'Powiat: ' + ${school.address.getCounty()}"></td>
+                </tr>
+                <tr>
+                    <td th:text="'Gmina: ' + ${school.address.getBorough()}"></td>
+                </tr>
+                <tr>
+                    <td>Strona: <a href="#" th:href="${school.getWebsite()}" th:text="${school.getWebsite()}"></a></td>
+                </tr>
+                <tr>
+                    <td th:text="'Status: ' + ${school.getPublicStatus()}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${school.getEmployee() != null} ? 'Fotograf: ' + ${school.getEmployee().getFirstName()} + ${school.getEmployee().getLastName()} : 'Fotograf: brak'"></td>
+                </tr>
                 </table>
                 <br>
 
@@ -97,7 +97,7 @@
 
 
         </div>
-        <div class="col-md-2 col-md-offset-3"></div>
+        <div class="col-md-3 col-md-offset-3"></div>
 
     </div>
 </div>
