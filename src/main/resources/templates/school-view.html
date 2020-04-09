@@ -11,92 +11,92 @@
 
 <div layout:fragment="content">
     <div class="container-fluid" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="col-md-6 col-md-offset-3">
+                <div>
+                    <h4 align="center" th:text="${school.name}"></h4>
+                    </br>
 
-        <div class="col-md-3 col-md-offset-3"></div>
-        <div class="col-md-6 col-md-offset-3">
-            <div>
-                <h4 align="center" th:text="${school.name}"></h4>
+                    <h5>Dane adresowe</h5>
+                    <table>
+                        <tr>
+                            <td th:text="'Adres: ' + ${school.address.getStreet()} + ' ' + ${school.address.getZipCode()} + ' ' + ${school.address.getCity()}"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Województwo: ' + ${school.address.getVoivodeship()}"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Powiat: ' + ${school.address.getCounty()}"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Gmina: ' + ${school.address.getBorough()}"></td>
+                        </tr>
+                        <tr>
+                            <td>Strona: <a href="#" th:href="${school.getWebsite()}"
+                                           th:text="${school.getWebsite()}"></a></td>
+                        </tr>
+                        <tr>
+                            <td th:text="'Status: ' + ${school.getPublicStatus()}"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${school.getEmployee() != null} ? 'Fotograf: ' + ${school.getEmployee().getFirstName()} + ${school.getEmployee().getLastName()} : 'Fotograf: brak'"></td>
+                        </tr>
+                    </table>
+                    <br>
 
-                </br>
-                </br>
+                    <h5>Telefony</h5>
+                    <table>
+                        <tr th:each="phone : ${school.getPhones()}">
+                            <td th:text="${phone.getNote() != null} ?
+                                ${phone.getPhoneNumber()} + ' - ' + ${phone.getNote()} :
+                                ${phone.getPhoneNumber()}"></td>
+                        </tr>
+                    </table>
+                    <br>
 
-                <table>
-                    <tr>
-                        <td th:text="'Adres: ' + ${school.address.getStreet()} + ' ' + ${school.address.getZipCode()} + ' ' + ${school.address.getCity()}"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="'Województwo: ' + ${school.address.getVoivodeship()}"></td>
-                    </tr>
-                    <tr>
-                <td th:text="'Powiat: ' + ${school.address.getCounty()}"></td>
-                </tr>
-                <tr>
-                    <td th:text="'Gmina: ' + ${school.address.getBorough()}"></td>
-                </tr>
-                <tr>
-                    <td>Strona: <a href="#" th:href="${school.getWebsite()}" th:text="${school.getWebsite()}"></a></td>
-                </tr>
-                <tr>
-                    <td th:text="'Status: ' + ${school.getPublicStatus()}"></td>
-                </tr>
-                <tr>
-                    <td th:text="${school.getEmployee() != null} ? 'Fotograf: ' + ${school.getEmployee().getFirstName()} + ${school.getEmployee().getLastName()} : 'Fotograf: brak'"></td>
-                </tr>
-                </table>
-                <br>
+                    <h5>Status</h5>
+                    <table>
+                        <tr>
+                            <td th:text="${school.status != null} ? 'Nasza: ' + ${school.status.isOurs()} : 'Nasza: nie'"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${school.status != null} ? 'Umówiona: ' + ${school.status.isContracted()} : 'Umówiona: nie'"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${school.status != null} ? 'Kalendarze: ' + ${school.status.getCalendarsLeftNumber()} + 'szt' : 'Kalendarze: 0 szt'"></td>
+                        </tr>
+                    </table>
+                    <br>
 
-                <h5>Telefony</h5>
-                <table>
-                    <tr th:each="phone : ${school.getPhones()}">
-                        <td th:text="${phone.getPhoneNumber()} + ' - ' + ${phone.getNote()}"></td>
-                    </tr>
-                </table>
-                <br>
+                    <h5>Kalendarz</h5>
+                    <table>
+                        <tr>
+                            <td th:text="${school.getSchedule() != null} ? 'Umowa: ' + ${school.getSchedule().getContactDate()} : 'Umowa: brak daty'"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${school.getSchedule() != null} ? 'Fotografowanie: ' + ${school.getSchedule().getPhotographingDate()} : 'Fotografowanie: brak daty'"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${school.getSchedule() != null} ? 'Rozliczenie: ' + ${school.getSchedule().getPayoffDate()} : 'Rozliczenie: brak daty'"></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${school.getSchedule() != null} ? 'Inny: ' + ${school.getSchedule().getOtherDate()} : 'Inny: brak daty'"></td>
+                        </tr>
+                    </table>
 
-                <h5>Status</h5>
-                <table>
-                    <tr>
-                        <td th:text="${school.status != null} ? 'Nasza: ' + ${school.status.isOurs()} : 'Nasza: nie'"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${school.status != null} ? 'Umówiona: ' + ${school.status.isContracted()} : 'Umówiona: nie'"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${school.status != null} ? 'Kalendarze: ' + ${school.status.getCalendarsLeftNumber()} + 'szt' : 'Kalendarze: 0 szt'"></td>
-                    </tr>
-                </table>
+                    <br>
+                    <p th:text="${school.getAdditionalInfo() != null} ? ${school.getAdditionalInfo().getNote1()} : 'Brak notatki 1'"></p>
+                    <br>
+                    <p th:text="${school.getAdditionalInfo() != null} ? ${school.getAdditionalInfo().getNote2()} : 'Brak notatki 2'"></p>
+                    <br>
+                    <p th:text="${school.getAdditionalInfo() != null} ? ${school.getAdditionalInfo().getNote3()} : 'Brak notatki 3'"></p>
+                    <br>
 
-
-                <br>
-                <h5>Kalendarz</h5>
-                <table>
-                    <tr>
-                        <td th:text="${school.getSchedule() != null} ? 'Umowa: ' + ${school.getSchedule().getContactDate()} : 'Umowa: brak daty'"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${school.getSchedule() != null} ? 'Fotografowanie: ' + ${school.getSchedule().getPhotographingDate()} : 'Fotografowanie: brak daty'"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${school.getSchedule() != null} ? 'Rozliczenie: ' + ${school.getSchedule().getPayoffDate()} : 'Rozliczenie: brak daty'"></td>
-                    </tr>
-                    <tr>
-                        <td th:text="${school.getSchedule() != null} ? 'Inny: ' + ${school.getSchedule().getOtherDate()} : 'Inny: brak daty'"></td>
-                    </tr>
-                </table>
-
-
-                <br>
-                <p th:text="${school.getAdditionalInfo() != null} ? ${school.getAdditionalInfo().getNote1()} : 'Brak notatki 1'"></p>
-                <br>
-                <p th:text="${school.getAdditionalInfo() != null} ? ${school.getAdditionalInfo().getNote2()} : 'Brak notatki 2'"></p>
-                <br>
-                <p th:text="${school.getAdditionalInfo() != null} ? ${school.getAdditionalInfo().getNote3()} : 'Brak notatki 3'"></p>
-                <br>
-
+                </div>
             </div>
+            <div class="col-md-3 col-md-offset-3"></div>
         </div>
-        <div class="col-md-3 col-md-offset-3"></div>
-
     </div>
 </div>
 
