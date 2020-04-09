@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new school</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container-fluid" style="margin-top: 20px">
+        <!--       <div class="col-md-3 col-md-offset-3"></div>-->
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form th:object="${school}" th:action="@{/url/}" method="post">
+                    <!--                    th:field="*{id}"-->
+                    <input type="hidden"/>
+                    <!--                    <div class="card-group">-->
+                        <div class="card bg-primary text-white">
+                            <div class="card-header">
+                                <h2 class="card-title">Informacje ogólne</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <label>Nazwa:</label>
+                                        <input type="text" class="form-control" th:field="*{name}">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Kod pocztowy:</label>
+                                        <input type="text" class="form-control" th:field="*{zipCode}">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Powiat:</label>
+                                        <input type="text" class="form-control" th:field="*{county}">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>E-mail:</label>
+                                        <input type="email" class="form-control" th:field="*{email}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <label>Typ:</label>
+                                        <select class="form-control mr-sm-2" th:field="*{type}">
+                                            <option th:value="''" th:text="Wybierz"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Miejscowość</label>
+                                        <input type="text" class="form-control" th:field="*{city}">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Gmina:</label>
+                                        <input type="text" class="form-control" th:field="*{borough}">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Strona internetowa:</label>
+                                        <input type="url" class="form-control" th:field="*{website}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 form-group">
+                                        <label>Ulica:</label>
+                                        <input type="text" class="form-control" th:field="*{street}">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Województwo:</label>
+                                        <select class="form-control mr-sm-2" th:field="*{voivodeship}">
+                                            <option th:value="ŁÓDZKIE" th:text="Wybierz"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Telefon:</label>
+                                        <input type="tel" class="form-control" th:field="*{phoneNumber}">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label>Publiczność:</label>
+                                        <input type="text" class="form-control" th:field="*{publicStatus}">
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    <div class="card" style="margin-top: 20px">
+                        <div class="card-header bg-primary">
+                            <h2 class="card-title">Informacje dla firmy</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <h3>Status:</h3>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <h3>Terminy:</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="checkbox" th:field="*{ours}"/>
+                                    <label class="form-check-label">Nasza</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Kontakt:</label>
+                                    <input type="date" class="form-control" th:field="*{contactDate}">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="checkbox" th:field="*{contracted}">
+                                    <label class="form-check-label">Umówiona</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Fotografowanie:</label>
+                                    <input type="date" class="form-control" th:field="*{photographingDate}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Kalendarze:</label>
+                                    <input type="number" class="form-control" th:field="*{calendarsLeftNumber}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Rozliczenie:</label>
+                                    <input type="date" class="form-control" th:field="*{payOffDate}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Pracownik:</label>
+                                    <select class="form-control mr-sm-2" th:field="*{employee}">
+                                        <option th:value="''" th:text="Wybierz"></option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card" style="margin-top: 20px">
+                        <div class="card-header">
+                            <h2 class="card-title">Dodatkowe informacje</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="form-control" rows="2" th:field="*{note1}"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="form-control" rows="2" th:field="*{note2}"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="form-control" rows="2" th:field="*{note3}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    </div>-->
+                    <br>
+                    <button class="btn btn-primary" type="submit" style="margin-left: 660px">Dodaj</button>
+                </form>
+                <br>
+                <br>
+            </div>
+        </div>
+        <!--      <div class="col-md-3 col-md-offset-3"></div>-->
+    </div>
+</div>
+</body>
+</html>
