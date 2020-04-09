@@ -35,7 +35,10 @@
                                     </div>
                                     <div class="col-md-3 form-group">
                                         <label>Powiat:</label>
-                                        <input type="text" class="form-control" th:field="*{county}">
+                                        <select class="form-control mr-sm-2" th:field="*{county}">
+                                            <option th:value="''" th:text="Wybierz"></option>
+                                            <option th:each="county : ${counties}" th:value="${county}" th:text="${county}"></option>
+                                        </select>
                                     </div>
                                     <div class="col-md-3 form-group">
                                         <label>E-mail:</label>
@@ -47,6 +50,7 @@
                                         <label>Typ:</label>
                                         <select class="form-control mr-sm-2" th:field="*{type}">
                                             <option th:value="''" th:text="Wybierz"></option>
+                                            <option th:each="type: ${types}" th:value="${type.getName()}" th:text="${type.getName()}"></option>
                                         </select>
                                     </div>
                                     <div class="col-md-3 form-group">
@@ -70,7 +74,8 @@
                                     <div class="col-md-3 form-group">
                                         <label>Województwo:</label>
                                         <select class="form-control mr-sm-2" th:field="*{voivodeship}">
-                                            <option th:value="ŁÓDZKIE" th:text="Wybierz"></option>
+                                            <option th:value="''" th:text="Wybierz"></option>
+                                            <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.name()}" th:text="${voivodeship.getName()}"></option>
                                         </select>
                                     </div>
                                     <div class="col-md-3 form-group">
