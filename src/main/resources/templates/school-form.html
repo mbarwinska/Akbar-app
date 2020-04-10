@@ -15,12 +15,12 @@
         <div class="row">
             <div class="col-md-3 col-md-offset-3"></div>
             <div class="col-md-6 col-md-offset-3">
-                <form th:object="${school}" th:action="@{/url/}" method="post">
+                <form th:object="${school}" th:action="@{/school/}" method="post">
 
                     <input type="hidden"/>
                     <!--                    <div class="card-group">-->
-                        <div class="card bg-primary text-white">
-                            <div class="card-header">
+                        <div class="card">
+                            <div class="card-header bg-primary">
                                 <h2 class="card-title">Informacje ogólne</h2>
                             </div>
                             <div class="card-body">
@@ -152,7 +152,7 @@
                     </div>
 
                     <div class="card" style="margin-top: 20px">
-                        <div class="card-header">
+                        <div class="card-header bg-primary">
                             <h2 class="card-title">Dodatkowe informacje</h2>
                         </div>
                         <div class="card-body">

@@ -37,7 +37,7 @@ public class SearchController {
         return "search";
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search-result")
     public String getSearchResults(@ModelAttribute("form") SearchQueryCreator searchQueryCreator, Model model){
         String schoolQuery = searchQueryCreator.createQuery();
         List<School> searchedSchools = searchService.getSearchedSchools(schoolQuery);

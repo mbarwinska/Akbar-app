@@ -39,7 +39,7 @@ public class SchoolController {
         return "school-form";
     }
 
-    @PostMapping("/url")
+    @PostMapping("/school")
     public String saveOrUpdate(@ModelAttribute("school") SchoolDto schoolDto) {
         School saveSchool = schoolService.save(schoolDto);
         return "redirect:/school/" + saveSchool.getId();
