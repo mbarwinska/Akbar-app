@@ -31,8 +31,14 @@ public class SchoolMapper {
         address.setZipCode(schoolDto.getZipCode());
 
         Status status = new Status(schoolDto.isOurs(), schoolDto.isContracted(), schoolDto.getCalendarsLeftNumber());
-        Schedule schedule = new Schedule(LocalDate.parse(schoolDto.getContactDate()),
-                LocalDate.parse(schoolDto.getPhotographingDate()), LocalDate.parse(schoolDto.getPayOffDate()));
+
+
+
+//        Schedule schedule = new Schedule(LocalDate.parse(schoolDto.getContactDate()),
+//                LocalDate.parse(schoolDto.getPhotographingDate()), LocalDate.parse(schoolDto.getPayOffDate()));
+        Schedule schedule = dateParse(schoolDto);
+
+
 
 
 //        String[] employeeData = schoolDto.getEmployee().split(" ");
@@ -79,5 +85,35 @@ public class SchoolMapper {
         }
 
         return school;
+    }
+
+    private static Schedule dateParse(SchoolDto school){
+
+        LocalDate contact;
+        LocalDate photograph;
+        LocalDate payOff;
+
+        String contractDate = school.getContactDate();
+        if (!contractDate.isBlank()){
+            contact = LocalDate.parse(contractDate);
+        } else {
+            contact = null;
+        }
+
+        String photoDate = school.getPhotographingDate();
+        if (!photoDate.isBlank()){
+            photograph = LocalDate.parse(photoDate);
+        } else {
+            photograph = null;
+        }
+
+        String payOffDate = school.getPayOffDate();
+        if (!payOffDate.isBlank()){
+            payOff = LocalDate.parse(payOffDate);
+        } else {
+            payOff = null;
+        }
+
+        return new Schedule(contact, photograph, payOff);
     }
 }

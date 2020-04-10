@@ -6,6 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <title>School-view</title>
+
+    <style>
+p.note {
+    white-space: pre-line
+}
+    </style>
 </head>
 <body>
 
@@ -62,7 +68,7 @@
                             <td th:text="${school.status.isContracted() == true} ? 'Umówiona: tak' : 'Umówiona: nie'"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.status.getCalendarsLeftNumber() != null} ? 'Kalendarze: ' + ${school.status.getCalendarsLeftNumber()} + 'szt' : 'Kalendarze: 0 szt'"></td>
+                            <td th:text="${school.status.getCalendarsLeftNumber() != null} ? 'Kalendarze: ' + ${school.status.getCalendarsLeftNumber()} + ' szt' : 'Kalendarze: brak'"></td>
                         </tr>
                     </table>
                     <br>
@@ -85,11 +91,14 @@
                     <br>
 
                     <h5>Notatki</h5>
-                    <p th:text="${!school.getAdditionalInfo().getNote1().isEmpty()} ? ${school.getAdditionalInfo().getNote1()} : 'Brak notatki 1'"></p>
+                    <p><b>Notatka 1</b></p>
+                    <p class="note" th:text="${!school.getAdditionalInfo().getNote1().isEmpty()} ? ${school.getAdditionalInfo().getNote1()} : 'Brak notatki 1'"></p>
                     <br>
-                    <p th:text="${!school.getAdditionalInfo().getNote2().isEmpty()} ? ${school.getAdditionalInfo().getNote2()} : 'Brak notatki 2'"></p>
+                    <p><b>Notatka 2</b></p>
+                    <p class="note" th:text="${!school.getAdditionalInfo().getNote2().isEmpty()} ? ${school.getAdditionalInfo().getNote2()} : 'Brak notatki 2'"></p>
                     <br>
-                    <p th:text="${!school.getAdditionalInfo().getNote3().isEmpty()} ? ${school.getAdditionalInfo().getNote3()} : 'Brak notatki 3'"></p>
+                    <p><b>Notatka 3</b></p>
+                    <p class="note" th:text="${!school.getAdditionalInfo().getNote3().isEmpty()} ? ${school.getAdditionalInfo().getNote3()} : 'Brak notatki 3'"></p>
                     <br>
 
                 </div>
