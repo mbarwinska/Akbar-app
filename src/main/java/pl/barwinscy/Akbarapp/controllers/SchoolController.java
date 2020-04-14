@@ -10,6 +10,7 @@ import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.School;
+import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
 import pl.barwinscy.Akbarapp.services.SchoolService;
 import pl.barwinscy.Akbarapp.services.SearchService;
 
@@ -39,10 +40,17 @@ public class SchoolController {
         return "school-form";
     }
 
+    @GetMapping("/school/{schoolId}/update")
+    public String updateSchoolForm(@PathVariable String schoolId, Model model){
+        School schoolWithAllData = schoolService.getSchoolWithAllData(Long.valueOf(schoolId));
+        model.addAttribute("school",schoolWithAllData);
+        return "school-form";
+    }
+
     @PostMapping("/school")
     public String saveOrUpdate(@ModelAttribute("school") SchoolDto schoolDto) {
-        School saveSchool = schoolService.save(schoolDto);
-        return "redirect:/school/" + saveSchool.getId();
+            School saveSchool = schoolService.save(schoolDto);
+            return "redirect:/school/" + saveSchool.getId();
 
     }
 

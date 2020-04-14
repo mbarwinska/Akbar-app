@@ -116,4 +116,5 @@ public class SchoolMapper {
 
         return new Schedule(contact, photograph, payOff);
     }
+
 }

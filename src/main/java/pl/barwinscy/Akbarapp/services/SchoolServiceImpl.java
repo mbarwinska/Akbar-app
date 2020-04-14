@@ -23,6 +23,7 @@ public class SchoolServiceImpl implements SchoolService {
         return SchoolMapper.mapSchoolToView(schoolToView);
     }
 
+
     @Transactional
     @Override
     public School save(SchoolDto schoolDto) {

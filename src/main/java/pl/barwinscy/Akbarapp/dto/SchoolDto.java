@@ -1,11 +1,7 @@
 package pl.barwinscy.Akbarapp.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.barwinscy.Akbarapp.Voivodeship;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
