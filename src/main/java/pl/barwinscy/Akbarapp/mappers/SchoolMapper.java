@@ -1,10 +1,12 @@
 package pl.barwinscy.Akbarapp.mappers;
 
 import pl.barwinscy.Akbarapp.Voivodeship;
+import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,11 +17,11 @@ public class SchoolMapper {
 
     public static School mapDtoToEntity(SchoolDto schoolDto) {
         Address address = new Address();
-        if (schoolDto.getVoivodeship().equals("ŁÓDZKIE")) {
+        if (schoolDto.getVoivodeship().equalsIgnoreCase("ŁÓDZKIE")) {
             address.setVoivodeship(Voivodeship.ŁÓDZKIE);
-        } else if (schoolDto.getVoivodeship().equals("MAZOWIECKIE")) {
+        } else if (schoolDto.getVoivodeship().equalsIgnoreCase("MAZOWIECKIE")) {
             address.setVoivodeship(Voivodeship.MAZOWIECKIE);
-        } else if (schoolDto.getVoivodeship().equals("ŚWIĘTOKRZYSKIE")) {
+        } else if (schoolDto.getVoivodeship().equalsIgnoreCase("ŚWIĘTOKRZYSKIE")) {
             address.setVoivodeship(Voivodeship.ŚWIĘTOKRZYSKIE);
         } else {
             address.setVoivodeship(Voivodeship.OTHER);
@@ -32,17 +34,8 @@ public class SchoolMapper {
 
         Status status = new Status(schoolDto.isOurs(), schoolDto.isContracted(), schoolDto.getCalendarsLeftNumber());
 
-
-
-//        Schedule schedule = new Schedule(LocalDate.parse(schoolDto.getContactDate()),
-//                LocalDate.parse(schoolDto.getPhotographingDate()), LocalDate.parse(schoolDto.getPayOffDate()));
         Schedule schedule = dateParse(schoolDto);
 
-
-
-
-//        String[] employeeData = schoolDto.getEmployee().split(" ");
-//        Employee employee = new Employee(1L, employeeData[0], employeeData[1]);
         AdditionalInfo additionalInfo = new AdditionalInfo(schoolDto.getNote1(), schoolDto.getNote2(), schoolDto.getNote3());
         School school = School.builder()
                 .type(schoolDto.getType())
@@ -55,15 +48,48 @@ public class SchoolMapper {
 
         school.setStatus(status);
         school.setSchedule(schedule);
-//        school.setEmployee(employee);
         school.setAdditionalInfo(additionalInfo);
 
-       //zapisanie do bazy
-       //odczyt id z bazy
-
-        //Phone phone = new Phone(schoolDto.getPhoneNumber(), schoolDto.getId());
-        //school.setPhones(phone);
         return school;
+    }
+
+    public static SchoolDto mapSchoolEntityToDto(School school){
+        List<PhoneDTO> phones = new ArrayList<>();
+        school.getPhones().forEach(phone -> phones.add(new PhoneDTO(phone.getId(), phone.getPhoneNumber(), phone.getNote())));
+
+        for (int i = 0; i < phones.size(); i++){
+            PhoneDTO phoneDTO = phones.get(i);
+            if (phoneDTO.getNote().isEmpty()){
+                phoneDTO.setNote("notatka");
+            }
+        }
+
+        SchoolDto schoolDto = new SchoolDto();
+        schoolDto.setId(school.getId());
+        schoolDto.setName(school.getName());
+        schoolDto.setType(school.getType());
+        schoolDto.setStreet(school.getAddress().getStreet());
+        schoolDto.setZipCode(school.getAddress().getZipCode());
+        schoolDto.setCity(school.getAddress().getCity());
+        schoolDto.setVoivodeship(school.getAddress().getVoivodeship().getName());
+        schoolDto.setCounty(school.getAddress().getCounty());
+        schoolDto.setBorough(school.getAddress().getBorough());
+        schoolDto.setPhones(phones);
+        schoolDto.setEmail(school.getEmail());
+        schoolDto.setWebsite(school.getWebsite());
+        schoolDto.setPublicStatus(school.getPublicStatus());
+        schoolDto.setOurs(school.getStatus().isOurs());
+        schoolDto.setContracted(school.getStatus().isContracted());
+        schoolDto.setCalendarsLeftNumber(school.getStatus().getCalendarsLeftNumber());
+        schoolDto.setContactDate((school.getSchedule().getContactDate() != null) ? school.getSchedule().getContactDate().toString() : null);
+        schoolDto.setPhotographingDate((school.getSchedule().getPhotographingDate() != null) ? school.getSchedule().getPhotographingDate().toString() : null);
+        schoolDto.setPayOffDate((school.getSchedule().getPayoffDate()!= null) ? school.getSchedule().getPayoffDate().toString() : null);
+        schoolDto.setAnotherDate((school.getSchedule().getOtherDate() != null) ? school.getSchedule().getOtherDate().toString() : null );
+        schoolDto.setEmployee((school.getEmployee() != null) ?school.getEmployee().getLastName() + " " + school.getEmployee().getLastName() : null );
+        schoolDto.setNote1(school.getAdditionalInfo().getNote1());
+        schoolDto.setNote2(school.getAdditionalInfo().getNote2());
+        schoolDto.setNote3(school.getAdditionalInfo().getNote3());
+        return schoolDto;
     }
 
     public static School mapSchoolToView(School school){

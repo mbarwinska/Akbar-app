@@ -5,6 +5,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.barwinscy.Akbarapp.entities.*;
+import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 import java.time.LocalDate;
@@ -27,6 +28,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     Status status4 = new Status(true, false, 20);
     Schedule schedule1 = new Schedule(LocalDate.of(2020, 2, 12), LocalDate.of(2020, 3, 2), null);
     AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", null, "Notatka2.C");
+
+
 
     public DataInitializer(SchoolRepository schoolRepository) {
         this.schoolRepository = schoolRepository;
@@ -56,7 +59,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         School schoolFromDB3 = schoolRepository.findById(2L).get();
         School schoolFromDB4 = schoolRepository.findById(3L).get();
 
-        schoolFromDB.setPhones(new Phone("888-999-444", schoolFromDB.getRspo()));
+        Phone phone = new Phone("888-999-444", schoolFromDB.getRspo());
+        phone.setNote("To jest notatka ");
+        schoolFromDB.setPhones(phone);
         schoolFromDB.setStatus(status1);
         schoolFromDB.setSchedule(schedule1);
         schoolFromDB.setAdditionalInfo(additionalInfo2);

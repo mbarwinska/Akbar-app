@@ -3,7 +3,7 @@ package pl.barwinscy.Akbarapp;
 public enum Voivodeship {
 
     MAZOWIECKIE("Mazowieckie"),
-    ŁÓDZKIE(" Łódzkie"),
+    ŁÓDZKIE("Łódzkie"),
     ŚWIĘTOKRZYSKIE("Świętokrzyskie"),
     OTHER("Inne");
 
