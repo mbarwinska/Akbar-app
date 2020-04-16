@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="layout/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+    <meta charset="UTF-8">
+    <title>School-update</title>
+
+    <style>
+        p.note {
+            white-space: pre-line
+        }
+    </style>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container-fluid" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-3"></div>
+            <div class="col-md-6 col-md-offset-3">
+                <div>
+                    <h4 align="center" th:text="${school.name}"></h4>
+                    </br>
+                    <form  th:action="@{/update/}" method="post">
+                        <input type="hidden" th:field="${school.id}"/>
+                        <h5>Dane adresowe</h5>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Nazwa:</label>
+                                    <input type="text" th:field="${school.name}">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label>Adres:</label>
+                                    <input th:field="${school.street}"> <input type="text" th:field="${school.zipCode}">
+                                    <input type="text" th:field="${school.city}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Województwo:</label>
+                                    <select th:field="${school.voivodeship}">
+                                        <option th:value="${school.voivodeship}" th:text="${school.voivodeship}"></option>
+                                        <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.name()}"
+                                                th:text="${voivodeship.getName()}"></option>
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td><label>Powiat:</label>
+                                    <select th:field="${school.county}">
+                                        <option th:value="''" th:text="Wybierz"></option>
+                                        <option th:each="county : ${counties}" th:value="${county}"
+                                                th:text="${county}"></option>
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Gmina:</label>
+                                    <input type="text" th:field="${school.borough}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Email:</label>
+                                    <input type="text" th:field="*{school.email}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Strona:</label>
+                                    <input type="text" th:field="${school.website}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Typ placówki:</label>
+                                    <input type="text" th:field="${school.type}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Status:</label>
+                                    <input type="text" th:field="${school.publicStatus}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Pracownik:</label>
+                                    <select th:field="${school.employee}">
+                                        <option th:value="''"
+                                                th:text="${school.employee != null} ?  ${school.employee} : 'brak'"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+
+                        <h5>Telefony</h5>
+                        <table>
+                            <tr th:each="phone, phoneStat : ${school.getPhones()}">
+                                <td>
+                                    <label th:text="${phone.number}"></label>
+                                    <input type="text" th:field="${school.phones[__${phoneStat.index}__].note}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Nowy Telefon: </label>
+                                    <input type="tel" th:field="${newPhone.number}">
+                                    <input type="tel" th:field="${newPhone.note}">
+                                </td>
+
+                            </tr>
+                        </table>
+                        <br>
+
+                        <h5>Status</h5>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Nasza: </label>
+                                    <input type="checkbox" th:field="${school.ours}"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Umówiona: </label>
+                                    <input type="checkbox" th:field="${school.contracted}"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Kalendarze: </label>
+                                    <input type="number" th:field="${school.calendarsLeftNumber}">
+                                </td>
+
+                            </tr>
+                        </table>
+                        <br>
+
+                        <h5>Kalendarz</h5>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label>Kontakt:</label>
+                                    <input type="date" th:field="${school.contactDate}">
+                                </td>
+
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Fotografowanie:</label>
+                                    <input type="date" th:field="${school.photographingDate}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Rozliczenie:</label>
+                                    <input type="date" th:field="${school.payOffDate}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Inny:</label>
+                                    <input type="date" th:field="${school.anotherDate}">
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+
+                        <h5>Notatki</h5>
+                        <b><label>Notatka 1</label></b><br>
+                        <textarea class="form-control" type="text" th:field="${school.note1}"></textarea>
+                        <br>
+
+                        <b><label>Notatka 2</label></b><br>
+                        <textarea class="form-control" type="text" th:field="${school.note2}"></textarea>
+                        <br>
+
+                        <b><label>Notatka 3</label></b><br>
+                        <textarea class="form-control" type="text" th:field="${school.note3}"></textarea>
+                        <br>
+                        <br>
+                        <br>
+                        <button class="btn btn-primary" type="submit" style="margin-left: 660px">Zmodyfikuj</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-3"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

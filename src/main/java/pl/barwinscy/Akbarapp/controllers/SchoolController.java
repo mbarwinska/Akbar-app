@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.Voivodeship;
+import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
@@ -42,15 +43,28 @@ public class SchoolController {
 
     @GetMapping("/school/{schoolId}/update")
     public String updateSchoolForm(@PathVariable String schoolId, Model model){
-        School schoolWithAllData = schoolService.getSchoolWithAllData(Long.valueOf(schoolId));
+        SchoolDto schoolWithAllData = schoolService.getSchoolWithAllData(Long.valueOf(schoolId));
+        model.addAttribute("newPhone", new PhoneDTO());
         model.addAttribute("school",schoolWithAllData);
-        return "school-form";
+        model.addAttribute("types", SchoolType.values());
+        model.addAttribute("voivodeships", Voivodeship.values());
+        model.addAttribute("counties",searchService.getAllCounties());
+        return "school-update";
     }
 
     @PostMapping("/school")
-    public String saveOrUpdate(@ModelAttribute("school") SchoolDto schoolDto) {
+    public String save(@ModelAttribute("school") SchoolDto schoolDto) {
             School saveSchool = schoolService.save(schoolDto);
             return "redirect:/school/" + saveSchool.getId();
+
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute("school") SchoolDto schoolDto,
+                         @ModelAttribute("newPhone") PhoneDTO phoneDTO) {
+        School saveSchool = schoolService.update(schoolDto, phoneDTO);
+
+        return "redirect:/school/" + saveSchool.getId();
 
     }
 

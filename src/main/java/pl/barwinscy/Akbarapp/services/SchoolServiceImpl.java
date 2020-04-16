@@ -2,6 +2,7 @@ package pl.barwinscy.Akbarapp.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.Phone;
 import pl.barwinscy.Akbarapp.entities.School;
@@ -18,9 +19,10 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School getSchoolWithAllData(Long schoolId){
+    public SchoolDto getSchoolWithAllData(Long schoolId){
         School schoolToView = schoolRepository.findSchoolWithAllInfo(schoolId);
-        return SchoolMapper.mapSchoolToView(schoolToView);
+        //return SchoolMapper.mapSchoolToView(schoolToView);
+        return SchoolMapper.mapSchoolEntityToDto(SchoolMapper.mapSchoolToView(schoolToView));
     }
 
 
@@ -33,6 +35,17 @@ public class SchoolServiceImpl implements SchoolService {
         //phone.setSchool(save);
         save.setPhones(phone);
         schoolRepository.save(save);
+
+        return save;
+
+    }
+    @Transactional
+    @Override
+    public School update(SchoolDto schoolDto, PhoneDTO phoneDTO) {
+
+        School schoolToUpdate = schoolRepository.findById(schoolDto.getId()).get();
+        schoolToUpdate = SchoolMapper.mapDtoToEntity(schoolDto);
+        School save = schoolRepository.save(schoolToUpdate);
 
         return save;
 

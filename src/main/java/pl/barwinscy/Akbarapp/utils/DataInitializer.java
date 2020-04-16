@@ -24,7 +24,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
     Status status1 = new Status(true, true, 15);
     Schedule schedule1 = new Schedule(LocalDate.of(2020, 02, 12), LocalDate.of(2020, 03, 02), null);
-    AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", null, "Notatka2.C");
+    AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", "", "Notatka2.C");
 
     public DataInitializer(SchoolRepository schoolRepository) {
         this.schoolRepository = schoolRepository;
@@ -51,7 +51,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private void shouldAddDataToSchool() {
         School schoolFromDB = schoolRepository.findByRspo(23063L);
 
-        schoolFromDB.setPhones(new Phone("888-999-444", schoolFromDB.getRspo()));
+        Phone phone = new Phone("888-999-444", schoolFromDB.getRspo());
+        phone.setNote("To jest notatka ");
+        schoolFromDB.setPhones(phone);
         schoolFromDB.setStatus(status1);
         schoolFromDB.setSchedule(schedule1);
         schoolFromDB.setAdditionalInfo(additionalInfo2);

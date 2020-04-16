@@ -27,16 +27,16 @@ p.note {
                     <h5>Dane adresowe</h5>
                     <table>
                         <tr>
-                            <td th:text="'Adres: ' + ${school.address.getStreet()} + ' ' + ${school.address.getZipCode()} + ' ' + ${school.address.getCity()}"></td>
+                            <td th:text="'Adres: ' + ${school.getStreet()} + ' ' + ${school.getZipCode()} + ' ' + ${school.getCity()}"></td>
                         </tr>
                         <tr>
-                            <td th:text="'Województwo: ' + ${school.address.getVoivodeship()}"></td>
+                            <td th:text="'Województwo: ' + ${school.getVoivodeship()}"></td>
                         </tr>
                         <tr>
-                            <td th:text="'Powiat: ' + ${school.address.getCounty()}"></td>
+                            <td th:text="'Powiat: ' + ${school.getCounty()}"></td>
                         </tr>
                         <tr>
-                            <td th:text="'Gmina: ' + ${school.address.getBorough()}"></td>
+                            <td th:text="'Gmina: ' + ${school.getBorough()}"></td>
                         </tr>
                         <tr>
                             <td>Strona: <a href="#" th:href="${school.getWebsite()}"
@@ -46,7 +46,7 @@ p.note {
                             <td th:text="'Status: ' + ${school.getPublicStatus()}"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.getEmployee() != null} ? 'Fotograf: ' + ${school.getEmployee().getFirstName()} + ${school.getEmployee().getLastName()} : 'Fotograf: brak'"></td>
+                            <td th:text="${school.getEmployee() != null} ? 'Fotograf: ' + ${school.employee} : 'Fotograf: brak'"></td>
                         </tr>
                     </table>
                     <br>
@@ -54,7 +54,7 @@ p.note {
                     <h5>Telefony</h5>
                     <table>
                         <tr th:each="phone : ${school.getPhones()}">
-                            <td th:text="${phone.getPhoneNumber()} + ${phone.getNote()}"></td>
+                            <td th:text="${phone.getNumber()} + ${phone.getNote()}"></td>
                         </tr>
                     </table>
                     <br>
@@ -62,13 +62,13 @@ p.note {
                     <h5>Status</h5>
                     <table>
                         <tr>
-                            <td th:text="${school.status.isOurs() == true} ? 'Nasza: tak' : 'Nasza: nie'"></td>
+                            <td th:text="${school.isOurs() == true} ? 'Nasza: tak' : 'Nasza: nie'"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.status.isContracted() == true} ? 'Umówiona: tak' : 'Umówiona: nie'"></td>
+                            <td th:text="${school.isContracted() == true} ? 'Umówiona: tak' : 'Umówiona: nie'"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.status.getCalendarsLeftNumber() != null} ? 'Kalendarze: ' + ${school.status.getCalendarsLeftNumber()} + ' szt' : 'Kalendarze: brak'"></td>
+                            <td th:text="${school.getCalendarsLeftNumber() != null} ? 'Kalendarze: ' + ${school.getCalendarsLeftNumber()} + ' szt' : 'Kalendarze: brak'"></td>
                         </tr>
                     </table>
                     <br>
@@ -76,31 +76,34 @@ p.note {
                     <h5>Kalendarz</h5>
                     <table>
                         <tr>
-                            <td th:text="${school.getSchedule().getContactDate() != null} ? 'Umowa: ' + ${school.getSchedule().getContactDate()} : 'Umowa: brak daty'"></td>
+                            <td th:text="${school.getContactDate() != null} ? 'Umowa: ' + ${school.getContactDate()} : 'Umowa: brak daty'"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.getSchedule().getPhotographingDate() != null} ? 'Fotografowanie: ' + ${school.getSchedule().getPhotographingDate()} : 'Fotografowanie: brak daty'"></td>
+                            <td th:text="${school.getPhotographingDate() != null} ? 'Fotografowanie: ' + ${school.getPhotographingDate()} : 'Fotografowanie: brak daty'"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.getSchedule().getPayoffDate() != null} ? 'Rozliczenie: ' + ${school.getSchedule().getPayoffDate()} : 'Rozliczenie: brak daty'"></td>
+                            <td th:text="${school.getPayOffDate() != null} ? 'Rozliczenie: ' + ${school.getPayOffDate()} : 'Rozliczenie: brak daty'"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.getSchedule().getOtherDate() != null} ? 'Inny: ' + ${school.getSchedule().getOtherDate()} : 'Inny: brak daty'"></td>
+                            <td th:text="${school.getPayOffDate() != null} ? 'Inny: ' + ${school.getPayOffDate()} : 'Inny: brak daty'"></td>
                         </tr>
                     </table>
                     <br>
 
                     <h5>Notatki</h5>
                     <p><b>Notatka 1</b></p>
-                    <p class="note" th:text="${!school.getAdditionalInfo().getNote1().isEmpty()} ? ${school.getAdditionalInfo().getNote1()} : 'Brak notatki 1'"></p>
+                    <p class="note" th:text="${!school.getNote1().isEmpty()} ? ${school.getNote1()} : 'Brak notatki 1'"></p>
                     <br>
                     <p><b>Notatka 2</b></p>
-                    <p class="note" th:text="${!school.getAdditionalInfo().getNote2().isEmpty()} ? ${school.getAdditionalInfo().getNote2()} : 'Brak notatki 2'"></p>
+                    <p class="note" th:text="${!school.getNote2().isEmpty()} ? ${school.getNote2()} : 'Brak notatki 2'"></p>
                     <br>
                     <p><b>Notatka 3</b></p>
-                    <p class="note" th:text="${!school.getAdditionalInfo().getNote3().isEmpty()} ? ${school.getAdditionalInfo().getNote3()} : 'Brak notatki 3'"></p>
+                    <p class="note" th:text="${!school.getNote3().isEmpty()} ? ${school.getNote3()} : 'Brak notatki 3'"></p>
                     <br>
+                    <form th:action="@{'/school/' + ${school.getId()} + '/update'}" method="get">
 
+                        <button class="btn btn-light btn-lg mr-5" type="submit">Modyfikuj</button>
+                    </form>
                 </div>
             </div>
             <div class="col-md-3 col-md-offset-3"></div>
