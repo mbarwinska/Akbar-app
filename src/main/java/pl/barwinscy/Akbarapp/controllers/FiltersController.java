@@ -13,32 +13,31 @@ import pl.barwinscy.Akbarapp.utils.QueryCreator;
 import java.util.List;
 
 @Controller
-public class SearchController {
+public class FiltersController {
 
     private SearchService searchService;
 
-    public SearchController(SearchService searchService) {
+    public FiltersController(SearchService searchService) {
         this.searchService = searchService;
     }
 
-
-    @GetMapping("/search")
-    public String getSearchPage(Model model) {
+    @GetMapping("/filters")
+    public String getFiltersPage(Model model) {
         model.addAttribute("form", new QueryCreator());
-        model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties", searchService.getAllCounties());
-        return "search";
+        model.addAttribute("types", SchoolType.values());
+        return "filters";
     }
 
-    @GetMapping("/search-result")
-    public String getSearchResults(@ModelAttribute("form") QueryCreator queryCreator, Model model) {
-        String schoolQuery = queryCreator.createSearchQuery();
-        List<School> searchedSchools = searchService.getSearchedSchools(schoolQuery);
+    @GetMapping("/filters-result")
+    public String getFiltersResult(@ModelAttribute("form") QueryCreator queryCreator, Model model) {
+        String query = queryCreator.createFilterQuery();
+        List<School> searchedSchools = searchService.getSearchedSchools(query);
         model.addAttribute("schools", searchedSchools);
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties", searchService.getAllCounties());
-        return "search";
+        return "filters";
     }
 }

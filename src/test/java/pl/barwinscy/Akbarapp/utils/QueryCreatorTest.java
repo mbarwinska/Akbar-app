@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
-class SearchQueryCreatorTest {
+class QueryCreatorTest {
 
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
@@ -56,10 +56,10 @@ class SearchQueryCreatorTest {
     @Rollback(false)
     @Test
     public void shouldFindSchoolByCountyBoroughAndStreet(){
-        SearchQueryCreator searchByCountyBoroughAndStreet = new SearchQueryCreator("", "Łódź", "Łódź-Górna","", "Politechniki","","","" );
+        QueryCreator searchByCountyBoroughAndStreet = new QueryCreator("", "Łódź", "Łódź-Górna","", "Politechniki","","","" );
 
-        System.out.println(searchByCountyBoroughAndStreet.createQuery());
-        List<School> foundSchool = schoolRepository.searchByQuery(searchByCountyBoroughAndStreet.createQuery());
+        System.out.println(searchByCountyBoroughAndStreet.createSearchQuery());
+        List<School> foundSchool = schoolRepository.searchByQuery(searchByCountyBoroughAndStreet.createSearchQuery());
         assertThat(foundSchool.get(0).getName()).isEqualTo("ZESPÓŁ SZKÓŁ POLITECHNICZNYCH IM. KOMISJI EDUKACJI NARODOWEJ");
     }
 
@@ -67,11 +67,11 @@ class SearchQueryCreatorTest {
     @Rollback(false)
     @Test
     public void shouldFindSchoolByName(){
-        SearchQueryCreator searchByName = new SearchQueryCreator("", "", "","", "","","SZKOŁA PODSTAWOWA NR 1","" );
+        QueryCreator searchByName = new QueryCreator("", "", "","", "","","SZKOŁA PODSTAWOWA NR 1","" );
 
-        System.out.println(searchByName.createQuery());
+        System.out.println(searchByName.createSearchQuery());
 
-        List<School> foundSchool = schoolRepository.searchByQuery(searchByName.createQuery());
+        List<School> foundSchool = schoolRepository.searchByQuery(searchByName.createSearchQuery());
         System.out.println(foundSchool.get(0).getName());
         assertThat(foundSchool.get(0).getName()).isEqualTo("SZKOŁA PODSTAWOWA NR 1 IM. ADAMA MICKIEWICZA");
     }
@@ -80,11 +80,11 @@ class SearchQueryCreatorTest {
     @Rollback(false)
     @Test
     public void shouldFindSchoolByPhone(){
-        SearchQueryCreator searchByPhone = new SearchQueryCreator("", "", "","", "","","","426430664" );
+        QueryCreator searchByPhone = new QueryCreator("", "", "","", "","","","426430664" );
 
-        System.out.println(searchByPhone.createQuery());
+        System.out.println(searchByPhone.createSearchQuery());
 
-        List<School> foundSchool = schoolRepository.searchByQuery(searchByPhone.createQuery());
+        List<School> foundSchool = schoolRepository.searchByQuery(searchByPhone.createSearchQuery());
         System.out.println(foundSchool.get(0).getName());
         assertThat(foundSchool.get(0).getName()).isEqualTo("PRZEDSZKOLE MIEJSKIE NR 156");
     }

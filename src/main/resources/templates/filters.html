@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Filters</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <form th:action="@{/filters-result}" method="get">
+                    <div>
+                        <div class="card" style="margin-top: 20px">
+                            <div class="card-header">
+                                <h5 class="card-title">Województwo</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <select class="form-control mr-sm-2" th:field="${form.voivodeship}">
+                                        <option th:value="Łódzkie" th:text="Wybierz"></option>
+                                        <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.name()}"
+                                                th:text="${voivodeship.getName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Powiat</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <th:block th:each="county : ${counties}">
+                                        <div class="col-md-4">
+                                            <input type="checkbox" th:value="${county != null} ? ${county} : 'aaa'"
+                                                   th:field="${form.county}">
+                                            <label class="form-check-label" th:text="${county}"></label><br>
+                                        </div>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Gmina</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <input type="text" class="form-control" th:field="${form.borough}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Miejscowość</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <input type="text" class="form-control" th:field="${form.city}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Status</h5>
+                            </div>
+                            <div class="card-body">
+
+                                <input type="checkbox" th:field="${form.ours}">
+                                <label class="form-check-label" th:value="ours">Nasza</label><br>
+
+                                <input type="checkbox" th:field="${form.contracted}">
+                                <label class="form-check-label" th:value="contracted">Umówiona</label><br>
+
+                                <input type="checkbox" th:field="${form.calendarsLeft}">
+                                <label class="form-check-label" th:value="calendarsLeft">Rozwiezione
+                                    kalendarze</label><br>
+
+                                <input type="checkbox" th:field="${form.noCalendars}">
+                                <label class="form-check-label" th:value="noCalendars">Bez kalendarzy</label><br>
+
+                                <input type="checkbox" th:field="${form.noContract}">
+                                <label class="form-check-label" th:value="noContract">Bez umówienia</label><br>
+
+                                <input type="checkbox" th:field="${form.notOurs}">
+                                <label class="form-check-label" th:value="notOurs">Nie nasza</label><br>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Typ</h5>
+                            </div>
+                            <div class="card-body">
+                                <th:block th:each="type : ${types}">
+                                    <input type="checkbox" th:value="${type.getName()}" th:field="${form.type}"/>
+                                    <label class="form-check-label" th:text="${type.getName()}"></label><br>
+                                </th:block>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-dark" type="submit" style="margin-left: 250px">Filtruj</button>
+                    </div>
+                </form>
+                <br>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card" style="margin-top: 40px">
+                    <div class="card-header bg-dark text-white">
+                        <h1 class="card-title" align="center">Wyniki wyszukiwania</h1>
+                    </div>
+                    <div class="card-body" style="background-color: beige">
+                        <div class="table-responsive">
+                            <table class="table table-hover ">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>Województwo</th>
+                                    <th>Powiat</th>
+                                    <th>Gmina</th>
+                                    <th>Miejscowość</th>
+                                    <th>Nazwa</th>
+                                    <th>Adres</th>
+                                </tr>
+                                </thead>
+                                <tr th:remove="all">
+                                    <td><a href="#">123</a></td>
+                                    <td>Bla bla</td>
+                                    <td>Bubu</td>
+                                    <td>Bla bla</td>
+                                    <td>Bla bla</td>
+                                    <td>Bla bla</td>
+                                </tr>
+                                <tr th:each="school : ${schools}">
+                                    <td th:text="${school.getAddress().voivodeship.getName()}"></td>
+                                    <td th:text="${school.getAddress().county}"></td>
+                                    <td th:text="${school.getAddress().borough}"></td>
+                                    <td th:text="${school.getAddress().city}"></td>
+                                    <td><a href="#" style="color: black" th:href="@{'school/' + ${school.id}}"
+                                           th:text="${school.name}"></a></td>
+                                    <td th:text="${school.getAddress().street}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+</body>
+</html>
