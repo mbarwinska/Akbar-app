@@ -27,7 +27,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     Status status3 = new Status(true, false, 0);
     Status status4 = new Status(true, false, 20);
     Schedule schedule1 = new Schedule(LocalDate.of(2020, 2, 12), LocalDate.of(2020, 3, 2), null);
-    AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", null, "Notatka2.C");
+    AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", "", "Notatka2.C");
 
 
 
