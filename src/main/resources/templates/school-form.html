@@ -143,6 +143,7 @@
                                     <label>Pracownik:</label>
                                     <select class="form-control mr-sm-2" th:field="*{employee}">
                                         <option th:value="''" th:text="Wybierz"></option>
+                                        <option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.firstName}+' '+${employee.lastName}"></option>
                                     </select>
 
                                 </div>

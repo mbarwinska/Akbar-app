@@ -12,6 +12,7 @@ import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
+import pl.barwinscy.Akbarapp.services.EmployeeService;
 import pl.barwinscy.Akbarapp.services.SchoolService;
 import pl.barwinscy.Akbarapp.services.SearchService;
 
@@ -20,10 +21,12 @@ public class SchoolController {
 
     private SchoolService schoolService;
     private SearchService searchService;
+    private EmployeeService employeeService;
 
-    public SchoolController(SchoolService schoolService, SearchService searchService) {
+    public SchoolController(SchoolService schoolService, SearchService searchService, EmployeeService employeeService) {
         this.schoolService = schoolService;
         this.searchService = searchService;
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/school/{schoolId}")
@@ -38,6 +41,7 @@ public class SchoolController {
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties",searchService.getAllCounties());
+        model.addAttribute("employees", employeeService.getAllEmployees());
         return "school-form";
     }
 
@@ -49,6 +53,7 @@ public class SchoolController {
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties",searchService.getAllCounties());
+        model.addAttribute("employees", employeeService.getAllEmployees());
         return "school-update";
     }
 

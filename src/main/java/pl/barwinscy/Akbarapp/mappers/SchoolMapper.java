@@ -50,6 +50,7 @@ public class SchoolMapper {
         school.setSchedule(schedule);
         school.setAdditionalInfo(additionalInfo);
 
+
         return school;
     }
 
@@ -85,7 +86,7 @@ public class SchoolMapper {
         schoolDto.setPhotographingDate((school.getSchedule().getPhotographingDate() != null) ? school.getSchedule().getPhotographingDate().toString() : null);
         schoolDto.setPayOffDate((school.getSchedule().getPayoffDate()!= null) ? school.getSchedule().getPayoffDate().toString() : null);
         schoolDto.setAnotherDate((school.getSchedule().getOtherDate() != null) ? school.getSchedule().getOtherDate().toString() : null );
-        schoolDto.setEmployee((school.getEmployee() != null) ?school.getEmployee().getLastName() + " " + school.getEmployee().getLastName() : null );
+        schoolDto.setEmployee((school.getEmployee() != null) ?school.getEmployee().getFirstName() + " " + school.getEmployee().getLastName() : null );
         schoolDto.setNote1(school.getAdditionalInfo().getNote1());
         schoolDto.setNote2(school.getAdditionalInfo().getNote2());
         schoolDto.setNote3(school.getAdditionalInfo().getNote3());
