@@ -12,6 +12,7 @@ import javax.persistence.*;
 public class AdditionalInfo {
 
     @Id
+    @Setter
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     private Long id;

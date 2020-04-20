@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
+@Setter
 @Entity
 public class Status {
 
@@ -16,15 +17,13 @@ public class Status {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Setter
     private boolean ours;
-    @Setter
+
     private boolean contracted;
-    @Setter
+
     private Integer calendarsLeftNumber;
 
 
-    @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_status_school_id"))
     private School school;

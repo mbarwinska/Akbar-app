@@ -25,6 +25,9 @@
                     </br>
                     <form  th:action="@{/update/}" method="post">
                         <input type="hidden" th:field="${school.id}"/>
+                        <input type="hidden" th:field="${school.statusId}"/>
+                        <input type="hidden" th:field="${school.additionInfoId}"/>
+                        <input type="hidden" th:field="${school.scheduleId}"/>
                         <h5>Dane adresowe</h5>
                         <table>
                             <tr>
@@ -103,8 +106,15 @@
                         <table>
                             <tr th:each="phone, phoneStat : ${school.getPhones()}">
                                 <td>
+
                                     <label th:text="${phone.number}"></label>
+                                    <input type="hidden" th:field="${school.phones[__${phoneStat.index}__].id}"/>
+                                    <input type="hidden" th:field="${school.phones[__${phoneStat.index}__].number}"/>
                                     <input type="text" th:field="${school.phones[__${phoneStat.index}__].note}">
+
+<!--                                    <p><a th:href="@{'/phoneDelete/?phoneId=' + ${school.phones[__${phoneStat.index}__].id} + 'schoolid=' + ${school.id}">do usuniecia</a></p>-->
+                                    <a href="#" th:href="@{'/update/' + ${schoolId} + '/delete-phone/' + ${school.phones[__${phoneStat.index}__].id}}">Usun</a>
+
                                 </td>
                             </tr>
                             <tr>

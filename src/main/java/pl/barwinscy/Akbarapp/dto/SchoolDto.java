@@ -36,6 +36,10 @@ public class SchoolDto {
     private String note2;
     private String note3;
 
+    private Long statusId;
+    private Long additionInfoId;
+    private Long scheduleId;
+
    //public SchoolDto(){};
 
 }

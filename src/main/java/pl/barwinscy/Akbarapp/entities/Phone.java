@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Phone {
 
     @Id
+    @Setter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 

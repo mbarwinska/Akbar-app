@@ -6,8 +6,10 @@ import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class SchoolMapper {
@@ -46,9 +48,32 @@ public class SchoolMapper {
                 .publicStatus(schoolDto.getPublicStatus())
                 .build();
 
+        if (schoolDto.getId() != null){
+            school.setId(schoolDto.getId());
+        }
+
+        if (schoolDto.getAdditionInfoId()!= null){
+            additionalInfo.setId(schoolDto.getAdditionInfoId());
+        }
+
+        if (schoolDto.getStatusId()!= null){
+            status.setId(schoolDto.getStatusId());
+        }
+        if (schoolDto.getScheduleId()!= null){
+            schedule.setId(schoolDto.getScheduleId());
+        }
+
+
         school.setStatus(status);
         school.setSchedule(schedule);
         school.setAdditionalInfo(additionalInfo);
+
+        for (PhoneDTO phoneDTO : schoolDto.getPhones()) {
+            Phone phone = new Phone(phoneDTO.getNumber());
+            phone.setId(phoneDTO.getId());
+            phone.setNote(phoneDTO.getNote());
+            school.setPhones(phone);
+        }
 
         return school;
     }
@@ -89,6 +114,9 @@ public class SchoolMapper {
         schoolDto.setNote1(school.getAdditionalInfo().getNote1());
         schoolDto.setNote2(school.getAdditionalInfo().getNote2());
         schoolDto.setNote3(school.getAdditionalInfo().getNote3());
+        schoolDto.setStatusId(school.getStatus().getId());
+        schoolDto.setAdditionInfoId(school.getAdditionalInfo().getId());
+        schoolDto.setScheduleId(school.getSchedule().getId());
         return schoolDto;
     }
 
@@ -115,6 +143,9 @@ public class SchoolMapper {
 
     private static Schedule dateParse(SchoolDto school){
 
+
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
+
         LocalDate contact;
         LocalDate photograph;
         LocalDate payOff;
@@ -122,6 +153,7 @@ public class SchoolMapper {
         String contractDate = school.getContactDate();
         if (!contractDate.isBlank()){
             contact = LocalDate.parse(contractDate);
+
         } else {
             contact = null;
         }

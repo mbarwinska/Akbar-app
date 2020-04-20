@@ -43,6 +43,9 @@ p.note {
                                            th:text="${school.getWebsite()}"></a></td>
                         </tr>
                         <tr>
+                            <td th:text="'Email: ' + ${school.getEmail()}"></td>
+                        </tr>
+                        <tr>
                             <td th:text="'Status: ' + ${school.getPublicStatus()}"></td>
                         </tr>
                         <tr>
@@ -85,7 +88,7 @@ p.note {
                             <td th:text="${school.getPayOffDate() != null} ? 'Rozliczenie: ' + ${school.getPayOffDate()} : 'Rozliczenie: brak daty'"></td>
                         </tr>
                         <tr>
-                            <td th:text="${school.getPayOffDate() != null} ? 'Inny: ' + ${school.getPayOffDate()} : 'Inny: brak daty'"></td>
+                            <td th:text="${school.getAnotherDate() != null} ? 'Inny: ' + ${school.getAnotherDate()} : 'Inny: brak daty'"></td>
                         </tr>
                     </table>
                     <br>
@@ -106,8 +109,8 @@ p.note {
                     </form>
                 </div>
             </div>
-            <div class="col-md-3 col-md-offset-3"></div>
-        </div>
+    <div class="col-md-3 col-md-offset-3"></div>
+</div>
     </div>
 </div>
 

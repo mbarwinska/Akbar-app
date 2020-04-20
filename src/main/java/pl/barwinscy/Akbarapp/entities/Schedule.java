@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Entity
 public class Schedule {
     @Id
+    @Setter
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     private Long id;

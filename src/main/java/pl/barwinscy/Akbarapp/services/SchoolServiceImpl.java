@@ -6,16 +6,23 @@ import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.Phone;
 import pl.barwinscy.Akbarapp.entities.School;
+import pl.barwinscy.Akbarapp.entities.Status;
 import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
+import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
+import pl.barwinscy.Akbarapp.repositories.StatusRepository;
 
 @Service
 public class SchoolServiceImpl implements SchoolService {
 
     private SchoolRepository schoolRepository;
+    private StatusRepository statusRepository;
+    private PhoneRepository phoneRepository;
 
-    public SchoolServiceImpl(SchoolRepository schoolRepository) {
+    public SchoolServiceImpl(SchoolRepository schoolRepository, StatusRepository statusRepository, PhoneRepository phoneRepository) {
         this.schoolRepository = schoolRepository;
+        this.statusRepository = statusRepository;
+        this.phoneRepository = phoneRepository;
     }
 
     @Override
@@ -42,12 +49,21 @@ public class SchoolServiceImpl implements SchoolService {
     @Transactional
     @Override
     public School update(SchoolDto schoolDto, PhoneDTO phoneDTO) {
+        School school = SchoolMapper.mapDtoToEntity(schoolDto);
 
-        School schoolToUpdate = schoolRepository.findById(schoolDto.getId()).get();
-        schoolToUpdate = SchoolMapper.mapDtoToEntity(schoolDto);
-        School save = schoolRepository.save(schoolToUpdate);
+        if (!phoneDTO.getNumber().isEmpty()){
+            Phone phone = new Phone(phoneDTO.getNumber());
+            phone.setNote(phoneDTO.getNote());
+            school.setPhones(phone);
+        }
+        School save = schoolRepository.save(school);
 
         return save;
+    }
 
+    @Transactional
+    @Override
+    public void phoneDelete(Long phoneId){
+        phoneRepository.deleteById(phoneId);
     }
 }

@@ -14,6 +14,7 @@ import java.util.*;
 public class School {
 
     @Id
+    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

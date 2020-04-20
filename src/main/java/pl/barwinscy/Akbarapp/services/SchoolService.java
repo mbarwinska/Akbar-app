@@ -13,4 +13,6 @@ public interface SchoolService {
     School save(SchoolDto schoolDto);
 
     School update(SchoolDto schoolDto, PhoneDTO phoneDTO);
+
+    void phoneDelete(Long id);
 }
