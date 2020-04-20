@@ -68,12 +68,15 @@ public class SchoolMapper {
         school.setSchedule(schedule);
         school.setAdditionalInfo(additionalInfo);
 
-        for (PhoneDTO phoneDTO : schoolDto.getPhones()) {
-            Phone phone = new Phone(phoneDTO.getNumber());
-            phone.setId(phoneDTO.getId());
-            phone.setNote(phoneDTO.getNote());
-            school.setPhones(phone);
+        if (schoolDto.getPhones() != null){
+            for (PhoneDTO phoneDTO : schoolDto.getPhones()) {
+                Phone phone = new Phone(phoneDTO.getNumber());
+                phone.setId(phoneDTO.getId());
+                phone.setNote(phoneDTO.getNote());
+                school.setPhones(phone);
+            }
         }
+
 
         return school;
     }

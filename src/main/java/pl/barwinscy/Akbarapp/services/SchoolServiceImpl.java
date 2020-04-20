@@ -22,8 +22,7 @@ public class SchoolServiceImpl implements SchoolService {
     private StatusRepository statusRepository;
     private PhoneRepository phoneRepository;
 
-    public SchoolServiceImpl(SchoolRepository schoolRepository, EmployeeRepository employeeRepository) {
-    public SchoolServiceImpl(SchoolRepository schoolRepository, StatusRepository statusRepository, PhoneRepository phoneRepository) {
+    public SchoolServiceImpl(SchoolRepository schoolRepository, StatusRepository statusRepository, PhoneRepository phoneRepository, EmployeeRepository employeeRepository) {
         this.schoolRepository = schoolRepository;
         this.employeeRepository = employeeRepository;
         this.statusRepository = statusRepository;
@@ -42,7 +41,7 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public School save(SchoolDto schoolDto) {
         School school = SchoolMapper.mapDtoToEntity(schoolDto);
-       Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
+        Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
         school.setEmployee(employee);
         School save = schoolRepository.save(school);
         Phone phone = new Phone(schoolDto.getPhoneNumber());
@@ -57,6 +56,8 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public School update(SchoolDto schoolDto, PhoneDTO phoneDTO) {
         School school = SchoolMapper.mapDtoToEntity(schoolDto);
+        Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
+        school.setEmployee(employee);
 
         if (!phoneDTO.getNumber().isEmpty()){
             Phone phone = new Phone(phoneDTO.getNumber());
