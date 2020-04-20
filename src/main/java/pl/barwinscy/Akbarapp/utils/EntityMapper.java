@@ -65,10 +65,8 @@ public class EntityMapper {
         switch (voivodeship) {
             case "MAZOWIECKIE":
                 return Voivodeship.MAZOWIECKIE;
-
             case "ŁÓDZKIE":
                 return Voivodeship.ŁÓDZKIE;
-
             case "ŚWIĘTOKRZYSKIE":
                 return Voivodeship.ŚWIĘTOKRZYSKIE;
         }

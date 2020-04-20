@@ -57,9 +57,12 @@ p.note {
                     <h5>Telefony</h5>
                     <table>
                         <tr th:each="phone : ${school.getPhones()}">
-                            <td th:text="${phone.getNumber()} + ${phone.getNote()}"></td>
+                            <td th:text="${phone.getNumber()} + ' ' + ${phone.getNote()}"></td>
                         </tr>
                     </table>
+                    <br>
+                    <p><b>Notatka 1</b></p>
+                    <p class="note" th:text="${!school.getNote1().isEmpty()} ? ${school.getNote1()} : 'Brak notatki 1'"></p>
                     <br>
 
                     <h5>Status</h5>
@@ -75,11 +78,14 @@ p.note {
                         </tr>
                     </table>
                     <br>
+                    <p><b>Notatka 2</b></p>
+                    <p class="note" th:text="${!school.getNote2().isEmpty()} ? ${school.getNote2()} : 'Brak notatki 2'"></p>
+                    <br>
 
                     <h5>Kalendarz</h5>
                     <table>
                         <tr>
-                            <td th:text="${school.getContactDate() != null} ? 'Umowa: ' + ${school.getContactDate()} : 'Umowa: brak daty'"></td>
+                            <td th:text="${school.getContactDate() != null} ? 'Kontakt: ' + ${school.getContactDate()} : 'Kontakt: brak daty'"></td>
                         </tr>
                         <tr>
                             <td th:text="${school.getPhotographingDate() != null} ? 'Fotografowanie: ' + ${school.getPhotographingDate()} : 'Fotografowanie: brak daty'"></td>
@@ -92,17 +98,10 @@ p.note {
                         </tr>
                     </table>
                     <br>
-
-                    <h5>Notatki</h5>
-                    <p><b>Notatka 1</b></p>
-                    <p class="note" th:text="${!school.getNote1().isEmpty()} ? ${school.getNote1()} : 'Brak notatki 1'"></p>
-                    <br>
-                    <p><b>Notatka 2</b></p>
-                    <p class="note" th:text="${!school.getNote2().isEmpty()} ? ${school.getNote2()} : 'Brak notatki 2'"></p>
-                    <br>
                     <p><b>Notatka 3</b></p>
                     <p class="note" th:text="${!school.getNote3().isEmpty()} ? ${school.getNote3()} : 'Brak notatki 3'"></p>
                     <br>
+
                     <form th:action="@{'/school/' + ${school.getId()} + '/update'}" method="get">
 
                         <button class="btn btn-light btn-lg mr-5" type="submit">Modyfikuj</button>

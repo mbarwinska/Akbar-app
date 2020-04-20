@@ -12,11 +12,10 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private SchoolRepository schoolRepository;
+
     private EmployeeRepository employeeRepository;
 
-    public EmployeeServiceImpl(SchoolRepository schoolRepository, EmployeeRepository employeeRepository) {
-        this.schoolRepository = schoolRepository;
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
@@ -28,7 +27,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee addEmployee(EmployeeDto employeeDto) {
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
-        Employee savedEmployee = employeeRepository.save(employee);
-        return savedEmployee;
+        return employeeRepository.save(employee);
     }
 }

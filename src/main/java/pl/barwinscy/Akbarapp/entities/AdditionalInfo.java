@@ -8,28 +8,24 @@ import javax.persistence.*;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
+@Setter
 @Entity
 public class AdditionalInfo {
 
     @Id
-    @Setter
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Setter
     @Lob
     private String note1;
 
-    @Setter
     @Lob
     private String note2;
 
-    @Setter
     @Lob
     private String note3;
 
-    @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schoolId", foreignKey = @ForeignKey(name = "FK_additional_info_school_id"))
     private School school;

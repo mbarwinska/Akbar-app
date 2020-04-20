@@ -14,5 +14,5 @@ public interface SchoolService {
 
     School update(SchoolDto schoolDto, PhoneDTO phoneDTO);
 
-    void phoneDelete(Long id);
+    void deletePhone(Long id);
 }

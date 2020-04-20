@@ -23,13 +23,11 @@ public class Status {
 
     private Integer calendarsLeftNumber;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_status_school_id"))
     private School school;
 
     protected Status() {
-
     }
 
     public Status(boolean ours, boolean contracted, Integer calendarsLeftNumber) {

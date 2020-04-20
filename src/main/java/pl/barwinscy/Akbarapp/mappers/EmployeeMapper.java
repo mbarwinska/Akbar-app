@@ -12,7 +12,6 @@ public class EmployeeMapper {
 
     public static Employee mapToEmployee(EmployeeDto employeeDto){
         ModelMapper mapper = new ModelMapper();
-        Employee employee = mapper.map(employeeDto, Employee.class);
-        return employee;
+        return  mapper.map(employeeDto, Employee.class);
     }
 }

@@ -26,7 +26,6 @@ public class Employee {
     private Set<School> schools = new HashSet<>();
 
     protected Employee() {
-
     }
 
     public Employee(String firstName, String lastName) {

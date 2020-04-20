@@ -11,7 +11,6 @@ import pl.barwinscy.Akbarapp.Voivodeship;
 @Controller
 public class HomeController {
 
-
     @GetMapping("/")
     public String getIndexPage(){
         return "index";

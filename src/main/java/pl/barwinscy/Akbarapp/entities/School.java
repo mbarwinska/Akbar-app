@@ -10,36 +10,28 @@ import java.util.*;
 
 @ToString
 @Getter
+@Setter
 @Entity
 public class School {
 
     @Id
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long rspo;
 
-    @Setter
     private String type;
 
-    @Setter
     private String name;
 
-    @Setter
     @Embedded
     private Address address;
 
-    @Setter
     private String email;
 
-    @Setter
     private String website;
 
-    //make Enum from that too?
-    @Setter
     private String publicStatus;
-
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "employee", foreignKey = @ForeignKey(name = "FK_school_employee_id"))
@@ -58,7 +50,6 @@ public class School {
     private AdditionalInfo additionalInfo;
 
     protected School() {
-
     }
 
     @Builder
@@ -99,8 +90,6 @@ public class School {
         this.additionalInfo = additionalInfo;
         additionalInfo.setSchool(this);
     }
-
-
 
     @Override
     public boolean equals(Object o) {

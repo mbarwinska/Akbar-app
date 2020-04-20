@@ -1,6 +1,5 @@
 package pl.barwinscy.Akbarapp.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,11 +34,9 @@ public class SchoolDto {
     private String note1;
     private String note2;
     private String note3;
-
     private Long statusId;
     private Long additionInfoId;
     private Long scheduleId;
 
-   //public SchoolDto(){};
 
 }

@@ -18,6 +18,52 @@ public class SchoolMapper {
     }
 
     public static School mapDtoToEntity(SchoolDto schoolDto) {
+        Status status = new Status(schoolDto.isOurs(), schoolDto.isContracted(), schoolDto.getCalendarsLeftNumber());
+        Schedule schedule = dateParse(schoolDto);
+
+        AdditionalInfo additionalInfo = new AdditionalInfo(schoolDto.getNote1(), schoolDto.getNote2(), schoolDto.getNote3());
+        School school = School.builder()
+                .type(schoolDto.getType())
+                .name(schoolDto.getName())
+                .address(addressMapper(schoolDto))
+                .email(schoolDto.getEmail())
+                .website(schoolDto.getWebsite())
+                .publicStatus(schoolDto.getPublicStatus())
+                .build();
+
+        if (schoolDto.getId() != null){
+            school.setId(schoolDto.getId());
+        }
+        if (schoolDto.getAdditionInfoId()!= null){
+            additionalInfo.setId(schoolDto.getAdditionInfoId());
+        }
+        if (schoolDto.getStatusId()!= null){
+            status.setId(schoolDto.getStatusId());
+        }
+        if (schoolDto.getScheduleId()!= null){
+            schedule.setId(schoolDto.getScheduleId());
+        }
+
+        school.setStatus(status);
+        school.setSchedule(schedule);
+        school.setAdditionalInfo(additionalInfo);
+
+        if (schoolDto.getPhones() != null){
+            phoneListMapper(schoolDto.getPhones(), school);
+        }
+        return school;
+    }
+
+    private static void phoneListMapper(List<PhoneDTO> phoneList, School school){
+        for (PhoneDTO phoneDTO : phoneList) {
+            Phone phone = new Phone(phoneDTO.getNumber());
+            phone.setId(phoneDTO.getId());
+            phone.setNote(phoneDTO.getNote());
+            school.setPhones(phone);
+        }
+    }
+
+    private static Address addressMapper(SchoolDto schoolDto){
         Address address = new Address();
         if (schoolDto.getVoivodeship().equalsIgnoreCase("ŁÓDZKIE")) {
             address.setVoivodeship(Voivodeship.ŁÓDZKIE);
@@ -33,61 +79,15 @@ public class SchoolMapper {
         address.setCity(schoolDto.getCity());
         address.setStreet(schoolDto.getStreet());
         address.setZipCode(schoolDto.getZipCode());
-
-        Status status = new Status(schoolDto.isOurs(), schoolDto.isContracted(), schoolDto.getCalendarsLeftNumber());
-
-        Schedule schedule = dateParse(schoolDto);
-
-        AdditionalInfo additionalInfo = new AdditionalInfo(schoolDto.getNote1(), schoolDto.getNote2(), schoolDto.getNote3());
-        School school = School.builder()
-                .type(schoolDto.getType())
-                .name(schoolDto.getName())
-                .address(address)
-                .email(schoolDto.getEmail())
-                .website(schoolDto.getWebsite())
-                .publicStatus(schoolDto.getPublicStatus())
-                .build();
-
-        if (schoolDto.getId() != null){
-            school.setId(schoolDto.getId());
-        }
-
-        if (schoolDto.getAdditionInfoId()!= null){
-            additionalInfo.setId(schoolDto.getAdditionInfoId());
-        }
-
-        if (schoolDto.getStatusId()!= null){
-            status.setId(schoolDto.getStatusId());
-        }
-        if (schoolDto.getScheduleId()!= null){
-            schedule.setId(schoolDto.getScheduleId());
-        }
-
-
-        school.setStatus(status);
-        school.setSchedule(schedule);
-        school.setAdditionalInfo(additionalInfo);
-
-        if (schoolDto.getPhones() != null){
-            for (PhoneDTO phoneDTO : schoolDto.getPhones()) {
-                Phone phone = new Phone(phoneDTO.getNumber());
-                phone.setId(phoneDTO.getId());
-                phone.setNote(phoneDTO.getNote());
-                school.setPhones(phone);
-            }
-        }
-
-
-        return school;
+        return address;
     }
 
     public static SchoolDto mapSchoolEntityToDto(School school){
         List<PhoneDTO> phones = new ArrayList<>();
         school.getPhones().forEach(phone -> phones.add(new PhoneDTO(phone.getId(), phone.getPhoneNumber(), phone.getNote())));
 
-        for (int i = 0; i < phones.size(); i++){
-            PhoneDTO phoneDTO = phones.get(i);
-            if (phoneDTO.getNote().isEmpty()){
+        for (PhoneDTO phoneDTO : phones) {
+            if (phoneDTO.getNote().isEmpty()) {
                 phoneDTO.setNote("notatka");
             }
         }
@@ -145,9 +145,6 @@ public class SchoolMapper {
     }
 
     private static Schedule dateParse(SchoolDto school){
-
-
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMAN);
 
         LocalDate contact;
         LocalDate photograph;

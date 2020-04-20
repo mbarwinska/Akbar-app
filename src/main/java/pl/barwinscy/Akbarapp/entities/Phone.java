@@ -10,31 +10,26 @@ import javax.persistence.*;
 @EqualsAndHashCode(exclude = {"note"})
 @ToString
 @Getter
+@Setter
 @Entity
 public class Phone {
 
     @Id
-    @Setter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Setter
     private Long schoolRSPO;
 
-    @Setter
     private String phoneNumber;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id", foreignKey = @ForeignKey(name = "FK_phone_school_id"))
     private School school;
 
-    @Setter
     @Lob
     private String note;
 
     protected Phone() {
-
     }
 
     public Phone(String phoneNumber, Long rspo) {

@@ -11,7 +11,6 @@ import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.School;
-import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
 import pl.barwinscy.Akbarapp.services.EmployeeService;
 import pl.barwinscy.Akbarapp.services.SchoolService;
 import pl.barwinscy.Akbarapp.services.SearchService;
@@ -40,27 +39,27 @@ public class SchoolController {
         model.addAttribute("school", new SchoolDto());
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
-        model.addAttribute("counties",searchService.getAllCounties());
+        model.addAttribute("counties", searchService.getAllCounties());
         model.addAttribute("employees", employeeService.getAllEmployees());
         return "school-form";
     }
 
     @GetMapping("/school/{schoolId}/update")
-    public String updateSchoolForm(@PathVariable String schoolId, Model model){
+    public String updateSchoolForm(@PathVariable String schoolId, Model model) {
         SchoolDto schoolWithAllData = schoolService.getSchoolWithAllData(Long.valueOf(schoolId));
         model.addAttribute("newPhone", new PhoneDTO());
-        model.addAttribute("school",schoolWithAllData);
+        model.addAttribute("school", schoolWithAllData);
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
-        model.addAttribute("counties",searchService.getAllCounties());
+        model.addAttribute("counties", searchService.getAllCounties());
         model.addAttribute("employees", employeeService.getAllEmployees());
         return "school-update";
     }
 
     @PostMapping("/school")
     public String save(@ModelAttribute("school") SchoolDto schoolDto) {
-            School saveSchool = schoolService.save(schoolDto);
-            return "redirect:/school/" + saveSchool.getId();
+        School saveSchool = schoolService.save(schoolDto);
+        return "redirect:/school/" + saveSchool.getId();
 
     }
 
@@ -73,9 +72,9 @@ public class SchoolController {
     }
 
     @GetMapping("/update/{schoolId}/delete-phone/{phoneId}")
-    public String phoneDelete(@PathVariable Long phoneId,@PathVariable Long schoolId){
+    public String phoneDelete(@PathVariable Long phoneId, @PathVariable Long schoolId) {
 
-            schoolService.phoneDelete(phoneId);
+        schoolService.deletePhone(phoneId);
         return "redirect:/school/" + schoolId + "/update";
     }
 
