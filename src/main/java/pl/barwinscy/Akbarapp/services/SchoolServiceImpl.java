@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
+import pl.barwinscy.Akbarapp.entities.Employee;
 import pl.barwinscy.Akbarapp.entities.Phone;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.entities.Status;
 import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
+import pl.barwinscy.Akbarapp.repositories.EmployeeRepository;
 import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 import pl.barwinscy.Akbarapp.repositories.StatusRepository;
@@ -16,11 +18,14 @@ import pl.barwinscy.Akbarapp.repositories.StatusRepository;
 public class SchoolServiceImpl implements SchoolService {
 
     private SchoolRepository schoolRepository;
+    private EmployeeRepository employeeRepository;
     private StatusRepository statusRepository;
     private PhoneRepository phoneRepository;
 
+    public SchoolServiceImpl(SchoolRepository schoolRepository, EmployeeRepository employeeRepository) {
     public SchoolServiceImpl(SchoolRepository schoolRepository, StatusRepository statusRepository, PhoneRepository phoneRepository) {
         this.schoolRepository = schoolRepository;
+        this.employeeRepository = employeeRepository;
         this.statusRepository = statusRepository;
         this.phoneRepository = phoneRepository;
     }
@@ -37,6 +42,8 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public School save(SchoolDto schoolDto) {
         School school = SchoolMapper.mapDtoToEntity(schoolDto);
+       Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
+        school.setEmployee(employee);
         School save = schoolRepository.save(school);
         Phone phone = new Phone(schoolDto.getPhoneNumber());
         //phone.setSchool(save);

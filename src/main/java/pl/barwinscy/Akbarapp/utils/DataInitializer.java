@@ -28,6 +28,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     Status status4 = new Status(true, false, 20);
     Schedule schedule1 = new Schedule(LocalDate.of(2020, 2, 12), LocalDate.of(2020, 3, 2), null);
     AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", "", "Notatka2.C");
+    Employee employee = new Employee("Bill", "Clinton");
 
 
 
@@ -65,6 +66,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         schoolFromDB.setStatus(status1);
         schoolFromDB.setSchedule(schedule1);
         schoolFromDB.setAdditionalInfo(additionalInfo2);
+        schoolFromDB.setEmployee(employee);
 
         schoolFromDB2.setStatus(status2);
         schoolFromDB3.setStatus(status3);

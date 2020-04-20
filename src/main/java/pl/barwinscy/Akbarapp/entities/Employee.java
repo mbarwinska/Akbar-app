@@ -14,6 +14,7 @@ import java.util.Set;
 public class Employee {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
     @Setter
@@ -28,8 +29,7 @@ public class Employee {
 
     }
 
-    public Employee(Long id, String firstName, String lastName) {
-        this.id = id;
+    public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }

@@ -94,8 +94,8 @@
                                 <td>
                                     <label>Pracownik:</label>
                                     <select th:field="${school.employee}">
-                                        <option th:value="''"
-                                                th:text="${school.employee != null} ?  ${school.employee} : 'brak'"></option>
+                                        <option th:value="''" th:text="${school.employee != null} ?  ${school.employee} : 'brak'"></option>
+                                        <option th:each="employee : ${employees}" th:value="${employee.lastName}" th:text="${employee.firstName}+' '+${employee.lastName}"></option>
                                     </select>
                                 </td>
                             </tr>

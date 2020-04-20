@@ -49,8 +49,8 @@ public class SchoolControllerTest {
     Schedule schedule2 = new Schedule(LocalDate.of(2020, 02, 12), LocalDate.of(2020, 03, 02), null);
     AdditionalInfo additionalInfo1 = new AdditionalInfo("Notatka1.A", "Notatka1.B", "Notatka1.C");
     AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", null, "Notatka2.C");
-    Employee employee1 = new Employee(28L, "Jan", "Nowak");
-    Employee employee2 = new Employee(50L, "Marian", "Kowalski");
+    Employee employee1 = new Employee( "Jan", "Nowak");
+    Employee employee2 = new Employee( "Marian", "Kowalski");
 
 
     public void saveSchoolsToDB() {

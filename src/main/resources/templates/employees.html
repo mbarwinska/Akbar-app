@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container-fluid" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <form class="form-inline justify-content-center" th:action="@{/employees/search}" method="get">
+                            <label style="margin-right: 10px">Wyszukaj:</label>
+                            <input type="text" class="form-control mb-2 mr-sm-2"/>
+                            <button class="btn btn-primary" type="submit" style="margin-bottom: 10px">Szukaj</button>
+                        </form>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h1 class="card-title" align="center">Pracownicy</h1>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover ">
+                                        <thead class="thead-inverse">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nazwisko</th>
+                                            <th>Imię</th>
+                                        </tr>
+                                        </thead>
+                                        <tr th:remove="all">
+                                            <td><a href="#">123</a></td>
+                                            <td>Kowlaski</td>
+                                            <td>Jan</td>
+                                        </tr>
+                                        <tr th:each="employee : ${employees}">
+                                            <td th:text="${employee.id}"></td>
+                                            <td th:text="${employee.lastName}"></td>
+                                            <td th:text="${employee.firstName}"></td>
+                                        </tr>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <br>
+                        <form class="form-inline justify-content-center" th:object="${newEmployee}" th:action="@{/employees/add}" method="get">
+                            <label style="margin-right: 10px">Dodaj</label>
+                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Imię" th:field="*{firstName}"/>
+                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwisko" th:field="*{lastName}"/>
+                            <button class=" btn btn-primary" type="submit" style="margin-bottom: 10px">Dodaj</button>
+                        </form>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+
+                <div class="col-md-3"></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
