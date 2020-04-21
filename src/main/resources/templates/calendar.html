@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Filters</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <form th:action="@{/calendar-result}" method="get">
+                    <div>
+
+                        <div class="card" style="margin-top: 20px">
+                            <div class="card-header">
+                                <h5 class="card-title">Rodzaj terminu</h5>
+                            </div>
+                            <div class="card-body">
+
+                                <input type="radio" name="bla">
+                                <label  th:value="contact">Telefon</label><br>
+
+                                <input type="radio" name="bla">
+                                <label  th:value="photographing">Fotografowanie</label><br>
+
+                                <input type="radio" name="bla">
+                                <label  th:value="payoff">Rozliczenie</label><br>
+
+                                <input type="radio" name="bla">
+                                <label  th:value="other">Inna</label><br>
+
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Data</h5>
+                            </div>
+                            <div class="card-body">
+                                <label>Od</label>
+                                <input type="date" class="form-control">
+                                <label>do</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="card" >
+                            <div class="card-header">
+                                <h5 class="card-title">Powiat</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <select class="form-control mr-sm-2">
+                                        <option th:value="''" th:text="Wybierz"></option>
+                                        <option th:each="county : ${counties}" th:value="${county}"
+                                                th:text="${county}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Gmina</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-dark" type="submit" style="margin-left: 250px">Filtruj</button>
+                    </div>
+                </form>
+                <br>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card" style="margin-top: 40px">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="card-title" align="center">DD.MM.RRRR</h5>
+                    </div>
+                    <div class="card-body" style="background-color: beige">
+                        <div class="table-responsive">
+                            <table class="table table-hover ">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>Powiat</th>
+                                    <th>Gmina</th>
+                                    <th>Miejscowość</th>
+                                    <th>Nazwa</th>
+                                    <th>Adres</th>
+                                    <th>Telefon</th>
+                                </tr>
+                                </thead>
+                                <tr>
+                                    <td>Łódź</td>
+                                    <td>Łódź</td>
+                                    <td>Łódź</td>
+                                    <td><a href="#">SP 109</a></td>
+                                    <td>ul. Nowa 5</td>
+                                    <td>42 646-63-82</td>
+                                </tr>
+                                <tr th:each="school : ${schools}">
+                                    <td th:text="${school.getAddress().voivodeship.getName()}"></td>
+                                    <td th:text="${school.getAddress().county}"></td>
+                                    <td th:text="${school.getAddress().borough}"></td>
+                                    <td th:text="${school.getAddress().city}"></td>
+                                    <td><a href="#" style="color: black" th:href="@{'school/' + ${school.id}}"
+                                           th:text="${school.name}"></a></td>
+                                    <td th:text="${school.getAddress().street}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+</body>
+</html>
