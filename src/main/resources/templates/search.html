@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
@@ -18,23 +17,27 @@
                 <div align="center">
 
                     <form th:action="@{/search-result}" class="form-inline justify-content-center" method="get">
-
                         <div class="row">
                             <div class="col-md-3 col-md-offset-3">
                                 <label for="voivodeships" class="mr-sm-2">Województwo</label>
-                                <select class="form-control mr-sm-2" id="voivodeships" th:field="${form.voivodeship}" name="voivodeship">
+                                <select class="form-control mr-sm-2" id="voivodeships" th:field="${form.voivodeship}"
+                                        name="voivodeship">
                                     <option th:value="Łódzkie" th:text="Wybierz"></option>
-                                    <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.name()}" th:text="${voivodeship.getName()}"></option>
+                                    <option th:each="voivodeship : ${voivodeships}" th:value="${voivodeship.name()}"
+                                            th:text="${voivodeship.getName()}"></option>
                                 </select>
                             </div>
 
                             <div class="col-md-3 col-md-offset-3">
                                 <label for="counties" class="mr-sm-2">Powiat</label>
-                                <select class="form-control mr-sm-2" id="counties" th:field="${form.county}" name="county">
+                                <select class="form-control mr-sm-2" id="counties" th:field="${form.county}"
+                                        name="county">
                                     <option th:value="''" th:text="Wybierz"></option>
-                                    <option th:each="county : ${counties}" th:value="${county}" th:text="${county}"></option>
+                                    <option th:each="county : ${counties}" th:value="${county}"
+                                            th:text="${county}"></option>
                                 </select>
                             </div>
+
                             <div class="col-md-3 col-md-offset-3">
                                 <label for="boroughs" class="mr-sm-2">Gmina</label>
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Gmina"
@@ -49,29 +52,28 @@
 
                         <div class="row">
                             <div class="col-md-3 col-md-offset-3">
-                        <label for="types" class="mr-sm-2">Typ placówki</label>
-                        <select class="form-control mr-sm-2" id="types" name="type">
-                            <option th:value="''"  th:text="Wybierz" th:field="${form.type}"></option>
-                            <option th:each="type : ${types}" th:value="${type.getName()}" th:text="${type.getName()}"></option>
-                        </select>
-                            </div>
-                                <div class="col-md-3 col-md-offset-3">
-                        <label for="schoolName" class="mr-sm-2">Nazwa</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwa" name="name"
-                               id="schoolName" th:field="${form.name}">
-                                </div>
-                            <div class="col-md-3 col-md-offset-3">
-                        <label for="schoolAddress" class="mr-sm-2">Adres</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Adres" name="address"
-                               id="schoolAddress" th:field="${form.street}">
+                                <label for="types" class="mr-sm-2">Typ placówki</label>
+                                <select class="form-control mr-sm-2" id="types" name="type">
+                                    <option th:value="''" th:text="Wybierz" th:field="${form.type}"></option>
+                                    <option th:each="type : ${types}" th:value="${type.getName()}"
+                                            th:text="${type.getName()}"></option>
+                                </select>
                             </div>
                             <div class="col-md-3 col-md-offset-3">
-                        <label for="schoolPhone" class="mr-sm-2">Telefon</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Numer telefonu"
-                               name="address" id="schoolPhone" th:field="${form.phone}">
+                                <label for="schoolName" class="mr-sm-2">Nazwa</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwa" name="name"
+                                       id="schoolName" th:field="${form.name}">
                             </div>
-
-
+                            <div class="col-md-3 col-md-offset-3">
+                                <label for="schoolAddress" class="mr-sm-2">Adres</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Adres" name="address"
+                                       id="schoolAddress" th:field="${form.street}">
+                            </div>
+                            <div class="col-md-3 col-md-offset-3">
+                                <label for="schoolPhone" class="mr-sm-2">Telefon</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Numer telefonu"
+                                       name="address" id="schoolPhone" th:field="${form.phone}">
+                            </div>
                         </div>
                         <p align="center">
                             <button type="submit" class="btn btn-primary mb-2">Szukaj</button>
@@ -109,12 +111,12 @@
                                         <td th:text="${school.getAddress().borough}"></td>
                                         <td th:text="${school.getAddress().city}"></td>
                                         <td th:text="${school.type}"></td>
-                                        <td> <a href="#" style="color: yellow" th:href="@{'school/' + ${school.id}}" th:text="${school.name}"></a> </td>
+                                        <td><a href="#" style="color: yellow" th:href="@{'school/' + ${school.id}}"
+                                               th:text="${school.name}"></a></td>
                                         <td th:text="${school.getAddress().street}"></td>
                                         <td th:text="${school.getPhones().get(0).getPhoneNumber()}"></td>
                                     </tr>
                                 </table>
-
                             </div>
                         </div>
                     </div>

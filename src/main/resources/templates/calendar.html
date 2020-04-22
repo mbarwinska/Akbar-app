@@ -20,7 +20,6 @@
                                 <h5 class="card-title">Rodzaj terminu</h5>
                             </div>
                             <div class="card-body">
-
                                 <input type="radio" required="required" name="date_type" value="contactDate" id="id1" th:field="${form.dateType}"/>
                                 <label for="id1">Telefon</label><br>
 
@@ -32,7 +31,6 @@
 
                                 <input type="radio" required="required" name="date_type" value="otherDate"  id="id4" th:field="${form.dateType}"/>
                                 <label for="id4">Inna</label><br>
-
                             </div>
                         </div>
                         <div class="card">
@@ -79,15 +77,10 @@
                 <br>
             </div>
 
-
             <div class="col-md-9">
-
                 <th:block th:each="date : ${schools}">
-
-
                     <div class="card" style="margin-top: 40px">
                         <div class="card-header bg-dark text-white">
-<!--                            <h5 class="card-title" align="center" th:text="${date.key.format('dd-MM-yyyy')}">DD.MM.RRRR</h5>-->
                             <h5 class="card-title" align="center" th:text="${#temporals.format(date.key, 'dd-MM-yyyy')}"></h5>
                         </div>
                         <div class="card-body" style="background-color: beige">
@@ -117,11 +110,7 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </th:block>
-
             </div>
             <br>
             <br>

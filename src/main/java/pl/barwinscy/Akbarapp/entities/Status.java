@@ -35,5 +35,4 @@ public class Status {
         this.contracted = contracted;
         this.calendarsLeftNumber = calendarsLeftNumber;
     }
-
 }

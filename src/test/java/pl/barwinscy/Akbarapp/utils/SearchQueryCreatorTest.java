@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
-class FilterQueryCreatorTest {
+class SearchQueryCreatorTest {
 
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();

@@ -31,7 +31,6 @@ public class AdditionalInfo {
     private School school;
 
     protected AdditionalInfo() {
-
     }
 
     public AdditionalInfo(String note1, String note2, String note3) {

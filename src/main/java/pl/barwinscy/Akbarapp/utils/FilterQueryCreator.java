@@ -20,18 +20,16 @@ public class FilterQueryCreator {
     private boolean notOurs;
 
 
-
     public FilterQueryCreator() {
     }
 
     public String createFilterQuery() {
 
         String query = "SELECT school FROM School as school";
-        if (ours || contracted || calendarsLeft || noCalendars || noContract || notOurs){
+        if (ours || contracted || calendarsLeft || noCalendars || noContract || notOurs) {
             query += " LEFT JOIN Status as status ON school.id = status.school.id";
             query = insertStatusToQuery(query);
-        }
-        else {
+        } else {
             query += " WHERE";
         }
         if (!voivodeship.isEmpty()) {
@@ -56,9 +54,9 @@ public class FilterQueryCreator {
         if (type != null) {
             query += " school.type IN ('";
             String[] types = type.split(",");
-            if (types.length > 1){
-                query = insertParamToQuery(types,query);
-            } else{
+            if (types.length > 1) {
+                query = insertParamToQuery(types, query);
+            } else {
                 query += type + "') AND";
             }
 
@@ -78,26 +76,27 @@ public class FilterQueryCreator {
         return query;
     }
 
-    private String insertStatusToQuery(String query){
+    private String insertStatusToQuery(String query) {
         query += " WHERE";
-        if (ours){
+        if (ours) {
             query += " status.ours = 1 AND";
         }
-        if (contracted){
+        if (contracted) {
             query += " status.contracted = 1 AND";
         }
-        if (calendarsLeft){
+        if (calendarsLeft) {
             query += " status.calendarsLeftNumber > 0 AND";
         }
-        if(noCalendars){
+        if (noCalendars) {
             query += " (status.calendarsLeftNumber IS NULL OR status.calendarsLeftNumber = 0) AND";
-        } if(noContract){
+        }
+        if (noContract) {
             query += " (status.contracted IS NULL OR status.contracted = 0) AND";
         }
-        if(notOurs){
+        if (notOurs) {
             query += " (status.ours = 0 OR status.ours IS NULL) AND";
         }
-        query = query.substring(0,query.length() - 4);
+        query = query.substring(0, query.length() - 4);
         query += " AND";
         return query;
     }

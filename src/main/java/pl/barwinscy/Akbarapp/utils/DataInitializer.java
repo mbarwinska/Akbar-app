@@ -5,7 +5,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.barwinscy.Akbarapp.entities.*;
-import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 import java.time.LocalDate;
@@ -33,7 +32,6 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     Salesman salesman = new Salesman("Chandler", "Bing");
 
 
-
     public DataInitializer(SchoolRepository schoolRepository) {
         this.schoolRepository = schoolRepository;
     }
@@ -56,7 +54,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             }
         }
     }
-    private List<School> changeCountiesToLowerCase(List<School> schools){
+
+    private List<School> changeCountiesToLowerCase(List<School> schools) {
         List<School> schoolsWithCountiesLowerCase = new ArrayList<>();
         for (School school : schools) {
             school.getAddress().setCounty(school.getAddress().getCounty().toLowerCase());

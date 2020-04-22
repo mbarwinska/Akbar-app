@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface EmployeeService {
     List<Employee> getAllPhotographers();
+
     List<Salesman> getAllSalesmen();
 
     Employee addEmployee(EmployeeDto employeeDto);
+
     Salesman addSalesman(SalesmanDto salesmanDto);
 }

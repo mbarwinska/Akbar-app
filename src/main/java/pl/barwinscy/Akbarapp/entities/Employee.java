@@ -17,8 +17,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
     @Setter
     private String firstName;
+
     @Setter
     private String lastName;
 

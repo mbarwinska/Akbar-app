@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.barwinscy.Akbarapp.entities.School;
 
-import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -21,7 +20,7 @@ public interface SchoolRepository extends JpaRepository<School, Long>, SearchQue
             "LEFT JOIN Employee as e ON s.employee.id = e.id " +
             "LEFT JOIN AdditionalInfo as a ON s.id = a.school.id " +
             "WHERE s.id = :schoolId")
-    School findSchoolWithAllInfo(@Param("schoolId")Long schoolId);
+    School findSchoolWithAllInfo(@Param("schoolId") Long schoolId);
 
     @Query(value = "SELECT s FROM School as s WHERE s.rspo = :rspo")
     School findByRspo(Long rspo);

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
-      layout:decorate="layout/layout"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      layout:decorate="layout/layout">
 <head>
     <meta charset="UTF-8">
     <title>School-update</title>
@@ -36,7 +35,6 @@
                                     <input type="text" th:field="${school.name}">
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <label>Adres:</label>
@@ -88,7 +86,6 @@
                                     </select>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <label>Status:</label>
@@ -104,7 +101,6 @@
                                     </select>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <label>Akwizytor:</label>
@@ -114,22 +110,17 @@
                                     </select>
                                 </td>
                             </tr>
-
                         </table>
                         <br>
-
                         <h5>Telefony</h5>
                         <table>
                             <tr th:each="phone, phoneStat : ${school.getPhones()}">
                                 <td>
-
                                     <label th:text="${phone.number}"></label>
                                     <input type="hidden" th:field="${school.phones[__${phoneStat.index}__].id}"/>
                                     <input type="hidden" th:field="${school.phones[__${phoneStat.index}__].number}"/>
                                     <input type="text" th:field="${school.phones[__${phoneStat.index}__].note}">
-
                                     <a href="#" th:href="@{'/update/' + ${schoolId} + '/delete-phone/' + ${school.phones[__${phoneStat.index}__].id}}">Usuń</a>
-
                                 </td>
                             </tr>
                             <tr>
@@ -138,7 +129,6 @@
                                     <input type="tel" th:field="${newPhone.number}">
                                     <input type="tel" th:field="${newPhone.note}">
                                 </td>
-
                             </tr>
                         </table>
                         <br>
@@ -153,21 +143,18 @@
                                     <label>Nasza: </label>
                                     <input type="checkbox" th:field="${school.ours}"/>
                                 </td>
-
                             </tr>
                             <tr>
                                 <td>
                                     <label>Umówiona: </label>
                                     <input type="checkbox" th:field="${school.contracted}"/>
                                 </td>
-
                             </tr>
                             <tr>
                                 <td>
                                     <label>Kalendarze: </label>
                                     <input type="number" th:field="${school.calendarsLeftNumber}">
                                 </td>
-
                             </tr>
                         </table>
                         <br>
@@ -182,8 +169,6 @@
                                     <label>Kontakt:</label>
                                     <input type="date" th:field="${school.contactDate}">
                                 </td>
-
-
                             </tr>
                             <tr>
                                 <td>
@@ -208,7 +193,6 @@
                         <b><label>Notatka 3</label></b><br>
                         <textarea class="form-control" type="text" th:field="${school.note3}"></textarea>
                         <br>
-
                         <br>
                         <button class="btn btn-primary" type="submit" style="margin-left: 660px">Zmodyfikuj</button>
                     </form>

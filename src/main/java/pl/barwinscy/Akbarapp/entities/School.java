@@ -1,21 +1,21 @@
 package pl.barwinscy.Akbarapp.entities;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-@ToString
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class School {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     private Long rspo;
@@ -76,7 +76,7 @@ public class School {
     }
 
     public void setSalesman(Salesman salesman) {
-        if (this.salesman != null){
+        if (this.salesman != null) {
             this.salesman.getSchools().remove(this);
         }
         this.salesman = salesman;
@@ -101,19 +101,5 @@ public class School {
     public void setAdditionalInfo(AdditionalInfo additionalInfo) {
         this.additionalInfo = additionalInfo;
         additionalInfo.setSchool(this);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        School school = (School) o;
-        return Objects.equals(id, school.id) &&
-                Objects.equals(type, school.type);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, type);
     }
 }

@@ -40,6 +40,4 @@ public class Phone {
     public Phone(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-
 }

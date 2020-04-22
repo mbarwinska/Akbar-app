@@ -26,7 +26,6 @@ public class Address {
     private String zipCode;
 
     public Address() {
-
     }
 
     public Address(Voivodeship voivodeship, String county, String borough, String city, String street, String zipCode) {

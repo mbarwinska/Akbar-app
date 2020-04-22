@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class EmployeeDto {
     private String firstName;
     private String lastName;

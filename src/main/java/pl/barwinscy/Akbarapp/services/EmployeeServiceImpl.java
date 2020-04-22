@@ -8,7 +8,6 @@ import pl.barwinscy.Akbarapp.entities.Salesman;
 import pl.barwinscy.Akbarapp.mappers.EmployeeMapper;
 import pl.barwinscy.Akbarapp.repositories.EmployeeRepository;
 import pl.barwinscy.Akbarapp.repositories.SalesmanRepository;
-import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 import java.util.List;
 

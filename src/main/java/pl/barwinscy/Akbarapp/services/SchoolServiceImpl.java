@@ -31,7 +31,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public SchoolDto getSchoolWithAllData(Long schoolId){
+    public SchoolDto getSchoolWithAllData(Long schoolId) {
         School schoolToView = schoolRepository.findSchoolWithAllInfo(schoolId);
         return SchoolMapper.mapSchoolEntityToDto(SchoolMapper.mapSchoolToView(schoolToView));
     }
@@ -40,11 +40,11 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public School save(SchoolDto schoolDto) {
         School school = SchoolMapper.mapDtoToEntity(schoolDto);
-        if (!schoolDto.getEmployee().isEmpty()){
+        if (!schoolDto.getEmployee().isEmpty()) {
             Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
             school.setEmployee(employee);
         }
-        if (!schoolDto.getSalesman().isEmpty()){
+        if (!schoolDto.getSalesman().isEmpty()) {
             Salesman salesman = salesmanRepository.findById(Long.valueOf(schoolDto.getSalesman())).get();
             school.setSalesman(salesman);
         }
@@ -60,18 +60,18 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public School update(SchoolDto schoolDto, PhoneDTO phoneDTO) {
         School school = SchoolMapper.mapDtoToEntity(schoolDto);
-        if (!schoolDto.getEmployee().isEmpty()){
+        if (!schoolDto.getEmployee().isEmpty()) {
             Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
             school.setEmployee(employee);
         }
 
-        if (!schoolDto.getSalesman().isEmpty()){
+        if (!schoolDto.getSalesman().isEmpty()) {
             Salesman salesman = salesmanRepository.findById(Long.valueOf(schoolDto.getSalesman())).get();
             school.setSalesman(salesman);
         }
 
 
-        if (!phoneDTO.getNumber().isEmpty()){
+        if (!phoneDTO.getNumber().isEmpty()) {
             Phone phone = new Phone(phoneDTO.getNumber());
             phone.setNote(phoneDTO.getNote());
             school.setPhones(phone);
@@ -80,7 +80,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Transactional
-    public void deletePhone(Long phoneId){
+    public void deletePhone(Long phoneId) {
         phoneRepository.deleteById(phoneId);
     }
 }

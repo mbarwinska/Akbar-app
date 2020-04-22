@@ -22,16 +22,16 @@ public class CalendarController {
     }
 
     @GetMapping("/calendar")
-    public String getCalendarPage(Model model){
+    public String getCalendarPage(Model model) {
         model.addAttribute("form", new CalendarQueryCreator());
         model.addAttribute("counties", searchService.getAllCounties());
         return "calendar";
     }
 
     @GetMapping("/calendar-result")
-    public String getCalendarResult(@ModelAttribute("form") CalendarQueryCreator calendarQueryCreator, Model model){
+    public String getCalendarResult(@ModelAttribute("form") CalendarQueryCreator calendarQueryCreator, Model model) {
         String query = calendarQueryCreator.createCalendarQuery();
-        Map<LocalDate, List<School>> searchedSchools = searchService.schoolMapByDate(query);
+        Map<LocalDate, List<School>> searchedSchools = searchService.schoolMapByDate(query, calendarQueryCreator.getDateType());
         model.addAttribute("schools", searchedSchools);
         model.addAttribute("counties", searchService.getAllCounties());
         return "calendar";

@@ -12,7 +12,8 @@ public class PhoneDTO {
     private String note;
     private boolean toDelete;
 
-    public PhoneDTO(){}
+    public PhoneDTO() {
+    }
 
     public PhoneDTO(Long id, String number, String note) {
         this.id = id;
