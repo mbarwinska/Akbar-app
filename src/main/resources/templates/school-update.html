@@ -55,7 +55,7 @@
                             <tr>
                                 <td><label>Powiat:</label>
                                     <select th:field="${school.county}">
-                                        <option th:value="''" th:text="Wybierz"></option>
+                                        <option th:value="${school.county}" th:text="${school.county}"></option>
                                         <option th:each="county : ${counties}" th:value="${county}"
                                                 th:text="${county}"></option>
                                     </select></td>
@@ -81,9 +81,14 @@
                             <tr>
                                 <td>
                                     <label>Typ placówki:</label>
-                                    <input type="text" th:field="${school.type}">
+                                    <select  th:field="${school.type}">
+                                        <option th:value="${school.type}" th:text="${school.type}"></option>
+                                        <option th:each="type : ${types}" th:value="${type.getName()}"
+                                                th:text="${type.getName()}"></option>
+                                    </select>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>
                                     <label>Status:</label>
@@ -113,7 +118,7 @@
                                     <input type="text" th:field="${school.phones[__${phoneStat.index}__].note}">
 
 <!--                                    <p><a th:href="@{'/phoneDelete/?phoneId=' + ${school.phones[__${phoneStat.index}__].id} + 'schoolid=' + ${school.id}">do usuniecia</a></p>-->
-                                    <a href="#" th:href="@{'/update/' + ${schoolId} + '/delete-phone/' + ${school.phones[__${phoneStat.index}__].id}}">Usun</a>
+                                    <a href="#" th:href="@{'/update/' + ${schoolId} + '/delete-phone/' + ${school.phones[__${phoneStat.index}__].id}}">Usuń</a>
 
                                 </td>
                             </tr>

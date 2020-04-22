@@ -14,4 +14,5 @@ public interface SearchService {
     Set<String> getAllCounties();
 
     Map<LocalDate, List <School>> schoolMapByDate(String calendarQuery);
+
 }

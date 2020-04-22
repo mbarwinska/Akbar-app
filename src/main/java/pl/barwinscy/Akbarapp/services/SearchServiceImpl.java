@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.text.Collator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -27,8 +30,11 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Set<String> getAllCounties() {
-        return schoolRepository.findAllCounties();
+    public List<String> getAllCounties() {
+        Set<String> allCounties = schoolRepository.findAllCounties();
+        List<String> countiesList = new ArrayList<>(allCounties);
+        countiesList.sort(Collator.getInstance(new Locale("pl", "PL")));
+        return countiesList;
     }
 
     @Override
