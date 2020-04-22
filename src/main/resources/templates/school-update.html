@@ -81,7 +81,10 @@
                             <tr>
                                 <td>
                                     <label>Typ placówki:</label>
-                                    <input type="text" th:field="${school.type}">
+                                    <select  th:field="${school.type}">
+                                        <option th:value="''" th:text="${school.type}"></option>
+                                        <option th:each="type : ${types}" th:value="${type.getName()}" th:text="${type.getName()}"></option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>

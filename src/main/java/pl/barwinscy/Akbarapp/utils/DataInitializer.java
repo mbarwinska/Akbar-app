@@ -9,6 +9,7 @@ import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         linkPhonesToSchools();
-        schoolRepository.saveAll(schools);
+        List<School> schoolsToSave = changeCountiesToLowerCase(this.schools);
+        schoolRepository.saveAll(schoolsToSave);
         addRelationalDataToSchools();
     }
 
@@ -52,6 +54,14 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
                 }
             }
         }
+    }
+    private List<School> changeCountiesToLowerCase(List<School> schools){
+        List<School> schoolsWithCountiesLowerCase = new ArrayList<>();
+        for (School school : schools) {
+            school.getAddress().setCounty(school.getAddress().getCounty().toLowerCase());
+            schoolsWithCountiesLowerCase.add(school);
+        }
+        return schoolsWithCountiesLowerCase;
     }
 
     private void addRelationalDataToSchools() {

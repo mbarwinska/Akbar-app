@@ -4,8 +4,9 @@ import org.springframework.stereotype.Service;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
-import java.util.List;
-import java.util.Set;
+import java.text.Collator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -22,7 +23,10 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Set<String> getAllCounties() {
-        return schoolRepository.findAllCounties();
+    public List<String> getAllCounties() {
+        Set<String> allCounties = schoolRepository.findAllCounties();
+        List<String> countiesList = new ArrayList<>(allCounties);
+        countiesList.sort(Collator.getInstance(new Locale("pl", "PL")));
+        return countiesList;
     }
 }
