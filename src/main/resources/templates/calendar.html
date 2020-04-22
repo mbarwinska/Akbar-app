@@ -21,17 +21,17 @@
                             </div>
                             <div class="card-body">
 
-                                <input type="radio" name="bla">
-                                <label  th:value="contact">Telefon</label><br>
+                                <input type="radio" required="required" name="date_type" value="contactDate" id="id1" th:field="${form.dateType}"/>
+                                <label for="id1">Telefon</label><br>
 
-                                <input type="radio" name="bla">
-                                <label  th:value="photographing">Fotografowanie</label><br>
+                                <input type="radio" required="required" name="date_type" value="photographingDate"  id="id2" th:field="${form.dateType}"/>
+                                <label for="id2">Fotografowanie</label><br>
 
-                                <input type="radio" name="bla">
-                                <label  th:value="payoff">Rozliczenie</label><br>
+                                <input type="radio" required="required" name="date_type" value="payoffDate"  id="id3" th:field="${form.dateType}"/>
+                                <label for="id3">Rozliczenie</label><br>
 
-                                <input type="radio" name="bla">
-                                <label  th:value="other">Inna</label><br>
+                                <input type="radio" required="required" name="date_type" value="otherDate"  id="id4" th:field="${form.dateType}"/>
+                                <label for="id4">Inna</label><br>
 
                             </div>
                         </div>
@@ -41,9 +41,9 @@
                             </div>
                             <div class="card-body">
                                 <label>Od</label>
-                                <input type="date" class="form-control">
+                                <input type="date" class="form-control" th:field="${form.dateFrom}" />
                                 <label>do</label>
-                                <input type="date" class="form-control">
+                                <input type="date" class="form-control" th:field="${form.dateTo}" />
                             </div>
                         </div>
 
@@ -53,7 +53,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <select class="form-control mr-sm-2">
+                                    <select class="form-control mr-sm-2" th:field="${form.county}">
                                         <option th:value="''" th:text="Wybierz"></option>
                                         <option th:each="county : ${counties}" th:value="${county}"
                                                 th:text="${county}"></option>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <input type="text" class="form-control"/>
+                                    <input type="text" class="form-control" th:field="${form.borough}"/>
                                 </div>
                             </div>
                         </div>
@@ -79,45 +79,49 @@
                 <br>
             </div>
 
+
             <div class="col-md-9">
-                <div class="card" style="margin-top: 40px">
-                    <div class="card-header bg-dark text-white">
-                        <h5 class="card-title" align="center">DD.MM.RRRR</h5>
-                    </div>
-                    <div class="card-body" style="background-color: beige">
-                        <div class="table-responsive">
-                            <table class="table table-hover ">
-                                <thead class="thead-inverse">
-                                <tr>
-                                    <th>Powiat</th>
-                                    <th>Gmina</th>
-                                    <th>Miejscowość</th>
-                                    <th>Nazwa</th>
-                                    <th>Adres</th>
-                                    <th>Telefon</th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td>Łódź</td>
-                                    <td>Łódź</td>
-                                    <td>Łódź</td>
-                                    <td><a href="#">SP 109</a></td>
-                                    <td>ul. Nowa 5</td>
-                                    <td>42 646-63-82</td>
-                                </tr>
-                                <tr th:each="school : ${schools}">
-                                    <td th:text="${school.getAddress().voivodeship.getName()}"></td>
-                                    <td th:text="${school.getAddress().county}"></td>
-                                    <td th:text="${school.getAddress().borough}"></td>
-                                    <td th:text="${school.getAddress().city}"></td>
-                                    <td><a href="#" style="color: black" th:href="@{'school/' + ${school.id}}"
-                                           th:text="${school.name}"></a></td>
-                                    <td th:text="${school.getAddress().street}"></td>
-                                </tr>
-                            </table>
+
+                <th:block th:each="date : ${schools}">
+
+
+                    <div class="card" style="margin-top: 40px">
+                        <div class="card-header bg-dark text-white">
+<!--                            <h5 class="card-title" align="center" th:text="${date.key.format('dd-MM-yyyy')}">DD.MM.RRRR</h5>-->
+                            <h5 class="card-title" align="center" th:text="${#temporals.format(date.key, 'dd-MM-yyyy')}"></h5>
+                        </div>
+                        <div class="card-body" style="background-color: beige">
+                            <div class="table-responsive">
+                                <table class="table table-hover ">
+                                    <thead class="thead-inverse">
+                                    <tr>
+                                        <th>Powiat</th>
+                                        <th>Gmina</th>
+                                        <th>Miejscowość</th>
+                                        <th>Nazwa</th>
+                                        <th>Adres</th>
+                                        <th>Telefon</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tr th:each="school : ${date.getValue()}">
+                                        <td th:text="${school.getAddress().county}"></td>
+                                        <td th:text="${school.getAddress().borough}"></td>
+                                        <td th:text="${school.getAddress().city}"></td>
+                                        <td><a href="#" style="color: black" th:href="@{'school/' + ${school.id}}"
+                                               th:text="${school.name}"></a></td>
+                                        <td th:text="${school.getAddress().street}"></td>
+                                        <td th:text="${school.getPhones().get(0).getPhoneNumber()}"></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+
+
+                </th:block>
+
             </div>
             <br>
             <br>

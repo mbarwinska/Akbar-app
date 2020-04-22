@@ -22,8 +22,9 @@ public class QueryCreator {
     private boolean noContract;
     private boolean notOurs;
 
-    public QueryCreator() {
 
+
+    public QueryCreator() {
     }
 
     public QueryCreator(String voivodeship, String county, String borough, String city, String street, String type, String name, String phone) {
@@ -114,6 +115,8 @@ public class QueryCreator {
         query = query.substring(0, query.length() - 4);
         return query;
     }
+
+
 
     private String insertParamToQuery(String[] queryParams, String query) {
         StringBuilder queryBuilder = new StringBuilder(query);

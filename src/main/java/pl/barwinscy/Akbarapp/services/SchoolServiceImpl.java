@@ -32,7 +32,6 @@ public class SchoolServiceImpl implements SchoolService {
         return SchoolMapper.mapSchoolEntityToDto(SchoolMapper.mapSchoolToView(schoolToView));
     }
 
-
     @Transactional
     @Override
     public School save(SchoolDto schoolDto) {
@@ -48,6 +47,7 @@ public class SchoolServiceImpl implements SchoolService {
         return save;
 
     }
+
     @Transactional
     @Override
     public School update(SchoolDto schoolDto, PhoneDTO phoneDTO) {
