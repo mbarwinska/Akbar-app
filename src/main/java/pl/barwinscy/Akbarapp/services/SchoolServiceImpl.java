@@ -6,10 +6,12 @@ import pl.barwinscy.Akbarapp.dto.PhoneDTO;
 import pl.barwinscy.Akbarapp.dto.SchoolDto;
 import pl.barwinscy.Akbarapp.entities.Employee;
 import pl.barwinscy.Akbarapp.entities.Phone;
+import pl.barwinscy.Akbarapp.entities.Salesman;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
 import pl.barwinscy.Akbarapp.repositories.EmployeeRepository;
 import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
+import pl.barwinscy.Akbarapp.repositories.SalesmanRepository;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 
 @Service
@@ -17,13 +19,15 @@ public class SchoolServiceImpl implements SchoolService {
 
     private SchoolRepository schoolRepository;
     private EmployeeRepository employeeRepository;
+    private SalesmanRepository salesmanRepository;
 
     private PhoneRepository phoneRepository;
 
-    public SchoolServiceImpl(SchoolRepository schoolRepository, PhoneRepository phoneRepository, EmployeeRepository employeeRepository) {
+    public SchoolServiceImpl(SchoolRepository schoolRepository, PhoneRepository phoneRepository, EmployeeRepository employeeRepository, SalesmanRepository salesmanRepository) {
         this.schoolRepository = schoolRepository;
         this.employeeRepository = employeeRepository;
         this.phoneRepository = phoneRepository;
+        this.salesmanRepository = salesmanRepository;
     }
 
     @Override
@@ -40,6 +44,10 @@ public class SchoolServiceImpl implements SchoolService {
             Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
             school.setEmployee(employee);
         }
+        if (!schoolDto.getSalesman().isEmpty()){
+            Salesman salesman = salesmanRepository.findById(Long.valueOf(schoolDto.getSalesman())).get();
+            school.setSalesman(salesman);
+        }
         School save = schoolRepository.save(school);
         Phone phone = new Phone(schoolDto.getPhoneNumber());
         save.setPhones(phone);
@@ -55,6 +63,11 @@ public class SchoolServiceImpl implements SchoolService {
         if (!schoolDto.getEmployee().isEmpty()){
             Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
             school.setEmployee(employee);
+        }
+
+        if (!schoolDto.getSalesman().isEmpty()){
+            Salesman salesman = salesmanRepository.findById(Long.valueOf(schoolDto.getSalesman())).get();
+            school.setSalesman(salesman);
         }
 
 

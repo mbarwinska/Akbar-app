@@ -54,6 +54,9 @@ p.note {
                         <tr>
                             <td th:text="${school.getEmployee() != null} ? 'Fotograf: ' + ${school.employee} : 'Fotograf: brak'"></td>
                         </tr>
+                        <tr>
+                            <td th:text="${school.getSalesman() != null} ? 'Akwizytor: ' + ${school.salesman} : 'Akwizytor: brak'"></td>
+                        </tr>
                     </table>
                     <br>
 

@@ -37,6 +37,10 @@ public class School {
     @JoinColumn(name = "employee", foreignKey = @ForeignKey(name = "FK_school_employee_id"))
     private Employee employee;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "salesman", foreignKey = @ForeignKey(name = "FK_school_salesman_id"))
+    private Salesman salesman;
+
     @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
     private Schedule schedule;
 
@@ -69,6 +73,14 @@ public class School {
         }
         this.employee = employee;
         employee.setSchools(this);
+    }
+
+    public void setSalesman(Salesman salesman) {
+        if (this.salesman != null){
+            this.salesman.getSchools().remove(this);
+        }
+        this.salesman = salesman;
+        salesman.setSchools(this);
     }
 
     public void setSchedule(Schedule schedule) {

@@ -97,13 +97,24 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label>Pracownik:</label>
+                                    <label>Fotograf:</label>
                                     <select th:field="${school.employee}">
                                         <option th:value="''" th:text="${school.employee != null} ?  ${school.employee} : 'brak'"></option>
                                         <option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.firstName}+' '+${employee.lastName}"></option>
                                     </select>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>
+                                    <label>Akwizytor:</label>
+                                    <select th:field="${school.salesman}">
+                                        <option th:value="''" th:text="${school.salesman != null} ?  ${school.salesman} : 'brak'"></option>
+                                        <option th:each="salesman : ${salesmen}" th:value="${salesman.id}" th:text="${salesman.firstName}+' '+${salesman.lastName}"></option>
+                                    </select>
+                                </td>
+                            </tr>
+
                         </table>
                         <br>
 
@@ -117,7 +128,6 @@
                                     <input type="hidden" th:field="${school.phones[__${phoneStat.index}__].number}"/>
                                     <input type="text" th:field="${school.phones[__${phoneStat.index}__].note}">
 
-<!--                                    <p><a th:href="@{'/phoneDelete/?phoneId=' + ${school.phones[__${phoneStat.index}__].id} + 'schoolid=' + ${school.id}">do usuniecia</a></p>-->
                                     <a href="#" th:href="@{'/update/' + ${schoolId} + '/delete-phone/' + ${school.phones[__${phoneStat.index}__].id}}">Usuń</a>
 
                                 </td>

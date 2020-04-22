@@ -114,6 +114,7 @@ public class SchoolMapper {
         schoolDto.setPayOffDate((school.getSchedule().getPayoffDate()!= null) ? school.getSchedule().getPayoffDate().toString() : null);
         schoolDto.setAnotherDate((school.getSchedule().getOtherDate() != null) ? school.getSchedule().getOtherDate().toString() : null );
         schoolDto.setEmployee((school.getEmployee() != null) ?school.getEmployee().getFirstName() + " " + school.getEmployee().getLastName() : null );
+        schoolDto.setSalesman((school.getSalesman() != null) ?school.getSalesman().getFirstName() + " " + school.getSalesman().getLastName() : null);
         schoolDto.setNote1(school.getAdditionalInfo().getNote1());
         schoolDto.setNote2(school.getAdditionalInfo().getNote2());
         schoolDto.setNote3(school.getAdditionalInfo().getNote3());
