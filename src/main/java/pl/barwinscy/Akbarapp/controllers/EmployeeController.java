@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.barwinscy.Akbarapp.dto.EmployeeDto;
-import pl.barwinscy.Akbarapp.entities.Employee;
+import pl.barwinscy.Akbarapp.dto.SalesmanDto;
 import pl.barwinscy.Akbarapp.services.EmployeeService;
 
 @Controller
@@ -20,14 +20,27 @@ public class EmployeeController {
     @GetMapping("/employees")
     public String getEmployeesPage(Model model) {
         model.addAttribute("newEmployee", new EmployeeDto());
-        model.addAttribute("employees", employeeService.getAllEmployees());
+        model.addAttribute("newSalesman", new SalesmanDto());
+        model.addAttribute("employees", employeeService.getAllPhotographers());
+        model.addAttribute("salesmen", employeeService.getAllSalesmen());
         return "employees";
     }
 
     @GetMapping("/employees/add")
     public String addEmployee(@ModelAttribute("newEmployee") EmployeeDto dto, Model model) {
         employeeService.addEmployee(dto);
-        model.addAttribute("employees", employeeService.getAllEmployees());
+        model.addAttribute("newSalesman", new SalesmanDto());
+        model.addAttribute("employees", employeeService.getAllPhotographers());
+        model.addAttribute("salesmen", employeeService.getAllSalesmen());
+        return "employees";
+    }
+
+    @GetMapping("/salesmen/add")
+    public String addSalesman(@ModelAttribute("newSalesman") SalesmanDto dto, Model model) {
+        employeeService.addSalesman(dto);
+        model.addAttribute("newEmployee", new EmployeeDto());
+        model.addAttribute("employees", employeeService.getAllPhotographers());
+        model.addAttribute("salesmen", employeeService.getAllSalesmen());
         return "employees";
     }
 }

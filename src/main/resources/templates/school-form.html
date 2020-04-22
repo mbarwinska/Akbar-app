@@ -140,7 +140,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label>Pracownik:</label>
+                                    <label>Fotograf:</label>
                                     <select class="form-control mr-sm-2" th:field="*{employee}">
                                         <option th:value="''" th:text="Wybierz"></option>
                                         <option th:each="employee : ${employees}" th:value="${employee.id}" th:text="${employee.firstName}+' '+${employee.lastName}"></option>
@@ -148,6 +148,18 @@
 
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Akwizytor:</label>
+                                    <select class="form-control mr-sm-2" th:field="*{salesman}">
+                                        <option th:value="''" th:text="Wybierz"></option>
+                                        <option th:each="salesman : ${salesmen}" th:value="${salesman.id}" th:text="${salesman.firstName}+' '+${salesman.lastName}"></option>
+                                    </select>
+
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>

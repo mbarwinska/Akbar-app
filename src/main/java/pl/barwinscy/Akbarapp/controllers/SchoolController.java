@@ -40,7 +40,9 @@ public class SchoolController {
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties", searchService.getAllCounties());
-        model.addAttribute("employees", employeeService.getAllEmployees());
+        model.addAttribute("employees", employeeService.getAllPhotographers());
+        model.addAttribute("salesmen", employeeService.getAllSalesmen());
+
         return "school-form";
     }
 
@@ -52,7 +54,8 @@ public class SchoolController {
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties", searchService.getAllCounties());
-        model.addAttribute("employees", employeeService.getAllEmployees());
+        model.addAttribute("employees", employeeService.getAllPhotographers());
+        model.addAttribute("salesmen", employeeService.getAllSalesmen());
         return "school-update";
     }
 

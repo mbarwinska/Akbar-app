@@ -31,6 +31,7 @@ public class SchoolDto {
     private String payOffDate;
     private String anotherDate;
     private String employee;
+    private String salesman;
     private String note1;
     private String note2;
     private String note3;
