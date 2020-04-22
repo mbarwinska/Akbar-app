@@ -8,7 +8,7 @@ import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.services.SearchService;
-import pl.barwinscy.Akbarapp.utils.QueryCreator;
+import pl.barwinscy.Akbarapp.utils.FilterQueryCreator;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class FiltersController {
 
     @GetMapping("/filters")
     public String getFiltersPage(Model model) {
-        model.addAttribute("form", new QueryCreator());
+        model.addAttribute("form", new FilterQueryCreator());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties", searchService.getAllCounties());
         model.addAttribute("types", SchoolType.values());
@@ -31,8 +31,8 @@ public class FiltersController {
     }
 
     @GetMapping("/filters-result")
-    public String getFiltersResult(@ModelAttribute("form") QueryCreator queryCreator, Model model) {
-        String query = queryCreator.createFilterQuery();
+    public String getFiltersResult(@ModelAttribute("form") FilterQueryCreator filterQueryCreator, Model model) {
+        String query = filterQueryCreator.createFilterQuery();
         List<School> searchedSchools = searchService.getSearchedSchools(query);
         model.addAttribute("schools", searchedSchools);
         model.addAttribute("types", SchoolType.values());

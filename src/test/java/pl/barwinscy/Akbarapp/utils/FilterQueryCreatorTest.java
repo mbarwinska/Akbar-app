@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.barwinscy.Akbarapp.entities.Phone;
@@ -25,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
-class QueryCreatorTest {
+class FilterQueryCreatorTest {
 
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
@@ -44,21 +45,41 @@ class QueryCreatorTest {
         phoneRepository.saveAll(phones);
     }
 
+    private void linkPhonesToSchools() {
+        for (School school : schools) {
+            for (Phone phone : phones) {
+                if (phone.getSchoolRSPO().equals(school.getRspo())) {
+                    school.setPhones(phone);
+                }
+            }
+        }
+    }
+
+
     @Order(1)
     @Rollback(false)
     @Test
     public void shouldAddSchoolsAndPhonesToDB() {
         saveSchoolsToDB();
         savePhonesToDB();
+        linkPhonesToSchools();
     }
 
     @Order(5)
     @Rollback(false)
     @Test
     public void shouldFindSchoolByCountyBoroughAndStreet(){
-        QueryCreator searchByCountyBoroughAndStreet = new QueryCreator("", "Łódź", "Łódź-Górna","", "Politechniki","","","" );
+        SearchQueryCreator searchByCountyBoroughAndStreet = new SearchQueryCreator();
+        searchByCountyBoroughAndStreet.setVoivodeship("");
+        searchByCountyBoroughAndStreet.setBorough("Łódź-Górna");
+        searchByCountyBoroughAndStreet.setCounty("Łódź");
+        searchByCountyBoroughAndStreet.setCity("");
+        searchByCountyBoroughAndStreet.setStreet("Politechniki");
+        searchByCountyBoroughAndStreet.setType("");
+        searchByCountyBoroughAndStreet.setName("");
+        searchByCountyBoroughAndStreet.setPhone("");
 
-        System.out.println(searchByCountyBoroughAndStreet.createSearchQuery());
+
         List<School> foundSchool = schoolRepository.searchByQuery(searchByCountyBoroughAndStreet.createSearchQuery());
         assertThat(foundSchool.get(0).getName()).isEqualTo("ZESPÓŁ SZKÓŁ POLITECHNICZNYCH IM. KOMISJI EDUKACJI NARODOWEJ");
     }
@@ -67,12 +88,20 @@ class QueryCreatorTest {
     @Rollback(false)
     @Test
     public void shouldFindSchoolByName(){
-        QueryCreator searchByName = new QueryCreator("", "", "","", "","","SZKOŁA PODSTAWOWA NR 1","" );
+        SearchQueryCreator searchByName = new SearchQueryCreator();
 
-        System.out.println(searchByName.createSearchQuery());
+        searchByName.setVoivodeship("");
+        searchByName.setBorough("");
+        searchByName.setCounty("");
+        searchByName.setCounty("");
+        searchByName.setCity("");
+        searchByName.setStreet("");
+        searchByName.setType("");
+        searchByName.setName("SZKOŁA PODSTAWOWA NR 1");
+        searchByName.setPhone("");
 
         List<School> foundSchool = schoolRepository.searchByQuery(searchByName.createSearchQuery());
-        System.out.println(foundSchool.get(0).getName());
+
         assertThat(foundSchool.get(0).getName()).isEqualTo("SZKOŁA PODSTAWOWA NR 1 IM. ADAMA MICKIEWICZA");
     }
 
@@ -80,12 +109,21 @@ class QueryCreatorTest {
     @Rollback(false)
     @Test
     public void shouldFindSchoolByPhone(){
-        QueryCreator searchByPhone = new QueryCreator("", "", "","", "","","","426430664" );
+        SearchQueryCreator searchByPhone = new SearchQueryCreator();
+        searchByPhone.setVoivodeship("Łódzkie");
+        searchByPhone.setBorough("");
+        searchByPhone.setCounty("");
+        searchByPhone.setCounty("");
+        searchByPhone.setCity("");
+        searchByPhone.setStreet("");
+        searchByPhone.setType("");
+        searchByPhone.setName("");
+        searchByPhone.setPhone("42 643-06-64");
 
         System.out.println(searchByPhone.createSearchQuery());
 
         List<School> foundSchool = schoolRepository.searchByQuery(searchByPhone.createSearchQuery());
-        System.out.println(foundSchool.get(0).getName());
+
         assertThat(foundSchool.get(0).getName()).isEqualTo("PRZEDSZKOLE MIEJSKIE NR 156");
     }
 

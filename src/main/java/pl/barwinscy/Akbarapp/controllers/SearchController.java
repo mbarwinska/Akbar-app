@@ -8,7 +8,7 @@ import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.services.SearchService;
-import pl.barwinscy.Akbarapp.utils.QueryCreator;
+import pl.barwinscy.Akbarapp.utils.SearchQueryCreator;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class SearchController {
 
     @GetMapping("/search")
     public String getSearchPage(Model model) {
-        model.addAttribute("form", new QueryCreator());
+        model.addAttribute("form", new SearchQueryCreator());
         model.addAttribute("types", SchoolType.values());
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties", searchService.getAllCounties());
@@ -32,7 +32,7 @@ public class SearchController {
     }
 
     @GetMapping("/search-result")
-    public String getSearchResults(@ModelAttribute("form") QueryCreator queryCreator, Model model) {
+    public String getSearchResults(@ModelAttribute("form") SearchQueryCreator queryCreator, Model model) {
         String schoolQuery = queryCreator.createSearchQuery();
         List<School> searchedSchools = searchService.getSearchedSchools(schoolQuery);
         model.addAttribute("schools", searchedSchools);

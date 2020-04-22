@@ -5,16 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class QueryCreator {
+public class FilterQueryCreator {
 
+    private String type;
     private String voivodeship;
     private String county;
     private String borough;
     private String city;
-    private String street;
-    private String type;
-    private String name;
-    private String phone;
     private boolean ours;
     private boolean contracted;
     private boolean calendarsLeft;
@@ -24,53 +21,7 @@ public class QueryCreator {
 
 
 
-    public QueryCreator() {
-    }
-
-    public QueryCreator(String voivodeship, String county, String borough, String city, String street, String type, String name, String phone) {
-        this.voivodeship = voivodeship;
-        this.county = county;
-        this.borough = borough;
-        this.city = city;
-        this.street = street;
-        this.type = type;
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public String createSearchQuery() {
-        String query = "SELECT DISTINCT school FROM School as school";
-        if (!phone.isEmpty()) {
-            query += " JOIN Phone as phone on school.id = phone.school.id";
-        }
-        query += " WHERE";
-        if (!phone.isEmpty()) {
-            query += " school.id = (SELECT phone.school.id FROM Phone as phone WHERE phone.phoneNumber = '" + phone + "')" + " AND";
-        }
-        if (!voivodeship.isEmpty()) {
-            query += " school.address.voivodeship = '" + voivodeship + "' AND";
-        }
-        if (!county.isEmpty()) {
-            query += " school.address.county like '%" + county + "%' AND";
-        }
-        if (!borough.isEmpty()) {
-            query += " school.address.borough like '" + borough + "%' AND";
-        }
-        if (!city.isEmpty()) {
-            query += " school.address.city like '" + city + "%' AND";
-        }
-        if (!street.isEmpty()) {
-            query += " school.address.street like '%" + street + "%' AND";
-        }
-        if (!type.isEmpty()) {
-            query += " school.type = '" + type + "' AND";
-        }
-        if (!name.isEmpty()) {
-            query += " school.name like '%" + name + "%' AND";
-        }
-        query = query.substring(0, query.length() - 4);
-        return query;
-
+    public FilterQueryCreator() {
     }
 
     public String createFilterQuery() {
@@ -115,8 +66,6 @@ public class QueryCreator {
         query = query.substring(0, query.length() - 4);
         return query;
     }
-
-
 
     private String insertParamToQuery(String[] queryParams, String query) {
         StringBuilder queryBuilder = new StringBuilder(query);
