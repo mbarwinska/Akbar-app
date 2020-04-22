@@ -11,7 +11,7 @@ public interface SearchService {
 
     List<School> getSearchedSchools(String schoolQuery);
 
-    Set<String> getAllCounties();
+    List<String> getAllCounties();
 
     Map<LocalDate, List <School>> schoolMapByDate(String calendarQuery);
 
