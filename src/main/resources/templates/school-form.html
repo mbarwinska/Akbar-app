@@ -16,10 +16,10 @@
                 <form th:object="${school}" th:action="@{/school/}" method="post">
                     <input type="hidden"/>
                     <div class="card">
-                        <div class="card-header bg-primary">
+                        <div class="card-header bg-dark text-white">
                             <h2 class="card-title">Informacje ogólne</h2>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: beige">
                             <div class="row">
                                 <div class="col-md-3 form-group">
                                     <label>Nazwa:</label>
@@ -90,10 +90,10 @@
                     </div>
 
                     <div class="card" style="margin-top: 20px">
-                        <div class="card-header bg-primary">
+                        <div class="card-header bg-dark text-white">
                             <h2 class="card-title">Informacje dla firmy</h2>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: beige">
                             <div class="row">
                                 <div class="col-md-6 form-group">
                                     <h3>Status:</h3>
@@ -159,10 +159,10 @@
                     </div>
 
                     <div class="card" style="margin-top: 20px">
-                        <div class="card-header bg-primary">
+                        <div class="card-header bg-dark text-white">
                             <h2 class="card-title">Dodatkowe informacje</h2>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: beige">
                             <div class="row">
                                 <div class="col-md-12">
                                     <textarea class="form-control" rows="2" th:field="*{note1}"></textarea>
@@ -184,7 +184,7 @@
                     </div>
 
                     <br>
-                    <button class="btn btn-primary" type="submit" style="margin-left: 660px">Dodaj</button>
+                    <button class="btn btn-dark" type="submit" style="margin-left: 660px">Dodaj</button>
                 </form>
                 <br>
                 <br>
