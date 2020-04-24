@@ -8,6 +8,7 @@ import pl.barwinscy.Akbarapp.entities.Employee;
 import pl.barwinscy.Akbarapp.entities.Phone;
 import pl.barwinscy.Akbarapp.entities.Salesman;
 import pl.barwinscy.Akbarapp.entities.School;
+import pl.barwinscy.Akbarapp.exceptions.SchoolNotFoundException;
 import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
 import pl.barwinscy.Akbarapp.repositories.EmployeeRepository;
 import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
@@ -33,6 +34,9 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public SchoolDto getSchoolWithAllData(Long schoolId) {
         School schoolToView = schoolRepository.findSchoolWithAllInfo(schoolId);
+        if (schoolToView == null){
+            throw new SchoolNotFoundException("Nie znaleziono szkoły o podanym ID!");
+        }
         return SchoolMapper.mapSchoolEntityToDto(SchoolMapper.mapSchoolToView(schoolToView));
     }
 
