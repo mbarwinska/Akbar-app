@@ -1,5 +1,6 @@
 package pl.barwinscy.Akbarapp.services;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.barwinscy.Akbarapp.dto.EmployeeDto;
 import pl.barwinscy.Akbarapp.dto.SalesmanDto;

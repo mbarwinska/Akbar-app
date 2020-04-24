@@ -27,6 +27,10 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<String> getAllCounties() {
         Set<String> allCounties = schoolRepository.findAllCounties();
+        return sortCounties(allCounties);
+    }
+
+    private List<String> sortCounties(Set<String> allCounties){
         List<String> countiesList = new ArrayList<>(allCounties);
         countiesList.sort(Collator.getInstance(new Locale("pl", "PL")));
         return countiesList;
