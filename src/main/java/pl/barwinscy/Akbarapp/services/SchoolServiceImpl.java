@@ -34,7 +34,7 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public SchoolDto getSchoolWithAllData(Long schoolId) {
         School schoolToView = schoolRepository.findSchoolWithAllInfo(schoolId);
-        if (schoolToView == null){
+        if (schoolToView == null) {
             throw new SchoolNotFoundException("Nie znaleziono szkoły o podanym ID!");
         }
         return SchoolMapper.mapSchoolEntityToDto(SchoolMapper.mapSchoolToView(schoolToView));
@@ -43,15 +43,7 @@ public class SchoolServiceImpl implements SchoolService {
     @Transactional
     @Override
     public School save(SchoolDto schoolDto) {
-        School school = SchoolMapper.mapDtoToEntity(schoolDto);
-        if (!schoolDto.getEmployee().isEmpty()) {
-            Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
-            school.setEmployee(employee);
-        }
-        if (!schoolDto.getSalesman().isEmpty()) {
-            Salesman salesman = salesmanRepository.findById(Long.valueOf(schoolDto.getSalesman())).get();
-            school.setSalesman(salesman);
-        }
+        School school = addEmployeeAndSalesmanToSchool(schoolDto);
         School save = schoolRepository.save(school);
         Phone phone = new Phone(schoolDto.getPhoneNumber());
         save.setPhones(phone);
@@ -63,17 +55,7 @@ public class SchoolServiceImpl implements SchoolService {
     @Transactional
     @Override
     public School update(SchoolDto schoolDto, PhoneDTO phoneDTO) {
-        School school = SchoolMapper.mapDtoToEntity(schoolDto);
-        if (!schoolDto.getEmployee().isEmpty()) {
-            Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
-            school.setEmployee(employee);
-        }
-
-        if (!schoolDto.getSalesman().isEmpty()) {
-            Salesman salesman = salesmanRepository.findById(Long.valueOf(schoolDto.getSalesman())).get();
-            school.setSalesman(salesman);
-        }
-
+        School school = addEmployeeAndSalesmanToSchool(schoolDto);
 
         if (!phoneDTO.getNumber().isEmpty()) {
             Phone phone = new Phone(phoneDTO.getNumber());
@@ -81,6 +63,19 @@ public class SchoolServiceImpl implements SchoolService {
             school.setPhones(phone);
         }
         return schoolRepository.save(school);
+    }
+
+    private School addEmployeeAndSalesmanToSchool(SchoolDto schoolDto) {
+        School school = SchoolMapper.mapDtoToEntity(schoolDto);
+        if (!schoolDto.getEmployee().isEmpty()) {
+            Employee employee = employeeRepository.findById(Long.valueOf(schoolDto.getEmployee())).get();
+            school.setEmployee(employee);
+        }
+        if (!schoolDto.getSalesman().isEmpty()) {
+            Salesman salesman = salesmanRepository.findById(Long.valueOf(schoolDto.getSalesman())).get();
+            school.setSalesman(salesman);
+        }
+        return school;
     }
 
     @Transactional
