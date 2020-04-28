@@ -35,7 +35,7 @@ public class SchoolServiceImpl implements SchoolService {
     public SchoolDto getSchoolWithAllData(Long schoolId) {
         School schoolToView = schoolRepository.findSchoolWithAllInfo(schoolId);
         if (schoolToView == null) {
-            throw new SchoolNotFoundException("Nie znaleziono szkoły o podanym ID!");
+            throw new SchoolNotFoundException("Nie znaleziono szkoły o podanym ID: " + schoolId);
         }
         return SchoolMapper.mapSchoolEntityToDto(SchoolMapper.mapSchoolToView(schoolToView));
     }

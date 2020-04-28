@@ -2,11 +2,16 @@ package pl.barwinscy.Akbarapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import pl.barwinscy.Akbarapp.dto.EmployeeDto;
 import pl.barwinscy.Akbarapp.dto.SalesmanDto;
 import pl.barwinscy.Akbarapp.services.EmployeeService;
+
+import javax.validation.Valid;
 
 @Controller
 public class EmployeeController {
@@ -36,7 +41,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/salesmen/add")
-    public String addSalesman(@ModelAttribute("newSalesman") SalesmanDto dto, Model model) {
+    public String addSalesman(@Valid @ModelAttribute("newSalesman") SalesmanDto dto, Model model, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newSalesman", new SalesmanDto());
+            model.addAttribute("newEmployee", new EmployeeDto());
+            model.addAttribute("employees", employeeService.getAllPhotographers());
+            model.addAttribute("salesmen", employeeService.getAllSalesmen());
+            return "employees";
+        }
         employeeService.addSalesman(dto);
         model.addAttribute("newEmployee", new EmployeeDto());
         model.addAttribute("employees", employeeService.getAllPhotographers());
