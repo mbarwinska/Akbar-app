@@ -2,6 +2,7 @@ package pl.barwinscy.Akbarapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,8 @@ import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.services.EmployeeService;
 import pl.barwinscy.Akbarapp.services.SchoolService;
 import pl.barwinscy.Akbarapp.services.SearchService;
+
+import javax.validation.Valid;
 
 @Controller
 public class SchoolController {
@@ -60,7 +63,10 @@ public class SchoolController {
     }
 
     @PostMapping("/school")
-    public String save(@ModelAttribute("school") SchoolDto schoolDto) {
+    public String save(@Valid @ModelAttribute("school") SchoolDto schoolDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "school-form";
+        }
         School saveSchool = schoolService.save(schoolDto);
         return "redirect:/school/" + saveSchool.getId();
 
