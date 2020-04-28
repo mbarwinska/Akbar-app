@@ -16,8 +16,6 @@ import pl.barwinscy.Akbarapp.services.EmployeeService;
 import pl.barwinscy.Akbarapp.services.SchoolService;
 import pl.barwinscy.Akbarapp.services.SearchService;
 
-import javax.validation.Valid;
-
 @Controller
 public class SchoolController {
 
@@ -63,10 +61,7 @@ public class SchoolController {
     }
 
     @PostMapping("/school")
-    public String save(@Valid @ModelAttribute("school") SchoolDto schoolDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
-            return "school-form";
-        }
+    public String save(@ModelAttribute("school") SchoolDto schoolDto) {
         School saveSchool = schoolService.save(schoolDto);
         return "redirect:/school/" + saveSchool.getId();
 

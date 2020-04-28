@@ -24,7 +24,6 @@
                                 <div class="col-md-3 form-group">
                                     <label>Nazwa:</label>
                                     <input type="text" class="form-control" th:field="*{name}"/>
-                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Name Error</div>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Kod pocztowy:</label>
@@ -40,7 +39,7 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>E-mail:</label>
-                                    <input type="email" class="form-control" th:field="*{email}">
+                                    <input type="text" class="form-control" th:field="*{email}">
                                 </div>
                             </div>
                             <div class="row">

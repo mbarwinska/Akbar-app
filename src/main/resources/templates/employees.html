@@ -101,7 +101,6 @@
                             <label style="margin-right: 10px">Dodaj:</label>
                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Imię"
                                    th:field="*{firstName}"/>
-                            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwisko"
                                    th:field="*{lastName}"/>
                             <button class=" btn btn-dark" type="submit" style="margin-bottom: 10px">Dodaj</button>
