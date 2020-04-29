@@ -24,8 +24,7 @@ public class EmployeeController {
     public String getEmployeesPage(Model model) {
         model.addAttribute("newEmployee", new EmployeeDto());
         model.addAttribute("newSalesman", new SalesmanDto());
-        model.addAttribute("employees", employeeService.getAllPhotographers());
-        model.addAttribute("salesmen", employeeService.getAllSalesmen());
+        addEmployeesAndSalesmenToSelectLists(model);
         return "employees";
     }
 
@@ -33,8 +32,7 @@ public class EmployeeController {
     public String addEmployee(@ModelAttribute("newEmployee") EmployeeDto dto, Model model) {
         employeeService.addEmployee(dto);
         model.addAttribute("newSalesman", new SalesmanDto());
-        model.addAttribute("employees", employeeService.getAllPhotographers());
-        model.addAttribute("salesmen", employeeService.getAllSalesmen());
+        addEmployeesAndSalesmenToSelectLists(model);
         return "employees";
     }
 
@@ -42,8 +40,12 @@ public class EmployeeController {
     public String addSalesman(@Valid @ModelAttribute("newSalesman") SalesmanDto dto, Model model, BindingResult bindingResult) {
         employeeService.addSalesman(dto);
         model.addAttribute("newEmployee", new EmployeeDto());
+        addEmployeesAndSalesmenToSelectLists(model);
+        return "employees";
+    }
+
+    private void addEmployeesAndSalesmenToSelectLists(Model model) {
         model.addAttribute("employees", employeeService.getAllPhotographers());
         model.addAttribute("salesmen", employeeService.getAllSalesmen());
-        return "employees";
     }
 }

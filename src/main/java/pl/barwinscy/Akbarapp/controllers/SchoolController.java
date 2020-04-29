@@ -45,12 +45,7 @@ public class SchoolController {
     @GetMapping("/school/new")
     public String newSchoolForm(Model model) {
         model.addAttribute("school", new SchoolDto());
-        model.addAttribute("types", SchoolType.values());
-        model.addAttribute("voivodeships", Voivodeship.values());
-        model.addAttribute("counties", searchService.getAllCounties());
-        model.addAttribute("employees", employeeService.getAllPhotographers());
-        model.addAttribute("salesmen", employeeService.getAllSalesmen());
-
+        addModelAttributesForSelectLists(model);
         return "school-form";
     }
 
@@ -59,27 +54,18 @@ public class SchoolController {
         SchoolDto schoolWithAllData = schoolService.getSchoolWithAllData(Long.valueOf(schoolId));
         model.addAttribute("newPhone", new PhoneDTO());
         model.addAttribute("school", schoolWithAllData);
-        model.addAttribute("types", SchoolType.values());
-        model.addAttribute("voivodeships", Voivodeship.values());
-        model.addAttribute("counties", searchService.getAllCounties());
-        model.addAttribute("employees", employeeService.getAllPhotographers());
-        model.addAttribute("salesmen", employeeService.getAllSalesmen());
+        addModelAttributesForSelectLists(model);
         return "school-update";
     }
 
     @PostMapping("/school")
     public String save(@ModelAttribute("school") @Validated SchoolDto schoolDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("types", SchoolType.values());
-            model.addAttribute("voivodeships", Voivodeship.values());
-            model.addAttribute("counties", searchService.getAllCounties());
-            model.addAttribute("employees", employeeService.getAllPhotographers());
-            model.addAttribute("salesmen", employeeService.getAllSalesmen());
+            addModelAttributesForSelectLists(model);
             return "school-form";
         }
         School saveSchool = schoolService.save(schoolDto);
         return "redirect:/school/" + saveSchool.getId();
-
     }
 
     @PostMapping("/update")
@@ -97,4 +83,11 @@ public class SchoolController {
         return "redirect:/school/" + schoolId + "/update";
     }
 
+    private void addModelAttributesForSelectLists(Model model) {
+        model.addAttribute("types", SchoolType.values());
+        model.addAttribute("voivodeships", Voivodeship.values());
+        model.addAttribute("counties", searchService.getAllCounties());
+        model.addAttribute("employees", employeeService.getAllPhotographers());
+        model.addAttribute("salesmen", employeeService.getAllSalesmen());
+    }
 }
