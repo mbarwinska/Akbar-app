@@ -3,10 +3,9 @@ package pl.barwinscy.Akbarapp.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.dto.PhoneDTO;
@@ -15,6 +14,7 @@ import pl.barwinscy.Akbarapp.entities.School;
 import pl.barwinscy.Akbarapp.services.EmployeeService;
 import pl.barwinscy.Akbarapp.services.SchoolService;
 import pl.barwinscy.Akbarapp.services.SearchService;
+import pl.barwinscy.Akbarapp.validators.NewSchoolFormValidator;
 
 @Controller
 public class SchoolController {
@@ -22,11 +22,18 @@ public class SchoolController {
     private SchoolService schoolService;
     private SearchService searchService;
     private EmployeeService employeeService;
+    private NewSchoolFormValidator validator;
 
-    public SchoolController(SchoolService schoolService, SearchService searchService, EmployeeService employeeService) {
+    public SchoolController(SchoolService schoolService, SearchService searchService, EmployeeService employeeService, NewSchoolFormValidator validator) {
         this.schoolService = schoolService;
         this.searchService = searchService;
         this.employeeService = employeeService;
+        this.validator = validator;
+    }
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.setValidator(validator);
     }
 
     @GetMapping("/school/{schoolId}")
@@ -61,7 +68,15 @@ public class SchoolController {
     }
 
     @PostMapping("/school")
-    public String save(@ModelAttribute("school") SchoolDto schoolDto) {
+    public String save(@ModelAttribute("school") @Validated SchoolDto schoolDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("types", SchoolType.values());
+            model.addAttribute("voivodeships", Voivodeship.values());
+            model.addAttribute("counties", searchService.getAllCounties());
+            model.addAttribute("employees", employeeService.getAllPhotographers());
+            model.addAttribute("salesmen", employeeService.getAllSalesmen());
+            return "school-form";
+        }
         School saveSchool = schoolService.save(schoolDto);
         return "redirect:/school/" + saveSchool.getId();
 
@@ -69,7 +84,7 @@ public class SchoolController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute("school") SchoolDto schoolDto,
-                         @ModelAttribute("newPhone") PhoneDTO phoneDTO) {
+                         @ModelAttribute("newPhone") PhoneDTO phoneDTO, BindingResult bindingResult) {
         School saveSchool = schoolService.update(schoolDto, phoneDTO);
 
         return "redirect:/school/" + saveSchool.getId();
