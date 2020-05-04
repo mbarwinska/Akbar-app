@@ -2,14 +2,11 @@ package pl.barwinscy.Akbarapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.barwinscy.Akbarapp.dto.EmployeeDto;
 import pl.barwinscy.Akbarapp.dto.SalesmanDto;
 import pl.barwinscy.Akbarapp.services.EmployeeService;
-
-import javax.validation.Valid;
 
 @Controller
 public class EmployeeController {
@@ -37,7 +34,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/salesmen/add")
-    public String addSalesman(@Valid @ModelAttribute("newSalesman") SalesmanDto dto, Model model, BindingResult bindingResult) {
+    public String addSalesman(@ModelAttribute("newSalesman") SalesmanDto dto, Model model) {
         employeeService.addSalesman(dto);
         model.addAttribute("newEmployee", new EmployeeDto());
         addEmployeesAndSalesmenToSelectLists(model);

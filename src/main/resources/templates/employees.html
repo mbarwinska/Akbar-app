@@ -100,9 +100,9 @@
                               th:action="@{/salesmen/add}" method="get">
                             <label style="margin-right: 10px">Dodaj:</label>
                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Imię"
-                                   th:field="*{firstName}"/>
+                                   th:field="*{firstName}" name="firstName"/>
                             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Nazwisko"
-                                   th:field="*{lastName}"/>
+                                   th:field="*{lastName}" name="lastName"/>
                             <button class=" btn btn-dark" type="submit" style="margin-bottom: 10px">Dodaj</button>
                         </form>
                     </div>
