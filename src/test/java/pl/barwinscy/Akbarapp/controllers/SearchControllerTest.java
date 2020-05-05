@@ -1,12 +1,11 @@
 package pl.barwinscy.Akbarapp.controllers;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.barwinscy.Akbarapp.SchoolType;
@@ -17,14 +16,12 @@ import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 import pl.barwinscy.Akbarapp.services.SearchService;
 import pl.barwinscy.Akbarapp.services.SearchServiceImpl;
 import pl.barwinscy.Akbarapp.utils.SearchQueryCreator;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class SearchControllerTest {
@@ -34,12 +31,12 @@ class SearchControllerTest {
     private SchoolRepository schoolRepository;
     private SearchService searchService;
     private SearchController searchController;
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
+
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-
     }
 
     @Test
@@ -56,7 +53,9 @@ class SearchControllerTest {
                 .andExpect(model().attributeExists("types"))
                 .andExpect(model().attributeExists("counties"));
     }
-@Ignore
+
+    //TODO
+    @Disabled("not ready yet")
     @Test
     void getSearchResults() throws Exception {
 
@@ -68,22 +67,21 @@ class SearchControllerTest {
 
         List<School> schools = new ArrayList<>();
         schools.add(new School
-                (123456L, SchoolType.SZKOŁA_PODSTAWOWA.getName(),"SP 109",
-                        new Address(Voivodeship.ŁÓDZKIE,"brzeziński","Łódź","Brzeziny","",""),
-                        "","",""));
+                (123456L, SchoolType.SZKOŁA_PODSTAWOWA.getName(), "SP 109",
+                        new Address(Voivodeship.ŁÓDZKIE, "brzeziński", "Łódź", "Brzeziny", "", ""),
+                        "", "", ""));
 
-      Mockito.when(mockSearchQueryCreator.createSearchQuery()).thenReturn("");
+        Mockito.when(mockSearchQueryCreator.createSearchQuery()).thenReturn("");
         Mockito.when(mockService.getSearchedSchools(mockSearchQueryCreator.createSearchQuery())).thenReturn(schools);
 //        Mockito.when(searchService.getSearchedSchools(Mockito.anyString())).thenReturn(schools);
 
 //        assertThat(mockService.getSearchedSchools("bla")).size().isEqualTo(1);
-    assertThat(mockSearchQueryCreator.createSearchQuery()).isEqualTo("");
+        assertThat(mockSearchQueryCreator.createSearchQuery()).isEqualTo("");
 
 /*
         mockMvc.perform(get("/search-result"))
                 .andExpect(status().isOk());
 */
-
 
     }
 

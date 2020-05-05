@@ -85,6 +85,5 @@ class EmployeeControllerTest {
                 .andExpect(model().attributeExists("employees"));
 
         verify(mockService, times(1)).addSalesman(any(SalesmanDto.class));
-
     }
 }

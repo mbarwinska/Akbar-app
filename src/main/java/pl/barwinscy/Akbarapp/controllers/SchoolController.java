@@ -78,7 +78,6 @@ public class SchoolController {
 
     @GetMapping("/update/{schoolId}/delete-phone/{phoneId}")
     public String phoneDelete(@PathVariable Long phoneId, @PathVariable Long schoolId) {
-
         schoolService.deletePhone(phoneId);
         return "redirect:/school/" + schoolId + "/update";
     }

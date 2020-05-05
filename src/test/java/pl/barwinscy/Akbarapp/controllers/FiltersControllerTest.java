@@ -11,9 +11,8 @@ import pl.barwinscy.Akbarapp.Voivodeship;
 import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
 import pl.barwinscy.Akbarapp.services.SearchService;
 import pl.barwinscy.Akbarapp.services.SearchServiceImpl;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class FiltersControllerTest {
