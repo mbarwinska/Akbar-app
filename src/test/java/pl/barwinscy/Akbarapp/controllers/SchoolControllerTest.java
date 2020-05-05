@@ -1,85 +1,179 @@
 package pl.barwinscy.Akbarapp.controllers;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringRunner;
-import pl.barwinscy.Akbarapp.entities.*;
-import pl.barwinscy.Akbarapp.repositories.EmployeeRepository;
-import pl.barwinscy.Akbarapp.repositories.PhoneRepository;
-import pl.barwinscy.Akbarapp.repositories.SchoolRepository;
-import pl.barwinscy.Akbarapp.utils.CsvReader;
-import pl.barwinscy.Akbarapp.utils.EntityMapper;
-import pl.barwinscy.Akbarapp.utils.SchoolDataCsv;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pl.barwinscy.Akbarapp.SchoolType;
+import pl.barwinscy.Akbarapp.Voivodeship;
+import pl.barwinscy.Akbarapp.dto.PhoneDTO;
+import pl.barwinscy.Akbarapp.dto.SchoolDto;
+import pl.barwinscy.Akbarapp.entities.Address;
+import pl.barwinscy.Akbarapp.entities.Phone;
+import pl.barwinscy.Akbarapp.entities.School;
+import pl.barwinscy.Akbarapp.exceptions.SchoolNotFoundException;
+import pl.barwinscy.Akbarapp.services.EmployeeService;
+import pl.barwinscy.Akbarapp.services.SchoolService;
+import pl.barwinscy.Akbarapp.services.SearchService;
+import pl.barwinscy.Akbarapp.validators.NewSchoolFormValidator;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@RunWith(SpringRunner.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@DataJpaTest
 public class SchoolControllerTest {
 
-    private CsvReader csvReader = new CsvReader();
-    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
-    private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
-    private List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).collect(Collectors.toList());
-    @Autowired
-    private SchoolRepository schoolRepository;
-    @Autowired
-    private PhoneRepository phoneRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    @Mock
+    private SchoolService schoolService;
+    @Mock
+    private SearchService searchService;
+    @Mock
+    private EmployeeService employeeService;
+    @Mock
+    private NewSchoolFormValidator validator;
 
+    private SchoolController controller;
 
-    Status status1 = new Status(true, true, 15);
-    Status status2 = new Status(true, false, 0);
-    Schedule schedule1 = new Schedule(LocalDate.of(2020, 02, 12), LocalDate.of(2020, 03, 02), null);
-    Schedule schedule2 = new Schedule(LocalDate.of(2020, 02, 12), LocalDate.of(2020, 03, 02), null);
-    AdditionalInfo additionalInfo1 = new AdditionalInfo("Notatka1.A", "Notatka1.B", "Notatka1.C");
-    AdditionalInfo additionalInfo2 = new AdditionalInfo("Notatka2.A", null, "Notatka2.C");
-    Employee employee1 = new Employee( "Jan", "Nowak");
-    Employee employee2 = new Employee( "Marian", "Kowalski");
+    private MockMvc mockMvc;
 
-
-    public void saveSchoolsToDB() {
-        schoolRepository.saveAll(schools);
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
-    public void savePhonesToDB() {
-        phoneRepository.saveAll(phones);
-    }
-
-    @Order(1)
-    @Rollback(false)
     @Test
-    public void shouldAddSchoolsAndPhonesToDB() {
-        saveSchoolsToDB();
-        savePhonesToDB();
+    public void shouldGetSchoolViewPage() throws Exception {
+        controller = new SchoolController(schoolService, searchService, employeeService, validator);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        SchoolDto schoolDto = new SchoolDto();
+        schoolDto.setId(50L);
+
+        when(validator.supports(any())).thenReturn(true);
+        when(schoolService.getSchoolWithAllData(anyLong())).thenReturn(schoolDto);
+
+        mockMvc.perform(get("/school/50/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("school-view"))
+                .andExpect(model().attributeExists("school"));
+
     }
 
-    @Order(2)
-    @Rollback(false)
     @Test
-    public void shouldAddDataToSchool() {
-        School schoolFromDB = schoolRepository.findById(23063L).get();
+    public void shouldShowErrorPageWhenSchoolNotFound() throws Exception {
+        controller = new SchoolController(schoolService, searchService, employeeService, validator);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new GlobalHandlerController())
+                .build();
 
-        schoolFromDB.setPhones(new Phone("888-999-444", schoolFromDB.getId()));
-        schoolFromDB.setStatus(status1);
-        schoolFromDB.setSchedule(schedule1);
-        schoolFromDB.setAdditionalInfo(additionalInfo2);
+        when(schoolService.getSchoolWithAllData(anyLong())).thenThrow(SchoolNotFoundException.class);
 
-        schoolRepository.save(schoolFromDB);
+        mockMvc.perform(get("/school/666/"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("error-page"));
     }
+
+    @Test
+    public void shouldShowNewSchoolForm() throws Exception {
+        controller = new SchoolController(schoolService, searchService, employeeService, validator);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        when(validator.supports(any())).thenReturn(true);
+
+        mockMvc.perform(get("/school/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("school-form"))
+                .andExpect(model().attributeExists("school"))
+                .andExpect(model().attribute("types", SchoolType.values()));
+
+    }
+
+    @Test
+    public void shouldAddNewSchoolAndRedirect() throws Exception {
+        controller = new SchoolController(schoolService, searchService, employeeService, validator);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        School school = new School(123456L, SchoolType.SZKOŁA_PODSTAWOWA.getName(), "SP 109",
+                new Address(Voivodeship.ŁÓDZKIE, "brzeziński", "Łódź", "Brzeziny", "", ""),
+                "", "", "");
+        school.setId(12L);
+
+        when(validator.supports(any())).thenReturn(true);
+        when(schoolService.save(any(SchoolDto.class))).thenReturn(school);
+
+        mockMvc.perform(post("/school")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name", "Lulasowo 13")
+                .param("publicStatus", "prywatny")
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/school/12"));
+    }
+
+    //TODO
+    @Disabled("not ready yet")
+    @Test
+    public void shouldReturnToNewSchoolFormWhenValidationFail() throws Exception {
+        controller = new SchoolController(schoolService, searchService, employeeService, validator);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).
+                setValidator(validator).build();
+        School school = new School(123456L, SchoolType.SZKOŁA_PODSTAWOWA.getName(), "SP 109",
+                new Address(Voivodeship.ŁÓDZKIE, "brzeziński", "Łódź", "Brzeziny", "", ""),
+                "", "", "");
+
+        when(validator.supports(any())).thenReturn(true);
+        doCallRealMethod().when(validator).validate(any(), any());
+        when(schoolService.save(any(SchoolDto.class))).thenReturn(school);
+
+
+        mockMvc.perform(post("/school")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("zipCode", "blabla")
+                .param("publicStatus", "publiczny"))
+                .andExpect(model().errorCount(1));
+
+    }
+
+    @Test
+    public void shouldUpdateSchoolAndRedirect() throws Exception {
+        controller = new SchoolController(schoolService, searchService, employeeService, validator);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        School school = new School(123456L, SchoolType.SZKOŁA_PODSTAWOWA.getName(), "SP 109",
+                new Address(Voivodeship.ŁÓDZKIE, "brzeziński", "Łódź", "Brzeziny", "", ""),
+                "", "", "");
+        school.setId(15L);
+
+        when(validator.supports(any())).thenReturn(true);
+        when(schoolService.update(any(SchoolDto.class), any(PhoneDTO.class))).thenReturn(school);
+
+        mockMvc.perform(post("/update")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name", "Lulasowo 13")
+                .param("publicStatus", "prywatny")
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/school/15"));
+    }
+
+    @Test
+    public void shouldDeletePhoneAndReturnToUpdatePage() throws Exception {
+        controller = new SchoolController(schoolService, searchService, employeeService, validator);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        School school = new School(123456L, SchoolType.SZKOŁA_PODSTAWOWA.getName(), "SP 109",
+                new Address(Voivodeship.ŁÓDZKIE, "brzeziński", "Łódź", "Brzeziny", "", ""),
+                "", "", "");
+        school.setId(15L);
+        Phone phone = new Phone("42 646-63-82");
+        phone.setId(2L);
+
+        when(validator.supports(any())).thenReturn(true);
+
+        mockMvc.perform(get("/update/15/delete-phone/2"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+
 }

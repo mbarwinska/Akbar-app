@@ -29,6 +29,7 @@
                                 <div class="col-md-3 form-group">
                                     <label>Kod pocztowy:</label>
                                     <input type="text" class="form-control" th:field="*{zipCode}">
+                                    <div th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" style="color: red">Name Error</div>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Powiat:</label>
@@ -40,7 +41,7 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>E-mail:</label>
-                                    <input type="email" class="form-control" th:field="*{email}">
+                                    <input type="text" class="form-control" th:field="*{email}">
                                 </div>
                             </div>
                             <div class="row">
@@ -55,10 +56,12 @@
                                 <div class="col-md-3 form-group">
                                     <label>Miejscowość</label>
                                     <input type="text" class="form-control" th:field="*{city}">
+                                    <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" style="color: red">Name Error</div>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Gmina:</label>
                                     <input type="text" class="form-control" th:field="*{borough}">
+                                    <div th:if="${#fields.hasErrors('borough')}" th:errors="*{borough}" style="color: red">Name Error</div>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Strona internetowa:</label>
@@ -81,6 +84,7 @@
                                 <div class="col-md-3 form-group">
                                     <label>Telefon:</label>
                                     <input type="tel" class="form-control" th:field="*{phoneNumber}">
+                                    <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color: red">Name Error</div>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Publiczność:</label>

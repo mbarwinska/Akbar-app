@@ -24,9 +24,7 @@ public class FiltersController {
     @GetMapping("/filters")
     public String getFiltersPage(Model model) {
         model.addAttribute("form", new FilterQueryCreator());
-        model.addAttribute("voivodeships", Voivodeship.values());
-        model.addAttribute("counties", searchService.getAllCounties());
-        model.addAttribute("types", SchoolType.values());
+        addModeAttributesForSelectLists(model);
         return "filters";
     }
 
@@ -35,9 +33,13 @@ public class FiltersController {
         String query = filterQueryCreator.createFilterQuery();
         List<School> searchedSchools = searchService.getSearchedSchools(query);
         model.addAttribute("schools", searchedSchools);
-        model.addAttribute("types", SchoolType.values());
+        addModeAttributesForSelectLists(model);
+        return "filters";
+    }
+
+    private void addModeAttributesForSelectLists(Model model) {
         model.addAttribute("voivodeships", Voivodeship.values());
         model.addAttribute("counties", searchService.getAllCounties());
-        return "filters";
+        model.addAttribute("types", SchoolType.values());
     }
 }
