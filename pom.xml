@@ -132,7 +132,7 @@
 				<configuration>
 					<appName>schools-management</appName>
 					<processTypes>
-						<web>java $JAVA_OPTS -cp target/classes:"target/dependency/*" AkbarAppApplication</web>
+						<web>java $JAVA_OPTS -cp target/classes:"target/*" AkbarAppApplication</web>
 					</processTypes>
 				</configuration>
 			</plugin>
