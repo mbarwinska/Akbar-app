@@ -11,7 +11,7 @@
 	<groupId>pl.barwinscy</groupId>
 	<artifactId>Akbar-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Akbar-app</name>
+	<name>schools-management</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -130,7 +130,7 @@
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>3.0.2</version>
 				<configuration>
-					<appName>SchoolsManagement</appName>
+					<appName>schools-management</appName>
 					<processTypes>
 						<web>java $JAVA_OPTS -cp target/classes:target/dependency/* Main</web>
 					</processTypes>
