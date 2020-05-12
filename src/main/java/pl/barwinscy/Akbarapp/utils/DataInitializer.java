@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private SchoolRepository schoolRepository;
-
+    private static final String FILE_PATH = "src/main/resources/test.csv";
     private CsvReader csvReader = new CsvReader();
-    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
+    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH);
     private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
     private List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).collect(Collectors.toList());
 

@@ -23,6 +23,7 @@ import pl.barwinscy.Akbarapp.utils.SchoolDataCsv;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,10 +33,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 class SearchServiceImplTest {
 
+    private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
     private CsvReader csvReader = new CsvReader();
-    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
-    private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
-    private List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).collect(Collectors.toList());
+    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH_TEST);
+    private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).filter(Objects::nonNull).collect(Collectors.toList());
+    private List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).filter(Objects::nonNull).collect(Collectors.toList());
 
     @Autowired
     private SchoolRepository schoolRepository;
@@ -80,7 +82,7 @@ class SearchServiceImplTest {
 
     @Test
     void shouldReturnSchoolsByPhoneNumber() {
-        String phoneNumber = "SELECT DISTINCT school FROM School as school JOIN Phone as phone on school.id = phone.school.id WHERE school.id = (SELECT phone.school.id FROM Phone as phone WHERE phone.phoneNumber = '42 612-29-35') AND school.address.voivodeship = 'Łódzkie'";
+        String phoneNumber = "SELECT DISTINCT school FROM School as school JOIN Phone as phone on school.id = phone.school.id WHERE school.id = (SELECT phone.school.id FROM Phone as phone WHERE phone.phoneNumber = '42 643-06-64') AND school.address.voivodeship = 'Łódzkie'";
         List<School> searchedSchools = searchService.getSearchedSchools(phoneNumber);
         assertThat(searchedSchools.size()).isEqualTo(1);
     }
@@ -92,15 +94,6 @@ class SearchServiceImplTest {
         assertThat(searchedSchools.size()).isEqualTo(1);
     }
 
-
-    @Test
-    void getAllCounties() {
-        List<String> allCounties = searchService.getAllCounties();
-
-        assertThat(allCounties.get(0)).isEqualTo("brzeziński");
-        assertThat(allCounties.get(allCounties.size()-1)).isEqualTo("wieluński");
-
-    }
 
     @Test
     void shouldReturnSchoolWithoutDateInputAndContactDateType() {

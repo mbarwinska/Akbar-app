@@ -14,13 +14,15 @@ import java.util.stream.Collectors;
 
 class EntityMapperTest {
 
-    private CsvReader csvReader;
+    private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
+    private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv;
+
 
     @BeforeEach
     public void setUp() {
         csvReader = new CsvReader();
-        schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
+        schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH_TEST);
     }
 
     @Test

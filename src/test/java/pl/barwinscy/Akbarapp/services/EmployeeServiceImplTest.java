@@ -32,8 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 class EmployeeServiceImplTest {
 
 
+    private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
     private CsvReader csvReader = new CsvReader();
-    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
+    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH_TEST);
     private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
 
     @Autowired

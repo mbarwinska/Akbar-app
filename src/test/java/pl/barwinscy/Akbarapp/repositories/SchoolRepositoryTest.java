@@ -8,7 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.barwinscy.Akbarapp.SchoolType;
 import pl.barwinscy.Akbarapp.entities.*;
@@ -18,6 +21,7 @@ import pl.barwinscy.Akbarapp.utils.SchoolDataCsv;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,11 +32,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 class SchoolRepositoryTest {
-
+    private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
     private CsvReader csvReader = new CsvReader();
-    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv();
-    private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
-    private List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).collect(Collectors.toList());
+    private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH_TEST);
+    private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).filter(Objects::nonNull).collect(Collectors.toList());
+    private List<Phone> phones = schoolsFromCsv.stream().map(EntityMapper::mapToPhoneEntity).filter(Objects::nonNull).collect(Collectors.toList());
     @Autowired
     private SchoolRepository schoolRepository;
     @Autowired
@@ -71,13 +75,13 @@ class SchoolRepositoryTest {
     @Rollback(false)
     @Test
     public void shouldLinkPhoneWithSchool() {
-        School schoolFromDB = schoolRepository.findById(1L).get();
+        School schoolFromDB = schoolRepository.findById(2L).get();
         List<Phone> phones = phoneRepository.findBySchoolRSPO(schoolFromDB.getRspo());
         Phone phone = phones.get(0);
 
         schoolFromDB.setPhones(phone);
         schoolRepository.save(schoolFromDB);
-        School schoolWithPhone = schoolRepository.findById(1L).get();
+        School schoolWithPhone = schoolRepository.findById(2L).get();
 
         assertThat(schoolWithPhone.getPhones().size()).isEqualTo(1);
     }

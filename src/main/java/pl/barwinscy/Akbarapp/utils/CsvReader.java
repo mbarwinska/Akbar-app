@@ -10,13 +10,13 @@ import java.util.List;
 
 public class CsvReader {
 
-    private static final String FILE_PATH = "src/main/resources/test.csv";
+    //private static final String FILE_PATH = "src/main/resources/test.csv";
 
     @SuppressWarnings("unchecked")
-    public List<SchoolDataCsv> getAllSchoolDataFromCsv() {
+    public List<SchoolDataCsv> getAllSchoolDataFromCsv(String path) {
 
         try {
-            FileReader fileReader = new FileReader(FILE_PATH);
+            FileReader fileReader = new FileReader(path);
             CsvToBean<SchoolDataCsv> csvToBean = new CsvToBeanBuilder(fileReader)
                     .withType(SchoolDataCsv.class)
                     .withSeparator(';')

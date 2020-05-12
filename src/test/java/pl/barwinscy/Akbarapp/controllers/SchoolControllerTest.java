@@ -158,7 +158,7 @@ public class SchoolControllerTest {
                 .andExpect(view().name("redirect:/school/15"));
     }
 
-    @Test
+    /*@Test
     public void shouldDeletePhoneAndReturnToUpdatePage() throws Exception {
         controller = new SchoolController(schoolService, searchService, employeeService, validator);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
@@ -173,7 +173,7 @@ public class SchoolControllerTest {
 
         mockMvc.perform(get("/update/15/delete-phone/2"))
                 .andExpect(status().is3xxRedirection());
-    }
+    }*/
 
 
 }
