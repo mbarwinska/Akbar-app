@@ -8,6 +8,7 @@ import pl.barwinscy.Akbarapp.entities.Employee;
 import pl.barwinscy.Akbarapp.entities.Phone;
 import pl.barwinscy.Akbarapp.entities.Salesman;
 import pl.barwinscy.Akbarapp.entities.School;
+import pl.barwinscy.Akbarapp.exceptions.PhoneNotFoundException;
 import pl.barwinscy.Akbarapp.exceptions.SchoolNotFoundException;
 import pl.barwinscy.Akbarapp.mappers.SchoolMapper;
 import pl.barwinscy.Akbarapp.repositories.EmployeeRepository;
@@ -80,6 +81,9 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Transactional
     public void deletePhone(Long phoneId) {
+        if (phoneRepository.findById(phoneId).isEmpty()){
+            throw new PhoneNotFoundException("Nie znaleziono telefonu o podanym ID: " + phoneId);
+        }
         phoneRepository.deleteById(phoneId);
     }
 }

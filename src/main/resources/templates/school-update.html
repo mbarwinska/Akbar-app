@@ -121,7 +121,7 @@
                                     <input type="hidden" th:field="${school.phones[__${phoneStat.index}__].id}"/>
                                     <input type="hidden" th:field="${school.phones[__${phoneStat.index}__].number}"/>
                                     <input type="text" th:field="${school.phones[__${phoneStat.index}__].note}">
-                                    <a href="#" th:href="@{'/update/' + ${schoolId} + '/delete-phone/' + ${school.phones[__${phoneStat.index}__].id}}">Usuń</a>
+                                    <a href="#" th:href="@{'/school/' + ${schoolId} + 'update/delete-phone/' + ${school.phones[__${phoneStat.index}__].id}}">Usuń</a>
                                 </td>
                             </tr>
                             <tr>
