@@ -42,14 +42,17 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         linkPhonesToSchools();
         List<School> schoolsToSave = changeCountiesToLowerCase(this.schools);
         schoolRepository.saveAll(schoolsToSave);
-        addRelationalDataToSchools();
+        //addRelationalDataToSchools();
     }
 
     private void linkPhonesToSchools() {
         for (School school : schools) {
-            for (Phone phone : phones) {
-                if (phone != null && phone.getSchoolRSPO().equals(school.getRspo())){
+            for (int i = 0; i < phones.size(); i++){
+                Phone phone = phones.get(i);
+                if (phones.get(i) != null && phone.getSchoolRSPO().equals(school.getRspo())){
                     school.setPhones(phone);
+                    phones.remove(i);
+                    break;
                 }
             }
         }
