@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 class EntityMapperTest {
-
+/*
     private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv;
@@ -64,5 +64,5 @@ class EntityMapperTest {
 
         System.out.println(isVoivodeshipEqual);
 
-    }
+    }*/
 }

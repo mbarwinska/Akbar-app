@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 class SchoolRepositoryTest {
-    private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
+/*    private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH_TEST);
     private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).filter(Objects::nonNull).collect(Collectors.toList());
@@ -71,7 +71,7 @@ class SchoolRepositoryTest {
         savePhonesToDB();
     }
 
-    /*@Order(2)
+    *//*@Order(2)
     @Rollback(false)
     @Test
     public void shouldLinkPhoneWithSchool() {
@@ -84,7 +84,7 @@ class SchoolRepositoryTest {
         School schoolWithPhone = schoolRepository.findById(2L).get();
 
         assertThat(schoolWithPhone.getPhones().size()).isEqualTo(1);
-    }*/
+    }*//*
 
     @Order(3)
     @Rollback(false)
@@ -280,5 +280,5 @@ class SchoolRepositoryTest {
         assertThat(schoolAfterUpdate1.getEmployee().getId()).isEqualTo(1L);
         assertThat(schoolAfterUpdate2.getEmployee().getId()).isEqualTo(1L);
         assertThat(addedEmployee.getSchools().size()).isEqualTo(2);
-    }
+    }*/
 }

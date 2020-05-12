@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 class SearchQueryCreatorTest {
-
+/*
     private static final String FILE_PATH_TEST = "src/test/resources/testSchools.csv";
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH_TEST);
@@ -127,6 +127,6 @@ class SearchQueryCreatorTest {
         List<School> foundSchool = schoolRepository.searchByQuery(searchByPhone.createSearchQuery());
 
         assertThat(foundSchool.get(0).getName()).isEqualTo("PRZEDSZKOLE MIEJSKIE NR 156");
-    }
+    }*/
 
 }
