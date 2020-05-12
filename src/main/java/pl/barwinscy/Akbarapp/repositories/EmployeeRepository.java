@@ -5,4 +5,5 @@ import pl.barwinscy.Akbarapp.entities.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+    Employee findByFirstNameAndLastName(String firstName, String lastName);
 }

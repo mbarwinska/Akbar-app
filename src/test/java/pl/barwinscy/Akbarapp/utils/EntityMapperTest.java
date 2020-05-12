@@ -42,7 +42,7 @@ class EntityMapperTest {
 
         Phone phone = new Phone("426122935");
 
-        //phone.setSchool(expectedSchool);
+
         System.out.println("Expected school: " + expectedSchool);
         phone.setSchool(expectedSchool);
 

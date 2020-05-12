@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CsvReader {
 
-    private static final String FILE_PATH = "src/main/resources/testSchools.csv";
+    private static final String FILE_PATH = "src/main/resources/test.csv";
 
     @SuppressWarnings("unchecked")
     public List<SchoolDataCsv> getAllSchoolDataFromCsv() {
