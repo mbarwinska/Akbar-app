@@ -48,7 +48,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private void linkPhonesToSchools() {
         for (School school : schools) {
             for (Phone phone : phones) {
-                if (phone.getSchoolRSPO().equals(school.getRspo())) {
+                if (phone != null && phone.getSchoolRSPO().equals(school.getRspo())){
                     school.setPhones(phone);
                 }
             }

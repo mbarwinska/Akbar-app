@@ -114,7 +114,7 @@
                                         <td><a href="#" style="color: black" th:href="@{'school/' + ${school.id}}"
                                                th:text="${school.name}"></a></td>
                                         <td th:text="${school.getAddress().street}"></td>
-                                        <td th:text="${school.getPhones().get(0).getPhoneNumber()}"></td>
+                                        <td th:if="${!school.getPhones().isEmpty()}" th:text="${school.getPhones().get(0).getPhoneNumber()}"></td>
                                     </tr>
                                 </table>
                             </div>
