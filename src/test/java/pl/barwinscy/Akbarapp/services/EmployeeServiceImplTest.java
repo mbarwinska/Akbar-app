@@ -107,7 +107,7 @@ class EmployeeServiceImplTest {
 
         List<Employee> allPhotographers = employeeService.getAllPhotographers();
 
-        assertThat(allPhotographers.size()).isEqualTo(2);
+        assertThat(allPhotographers.size()).isEqualTo(5);
     }
 
     @Order(5)

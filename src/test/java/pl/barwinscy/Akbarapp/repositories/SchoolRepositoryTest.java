@@ -71,7 +71,7 @@ class SchoolRepositoryTest {
         savePhonesToDB();
     }
 
-    @Order(2)
+    /*@Order(2)
     @Rollback(false)
     @Test
     public void shouldLinkPhoneWithSchool() {
@@ -84,7 +84,7 @@ class SchoolRepositoryTest {
         School schoolWithPhone = schoolRepository.findById(2L).get();
 
         assertThat(schoolWithPhone.getPhones().size()).isEqualTo(1);
-    }
+    }*/
 
     @Order(3)
     @Rollback(false)
