@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
+//public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
+public class DataInitializer {
 
-    private SchoolRepository schoolRepository;
-    //private static final String FILE_PATH = "to-heroku.csv";
-    private static final String FILE_PATH = "to-heroku.csv";
+    /*private SchoolRepository schoolRepository;
+    private static final String FILE_PATH = "src/main/resources/to-heroku.csv";
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH);
     private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
@@ -66,9 +66,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             schoolsWithCountiesLowerCase.add(school);
         }
         return schoolsWithCountiesLowerCase;
-    }
+    }*/
 
-    private void addRelationalDataToSchools() {
+    /*private void addRelationalDataToSchools() {
         School schoolFromDB = schoolRepository.findByRspo(23063L);
         School schoolFromDB2 = schoolRepository.findById(1L).get();
         School schoolFromDB3 = schoolRepository.findById(2L).get();
@@ -88,5 +88,5 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         schoolFromDB4.setSalesman(salesman);
 
         schoolRepository.save(schoolFromDB);
-    }
+    }*/
 }
