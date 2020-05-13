@@ -17,7 +17,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
     private SchoolRepository schoolRepository;
     //private static final String FILE_PATH = "to-heroku.csv";
-    private static final String FILE_PATH = "src/main/resources/to-heroku.csv";
+    private static final String FILE_PATH = "to-heroku.csv";
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH);
     private List<School> schools = schoolsFromCsv.stream().map(EntityMapper::mapToSchoolEntity).collect(Collectors.toList());
