@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
     private SchoolRepository schoolRepository;
+    //private static final String FILE_PATH = "toHeroku.csv";
     private static final String FILE_PATH = "src/main/resources/toHeroku.csv";
     private CsvReader csvReader = new CsvReader();
     private List<SchoolDataCsv> schoolsFromCsv = csvReader.getAllSchoolDataFromCsv(FILE_PATH);
